@@ -1,0 +1,7 @@
+
+State Machine - |A2D_test|A2D_intf:iDUT|currState
+Name currState.T2 currState.DEAD currState.T1 currState.IDLE 
+currState.IDLE 0 0 0 0 
+currState.T1 0 0 1 1 
+currState.DEAD 0 1 0 1 
+currState.T2 1 0 0 1 
