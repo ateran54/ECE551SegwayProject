@@ -1,0 +1,19 @@
+
+/db
+# Ignore compiled Verilog/ModelSim/Vivado outputs
+*.o
+*.vcd
+*.wdb
+*.log
+
+# Ignore temporary files
+*.tmp
+*.swp
+*.bak
+
+# Ignore VSCode settings
+.vscode/
+
+# Ignore Python stuff
+__pycache__/
+*.pyc
