@@ -12,10 +12,10 @@ module A2D_intf (
     input  logic        MISO
 );
 
-    localparam logic [3:0] CHANNEL0 = 4'b0000;
-    localparam logic [3:0] CHANNEL4 = 4'b1000;
-    localparam logic [3:0] CHANNEL5 = 4'b1001;
-    localparam logic [3:0] CHANNEL6 = 4'b1010;
+    localparam logic [2:0] CHANNEL0 = 4'b000;
+    localparam logic [2:0] CHANNEL4 = 4'b100;
+    localparam logic [2:0] CHANNEL5 = 4'b101;
+    localparam logic [2:0] CHANNEL6 = 4'b110;
 
     typedef enum logic [1:0] {IDLE, T1, DEAD, T2} state_t;
 
@@ -52,10 +52,10 @@ module A2D_intf (
         nextBatteryVoltage = batt;
 
         case (robin_cnt)
-            2'b00: wt_data = {4'b0000, CHANNEL0, 11'b0};
-            2'b01: wt_data = {4'b0000, CHANNEL4, 11'b0};
-            2'b10: wt_data = {4'b0000, CHANNEL5, 11'b0};
-            2'b11: wt_data = {4'b0000, CHANNEL6, 11'b0};
+            2'b00: wt_data = {2'b00, CHANNEL0, 11'b0};
+            2'b01: wt_data = {2'b00, CHANNEL4, 11'b0};
+            2'b10: wt_data = {2'b00, CHANNEL5, 11'b0};
+            2'b11: wt_data = {2'b00, CHANNEL6, 11'b0};
             default: wt_data = 16'd0;
         endcase
 
