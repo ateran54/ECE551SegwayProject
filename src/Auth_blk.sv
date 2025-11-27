@@ -26,10 +26,7 @@ module Auth_blk(
 
     // Instantiate UART receiver
     // changed baud rate to parameter
-    UART_rx #(
-        .CLK_FREQ_HZ(50_000_000),
-        .BAUD_RATE(9600)
-    ) uart_rx_inst (
+    UART_rx uart_rx_inst (
         .clk(clk),
         .rst_n(rst_n),
         .RX(RX),

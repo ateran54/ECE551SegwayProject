@@ -1,4 +1,4 @@
-module uart_tx (
+module UART_tx (
     input logic clk,         // 50MHz system clock
     input logic rst_n,       // Active low reset
     input logic trmt,        // Asserted for 1 clock to initiate transmission

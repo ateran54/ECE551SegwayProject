@@ -1,21 +1,20 @@
 module Segway_tb();
 			
 //// Interconnects to DUT/support defined as type wire /////
-wire SS_n,SCLK,MOSI,MISO,INT;				// to inertial sensor
-wire A2D_SS_n,A2D_SCLK,A2D_MOSI,A2D_MISO;	// to A2D converter
-wire RX_TX;
-wire PWM1_rght, PWM2_rght, PWM1_lft, PWM2_lft;
-wire piezo,piezo_n;
-wire cmd_sent;
-wire rst_n;					// synchronized global reset
-
+logic SS_n,SCLK,MOSI,MISO,INT;				// to inertial sensor
+logic A2D_SS_n,A2D_SCLK,A2D_MOSI,A2D_MISO;	// to A2D converter
+logic RX_TX;
+logic PWM1_rght, PWM2_rght, PWM1_lft, PWM2_lft;
+logic piezo,piezo_n;
+logic cmd_sent;
+logic rst_n;					// synchronized global reset
 ////// Stimulus is declared as type reg ///////
-reg clk, RST_n;
-reg [7:0] cmd;				// command host is sending to DUT
-reg send_cmd;				// asserted to initiate sending of command
-reg signed [15:0] rider_lean;
-reg [11:0] ld_cell_lft, ld_cell_rght,steerPot,batt;	// A2D values
-reg OVR_I_lft, OVR_I_rght;
+logic clk, RST_n;
+logic [7:0] cmd;				// command host is sending to DUT
+logic send_cmd;				// asserted to initiate sending of command
+logic signed [15:0] rider_lean;
+logic [11:0] ld_cell_lft, ld_cell_rght,steerPot,batt;	// A2D values
+logic OVR_I_lft, OVR_I_rght;
 
 ///// Internal registers for testing purposes??? /////////
 
@@ -54,6 +53,28 @@ rst_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
 initial begin
   
   /// Your magic goes here ///
+  clk = 0;
+  RST_n = 0;
+  send_cmd = 0;
+  rider_lean = 0;
+  ld_cell_lft = 0;
+  ld_cell_rght = 0;
+  steerPot = 0;
+  batt = 0;
+  OVR_I_lft = 0;
+  OVR_I_rght = 0;
+  #100;
+  RST_n = 1;
+  #1000;
+  // Set load cells to indicate rider is on segway
+  ld_cell_lft = 12'h300; // 768
+  ld_cell_rght = 12'h300; // 768
+  @(posedge clk);
+  #1000;
+  // Set lean 
+  rider_lean = 16'h0FFF; // lean forward
+  @(posedge clk);
+  #10000;
   
   $stop();
 end

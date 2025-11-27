@@ -1,4 +1,4 @@
-module uart_receiver (
+module UART_rx (
     input  logic        clk,
     input  logic        rst_n,
     input  logic        RX,

@@ -17,7 +17,7 @@ module tb_SPI_inert_mnrch;
         .rst_n(rst_n),
         .MISO(MISO),
         .wrt(wrt),
-        .wrt_data(wrt_data),
+        .wt_data(wrt_data),
         .done(done),
         .rd_data(rd_data),
         .SS_n(SS_n),

@@ -1,5 +1,5 @@
 // Team Turtle
-module intertial_integrator 
+module inertial_integrator 
 (
     input  logic               clk,
     input  logic               rst_n,
