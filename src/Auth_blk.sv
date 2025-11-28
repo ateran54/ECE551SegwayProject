@@ -48,6 +48,7 @@ module Auth_blk(
     always_comb begin
         next_state = current_state;
         clr_rx_rdy = 1'b0;
+        pwr_up = 1'b0;
         
         case (current_state)
             POWERED_DOWN: begin
@@ -60,6 +61,7 @@ module Auth_blk(
             end
 
             POWERED_UP: begin
+                pwr_up = 1'b1;
                 if (rx_rdy) begin
                     clr_rx_rdy = 1'b1;  // Clear the ready flag
                     if (rx_data == AUTH_CODE_STOP) begin
@@ -75,6 +77,7 @@ module Auth_blk(
             end
 
             STOP_PENDING: begin
+                pwr_up = 1'b1;
                 if (rx_rdy) begin
                     clr_rx_rdy = 1'b1;  // Clear the ready flag
                     if (rx_data == AUTH_CODE_GO) begin
@@ -97,7 +100,5 @@ module Auth_blk(
         endcase
     end
 
-    // Output
-    assign pwr_up = (current_state == POWERED_UP) || (current_state == STOP_PENDING);
 
 endmodule
