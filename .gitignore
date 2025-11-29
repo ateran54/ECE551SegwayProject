@@ -21,3 +21,5 @@ __pycache__/
 *.mpf
 transcript
 *.mti
+*.do
+*.wlf

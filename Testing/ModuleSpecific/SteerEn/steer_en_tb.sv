@@ -1,5 +1,3 @@
-`timescale 1ns/1ps
-
 module steer_en_tb;
 
     //------------------------------------------------------------------
@@ -63,6 +61,7 @@ module steer_en_tb;
             lft_ld  = L;
             rght_ld = R;
             @(posedge clk);
+            #1;
         end
     endtask
 
@@ -111,13 +110,11 @@ module steer_en_tb;
                 end
 
                 begin
-                    repeat (30000) @(posedge clk);
+                    repeat (40000) @(posedge clk);
                     $error("FAIL: steering should be enabled after balance period");
                 end
             join
         end
-        if (!en_steer)
-            $error("FAIL: steering should be enabled after balance period");
     endtask
 
     task imbalance_small();
@@ -146,7 +143,7 @@ module steer_en_tb;
         $display("=== TEST: Rebalance back into steering ===");
 
         set_loads(330, 330);
-        repeat (200) @(posedge clk);
+        repeat (40000) @(posedge clk);
 
         if (!en_steer)
             $error("After rebalancing for timer, steering must enable again");
@@ -170,7 +167,7 @@ module steer_en_tb;
 
         // back on
         set_loads(320, 330);
-        repeat (100) @(posedge clk);
+        repeat (40000) @(posedge clk);
 
         // balanced → steering ON
         if (!en_steer)
@@ -208,13 +205,4 @@ module steer_en_tb;
         #100;
         $stop;
     end
-
-    //------------------------------------------------------------------
-    // Waveform dump
-    //------------------------------------------------------------------
-    initial begin
-        $dumpfile("steer_en_tb.vcd");
-        $dumpvars(0, steer_en_tb);
-    end
-
 endmodule

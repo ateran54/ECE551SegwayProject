@@ -11,7 +11,7 @@ module steer_en #(parameter fast_sim = 1)(
 
     // Internal Signals
     logic [12:0] sum_13;
-    logic [11:0] diff_12;
+    logic signed [11:0] diff_12;
     logic [11:0] diff_12_abs;
     logic [12:0] sum_13_1516;
     logic [12:0] sum_13_14;
@@ -30,8 +30,8 @@ module steer_en #(parameter fast_sim = 1)(
     assign sum_13 = lft_ld + rght_ld;
     assign diff_12 = $signed(lft_ld) - $signed(rght_ld);
     assign diff_12_abs = diff_12 < 0 ? (-1 * diff_12) : diff_12;
-    assign sum_13_1516 = (sum_13 << 4) * 15;
-    assign sum_13_14 = (sum_13 << 2);
+    assign sum_13_1516 = (sum_13 >> 4) * 15;
+    assign sum_13_14 = (sum_13 >> 2);
 
     //inputs to the state machine
     assign sum_lt_min = (MIN_RIDER_WT - WT_HYSTERESIS) > sum_13;
@@ -103,6 +103,7 @@ module steer_en #(parameter fast_sim = 1)(
           rider_off = 1'b1; // indicate no rider present
         end else if (diff_gt_15_16) begin
           clr_tmr = 1'b1; // reset the timer
+          next_state = S_CHECK_STEADY;
         end else begin
           en_steer = 1'b1; // enable steering
         end
