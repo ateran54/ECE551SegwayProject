@@ -1,5 +1,6 @@
-module Segway_tb();
-			
+module Segway_lean_conv_tb();
+
+import Segway_toplevel_tb_tasks_pkg::*;
 //// Interconnects to DUT/support defined as type wire /////
 logic SS_n,SCLK,MOSI,MISO,INT;				// to inertial sensor
 logic A2D_SS_n,A2D_SCLK,A2D_MOSI,A2D_MISO;	// to A2D converter
@@ -52,30 +53,22 @@ rst_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
 
 initial begin
   
-  /// Your magic goes here ///
-  clk = 0;
-  RST_n = 0;
-  send_cmd = 0;
-  rider_lean = 0;
-  ld_cell_lft = 0;
-  ld_cell_rght = 0;
-  steerPot = 0;
-  batt = 0;
-  OVR_I_lft = 0;
-  OVR_I_rght = 0;
-  #100;
-  RST_n = 1;
-  #1000;
-  // Set load cells to indicate rider is on segway
-  ld_cell_lft = 12'h300; // 768
-  ld_cell_rght = 12'h300; // 768
-  @(posedge clk);
-  #1000;
-  // Set lean 
-  rider_lean = 16'h0FFF; // lean forward
-  @(posedge clk);
-  #10000;
-  
+  //init inputs and apply reset
+  initialize_inputs(clk, RST_n, send_cmd, rider_lean, ld_cell_lft, ld_cell_rght, steerPot, batt, OVR_I_lft, OVR_I_rght);
+  apply_reset(RST_n, clk);
+  //set loads and wait for balance check
+  //set_loads(400,400, ld_cell_lft, ld_cell_rght, clk);
+  repeat (40000) @(posedge clk);
+  //send start command
+  run_standard_start_sequence(cmd, send_cmd, cmd_sent, clk);
+  //lean forward and wait
+  repeat (350000) @(posedge clk);
+  set_rider_lean(16'h0FFF, rider_lean, clk);
+  repeat (1000000) @(posedge clk);
+  set_rider_lean(16'h0000, rider_lean, clk);
+  repeat (1000000) @(posedge clk);
+
+  $display("END OF SIMULATION");
   $stop();
 end
 
