@@ -1,4 +1,4 @@
-module Segway_lean_conv_tb();
+module Segway_balance_tb();
 
 import Segway_toplevel_tb_tasks_pkg::*;
 //// Interconnects to DUT/support defined as type wire /////
@@ -57,15 +57,21 @@ initial begin
   initialize_inputs(clk, RST_n, send_cmd, rider_lean, ld_cell_lft, ld_cell_rght, steerPot, batt, OVR_I_lft, OVR_I_rght);
   apply_reset(RST_n, clk);
   //set loads and wait for balance check
-  set_loads(700,700, ld_cell_lft, ld_cell_rght, clk);
+  set_loads(700,0, ld_cell_lft, ld_cell_rght, clk); // this should disable like running
   repeat (40000) @(posedge clk);
-  //send start command
+  set_loads(700,700, ld_cell_lft, ld_cell_rght, clk); // this should enbale steer like running
+
   run_standard_start_sequence(cmd, send_cmd, cmd_sent, clk);
-  //lean forward and wait
+  set_loads(700,450, ld_cell_lft, ld_cell_rght, clk); // this should cpouse one cide to have  large theta 
+
   repeat (700000) @(posedge clk);
-  set_rider_lean(16'h0FFF, rider_lean, clk);
-  repeat (2000000) @(posedge clk);
-  set_rider_lean(16'h0000, rider_lean, clk);
+  // BALNCE SHOULD HAVE CONVREGED TO ZEROP HERRE
+
+
+  //assert (condition) $display("TEST: BALNCE CNTRL/SAFETY : PASSED");
+  //else   $display("TEST: BALNCE CNTRL/SAFETY : FAILED : Balance theta did not converge to right value");
+
+
   repeat (2000000) @(posedge clk);
 
   $display("END OF SIMULATION");
