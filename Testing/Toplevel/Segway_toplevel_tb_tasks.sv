@@ -202,6 +202,34 @@ package Segway_toplevel_tb_tasks_pkg;
         end
     endtask : set_rider_lean
 
-    
+    task automatic check_if_signal_in_range(
+        input int expected_max,
+        input int expected_min,
+        input int actual
+    );
+        begin
+            if (actual > expected_max || actual < expected_min) begin
+                $display("ERROR: Signal out of range! Actual: %0d, Expected Range: [%0d, %0d]", actual, expected_min, expected_max);
+                $stop;
+            end else begin
+                $display("Signal within range: Actual: %0d, Expected Range: [%0d, %0d]", actual, expected_min, expected_max);
+            end
+        end
+    endtask : check_if_signal_in_range
+
+    task automatic check_condition(
+        input string test_name,
+        input logic condition,
+        input string details
+    );
+        begin
+            if (condition) begin
+                $display("Time=%0t: PASS - %s | %s", $time, test_name, details);
+            end else begin
+                $display("Time=%0t: FAIL - %s | %s", $time, test_name, details);
+                $stop;
+            end
+        end
+    endtask : check_condition
 
 endpackage : Segway_toplevel_tb_tasks_pkg
