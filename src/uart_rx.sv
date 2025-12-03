@@ -22,7 +22,9 @@ logic [3:0] bit_cnt;
 
 //counter logic for baud count
 always_ff @(posedge clk, negedge rst_n) begin
-    if (start)
+    if(!rst_n)
+        baud_cnt <= 13'd0;
+    else if (start)
         baud_cnt <= 13'd2604; //2604 for half bit delay at start, else 0
     else if (shift)
         baud_cnt <= 13'd5208; //5208 for 9600 baud with 50MHz clock
@@ -41,7 +43,9 @@ end
 
 //counter logic for bit count
 always_ff @(posedge clk, negedge rst_n) begin  
-    if (start)
+    if(!rst_n)
+        baud_cnt <= 13'd0;
+    else if (start)
         bit_cnt <= 4'b0;
     else if (shift)
         bit_cnt <= bit_cnt + 1;

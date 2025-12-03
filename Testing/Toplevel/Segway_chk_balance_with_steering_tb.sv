@@ -1,4 +1,4 @@
-module Segway_lean_conv_tb();
+module Segway_lean_steerpot_conv_tb();
 
 import Segway_toplevel_tb_tasks_pkg::*;
 //// Interconnects to DUT/support defined as type wire /////
@@ -52,31 +52,37 @@ UART_tx iTX(.clk(clk),.rst_n(rst_n),.TX(RX_TX),.trmt(send_cmd),.tx_data(cmd),.tx
 rst_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
 
 initial begin
-  $display("Starting Segway Lean Convergence Testbench Simulation");
+  $display("Starting Segway Lean with Steerpot Convergence Testbench Simulation");
   //init inputs and apply reset
   initialize_inputs(clk, RST_n, send_cmd, rider_lean, ld_cell_lft, ld_cell_rght, steerPot, batt, OVR_I_lft, OVR_I_rght);
   apply_reset(RST_n, clk);
   //set loads and wait for balance check
-  set_loads(700,20, ld_cell_lft, ld_cell_rght, clk);
+  set_loads(330,320, ld_cell_lft, ld_cell_rght, clk);
   repeat (40000) @(posedge clk);
-  //send start command and wait a bit
+  //send start command
   run_standard_start_sequence(cmd, send_cmd, cmd_sent, clk);
-  repeat (700000) @(posedge clk);
   //lean forward and wait
+  repeat (700000) @(posedge clk);
   set_rider_lean(16'h0FFF, rider_lean, clk);
+  //set steerpot half way to steer to the right
+  set_steerPot(2047, steerPot, clk);
+
   repeat (2000000) @(posedge clk);
   //Check that theta platform angle is less than 300 
-  check_condition("Theta Platform Angle Range For Forward Lean", (iPHYS.theta_platform <= 300) && (iPHYS.theta_platform >= -300), $sformatf("Value: %0d", iPHYS.theta_platform));
-  //check that left and right omega are roughly equal
-  check_condition("Left and Right Wheel Omega Equality For Forward Lean", ( (iPHYS.omega_lft - iPHYS.omega_rght) <= 5 ) || ( (iPHYS.omega_rght - iPHYS.omega_lft) <= 5 ), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
-  
-  //lean backward and wait
+  check_condition("Theta Platform Angle Range For Forward Lean with Steering", (iPHYS.theta_platform <= 300) && (iPHYS.theta_platform >= -300), $sformatf("Value: %0d", iPHYS.theta_platform));
+  //check that left and right omega reflect a right turn (right wheel slower than left)
+  check_condition("Left and Right Wheel Omega for Right Turn", (iPHYS.omega_lft > iPHYS.omega_rght), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
   set_rider_lean(16'h0000, rider_lean, clk);
+    //Check that theta platform angle is less than 300 
+  check_condition("Theta Platform Angle Range For Forward Lean with Steering", (iPHYS.theta_platform <= 300) && (iPHYS.theta_platform >= -300), $sformatf("Value: %0d", iPHYS.theta_platform));
+  //check that left and right omega reflect a right turn (right wheel slower than left)
+  check_condition("Left and Right Wheel Omega for Right Turn", (iPHYS.omega_lft > iPHYS.omega_rght), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
+  set_rider_lean(16'h0000, rider_lean, clk);
+    //Check that theta platform angle is less than 300 
+  check_condition("Theta Platform Angle Range For Forward Lean with Steering", (iPHYS.theta_platform <= 300) && (iPHYS.theta_platform >= -300), $sformatf("Value: %0d", iPHYS.theta_platform));
+  //check that left and right omega reflect a right turn (right wheel slower than left)
+  check_condition("Left and Right Wheel Omega for Right Turn", (iPHYS.omega_lft > iPHYS.omega_rght), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
   repeat (2000000) @(posedge clk);
-  //Check that theta platform angle is less than 300 
-  check_condition("Theta Platform Angle Range After Backward Lean", (iPHYS.theta_platform <= 300) && (iPHYS.theta_platform >= -300), $sformatf("Value: %0d", iPHYS.theta_platform));
-  //check that left and right omega are roughly equal
-  check_condition("Left and Right Wheel Omega Equality After Backward Lean", ( (iPHYS.omega_lft - iPHYS.omega_rght) <= 5 ) || ( (iPHYS.omega_rght - iPHYS.omega_lft) <= 5 ), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
 
   $display("END OF SIMULATION");
   $stop();
