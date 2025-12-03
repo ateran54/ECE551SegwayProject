@@ -1,0 +1,84 @@
+# Read the RTL design
+read_file -format SVERILOG {Segway.sv Auth_blk.sv inert_intf.sv balance_cntrl.sv steer_en.sv mtr_drv.sv A2D_intf.sv piezo_drv.sv rst_synch.sv uart_rx.sv uart_tx.sv SPI_mnrch.sv segway_math.sv PWM11.sv piezo_drv.sv inertial_integrator.sv}
+
+# Set the current design 
+set current_design Segway
+
+
+#########################################################################
+# Clock Definition and Constraints
+#########################################################################
+
+# Define 333MHz clock (period = 3ns)
+create_clock -name "clk" -period 3 -waveform {0 1} {clk}
+
+# Set don't touch on clock network
+set_dont_touch_network [get_clocks clk]
+
+#########################################################################
+# Input Constraints
+#########################################################################
+
+set prim_inputs [remove_from_collection [all_inputs] [find port clk]]
+set_input_delay -clock clk 0.25 $prim_inputs
+set_driving_cell -lib_cell NAND2X2_RVT -library saed32rvt_tt0p85v25c $prim_inputs
+## set_drive 0.0001 rst_n //not sure if needed
+#########################################################################
+# Output Constraints  
+#########################################################################
+
+# Define output delay of 0.75ns on all outputs
+set_output_delay 0.35 -clock clk [all_outputs]
+
+# Define 50fF load on all outputs
+set_load 0.05 [all_outputs]
+
+#########################################################################
+# Design Rule Constraints
+#########################################################################
+
+# Set maximum transition time of 0.10ns on all nodes
+set_max_transition 0.10 [current_design]
+
+#########################################################################
+# Wire Load Model
+#########################################################################
+
+# Set Synopsys 32nm wire load model for 16000 sq micron block
+set_wire_load_model -name "16000" -library saed32rvt_tt0p85v25c
+
+#########################################################################
+# Compilation Flow
+#########################################################################
+
+# First compilation
+compile -map_effort medium
+
+# Multicycle will be here TODO
+# Flatten the design to remove hierarchy
+ungroup -all -flatten
+
+# Second compilation after flattening
+compile -map_effort medium -incremental_mapping
+
+#########################################################################
+# Design Reports
+#########################################################################
+
+echo "Generating reports..."
+
+# Min delay report
+report_timing -delay min > segway_min_delay.rpt
+
+# Max delay report  
+report_timing -delay  max > segway_max_delay.rpt
+
+# Area report
+report_area  > segwayl_area.rpt
+
+#########################################################################
+# Final Design Output
+#########################################################################
+
+# Write out the gate level Verilog netlist
+write -format verilog -output segway.vg
