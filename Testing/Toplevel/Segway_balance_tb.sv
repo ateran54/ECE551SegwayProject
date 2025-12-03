@@ -52,38 +52,41 @@ UART_tx iTX(.clk(clk),.rst_n(rst_n),.TX(RX_TX),.trmt(send_cmd),.tx_data(cmd),.tx
 rst_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
 
 initial begin
-  
-  //init inputs and apply reset
-  initialize_inputs(clk, RST_n, send_cmd, rider_lean, ld_cell_lft, ld_cell_rght, steerPot, batt, OVR_I_lft, OVR_I_rght);
-  apply_reset(RST_n, clk);
-  //set loads and wait for balance check
+  startStandardOperationProcedure(clk,RST_n,send_cmd,rider_lean,ld_cell_lft,ld_cell_rght,
+    steerPot,
+    batt,
+    OVR_I_lft,
+    OVR_I_rght,
+    tx_data,
+    trmt,
+    tx_done
+  );
   repeat (40000) @(posedge clk);
 
-  set_loads(350,350, ld_cell_lft, ld_cell_rght, clk);
-  repeat (40000) @(posedge clk);
-
-  run_standard_start_sequence(cmd, send_cmd, cmd_sent, clk);
-  repeat (40000) @(posedge clk);
-
-  set_loads(350,0, ld_cell_lft, ld_cell_rght, clk); // this should disable  ster_enable
+  riderStepOff(ld_cell_lft, ld_cell_rght, clk);  // this should disable  ster_enable
   repeat (40000) @(posedge clk);
 
   assert (iDUT.en_steer==0) $display("TEST: BALNCE CNTRL/SAFETY : PASSED");
   else   $display("TEST: BALNCE CNTRL/SAFETY : FAILED : Balance theta did not converge to right value");
 
   repeat (40000) @(posedge clk);
-  set_loads(350,500, ld_cell_lft, ld_cell_rght, clk); // this should enbale steer like running
+  riderStepOff(ld_cell_lft, ld_cell_rght, clk); // this should enbale steer like running
 
   repeat (700000) @(posedge clk);
   // BALNCE SHOULD HAVE CONVREGED TO ZEROP HERRE
 
-
   assert (iPHYS.theta_platform<13'd250) $display("TEST: BALNCE CNTRL/SAFETY : PASSED");
   else   $display("TEST: BALNCE CNTRL/SAFETY : FAILED : Balance theta did not converge to right value");
+
+
+
 
   $display("END OF SIMULATION");
   $stop();
 end
+
+
+
 
 always
   #10 clk = ~clk;
