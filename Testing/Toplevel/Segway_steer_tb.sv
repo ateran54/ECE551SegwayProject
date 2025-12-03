@@ -70,7 +70,7 @@ initial begin
   repeat (2000000) @(posedge clk);
 
   
-  $display("know chekcking if the right and left velocities values are valid");
+  $display("Checking if the right and left velocities values are valid");
   startStandardOperationProcedure(clk,RST_n,send_cmd,rider_lean,ld_cell_lft, 
     ld_cell_rght,steerPot,batt,OVR_I_lft
     ,OVR_I_rght,tx_data,trmt,tx_done);
@@ -80,10 +80,6 @@ initial begin
   $display("END OF SIMULATION");
   $stop();
 end
-
-
-
-
 
 task automatic assert_en_sterr_low()
   assert (iDUT.en_steer==0) $display("TEST: BALNCE CNTRL/SAFETY : PASSED");
