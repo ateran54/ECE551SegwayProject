@@ -1,6 +1,7 @@
 
 /db
 /work
+/Testing/work
 .pass.txt
 # Ignore compiled Verilog/ModelSim/Vivado outputs
 *.o
