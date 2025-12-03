@@ -65,20 +65,21 @@ initial begin
   run_standard_start_sequence(cmd, send_cmd, cmd_sent, clk);
   repeat (40000) @(posedge clk);
 
-  set_loads(350,0, ld_cell_lft, ld_cell_rght, clk); // this should disable like ster_enable
+  set_loads(350,0, ld_cell_lft, ld_cell_rght, clk); // this should disable  ster_enable
+  repeat (40000) @(posedge clk);
+
+  assert (iDUT.en_steer==0) $display("TEST: BALNCE CNTRL/SAFETY : PASSED");
+  else   $display("TEST: BALNCE CNTRL/SAFETY : FAILED : Balance theta did not converge to right value");
+
   repeat (40000) @(posedge clk);
   set_loads(350,500, ld_cell_lft, ld_cell_rght, clk); // this should enbale steer like running
-  set_loads(700,450, ld_cell_lft, ld_cell_rght, clk); // this should cpouse one cide to have  large theta 
 
   repeat (700000) @(posedge clk);
   // BALNCE SHOULD HAVE CONVREGED TO ZEROP HERRE
 
 
-  //assert (condition) $display("TEST: BALNCE CNTRL/SAFETY : PASSED");
-  //else   $display("TEST: BALNCE CNTRL/SAFETY : FAILED : Balance theta did not converge to right value");
-
-
-  repeat (2000000) @(posedge clk);
+  assert (iPHYS.theta_platform<13'd250) $display("TEST: BALNCE CNTRL/SAFETY : PASSED");
+  else   $display("TEST: BALNCE CNTRL/SAFETY : FAILED : Balance theta did not converge to right value");
 
   $display("END OF SIMULATION");
   $stop();
