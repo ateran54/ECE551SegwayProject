@@ -57,11 +57,17 @@ initial begin
   initialize_inputs(clk, RST_n, send_cmd, rider_lean, ld_cell_lft, ld_cell_rght, steerPot, batt, OVR_I_lft, OVR_I_rght);
   apply_reset(RST_n, clk);
   //set loads and wait for balance check
-  set_loads(700,0, ld_cell_lft, ld_cell_rght, clk); // this should disable like running
   repeat (40000) @(posedge clk);
-  set_loads(700,700, ld_cell_lft, ld_cell_rght, clk); // this should enbale steer like running
+
+  set_loads(350,350, ld_cell_lft, ld_cell_rght, clk);
+  repeat (40000) @(posedge clk);
 
   run_standard_start_sequence(cmd, send_cmd, cmd_sent, clk);
+  repeat (40000) @(posedge clk);
+
+  set_loads(350,0, ld_cell_lft, ld_cell_rght, clk); // this should disable like ster_enable
+  repeat (40000) @(posedge clk);
+  set_loads(350,500, ld_cell_lft, ld_cell_rght, clk); // this should enbale steer like running
   set_loads(700,450, ld_cell_lft, ld_cell_rght, clk); // this should cpouse one cide to have  large theta 
 
   repeat (700000) @(posedge clk);

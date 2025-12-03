@@ -44,7 +44,7 @@ end
 //counter logic for bit count
 always_ff @(posedge clk, negedge rst_n) begin  
     if(!rst_n)
-        baud_cnt <= 13'd0;
+        bit_cnt <= 13'd0;
     else if (start)
         bit_cnt <= 4'b0;
     else if (shift)
