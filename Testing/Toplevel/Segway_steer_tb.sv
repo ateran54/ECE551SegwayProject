@@ -90,10 +90,6 @@ task automatic assert_en_sterr_low()
   else   $display("TEST: BALNCE CNTRL/SAFETY : FAILED : Balance theta did not converge to right value");
 endtask
 
-
-
-
-
 always
   #10 clk = ~clk;
 
