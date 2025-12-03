@@ -1,5 +1,5 @@
 # Read the RTL design
-read_file -format SVERILOG {Segway.sv Auth_blk.sv inert_intf.sv balance_cntrl.sv steer_en.sv mtr_drv.sv A2D_intf.sv piezo_drv.sv rst_synch.sv uart_rx.sv uart_tx.sv SPI_mnrch.sv segway_math.sv PWM11.sv piezo_drv.sv inertial_integrator.sv}
+read_file -format SVERILOG {Segway.sv Auth_blk.sv inert_intf.sv balance_cntrl.sv steer_en.sv mtr_drv.sv A2D_Intf.sv piezo_drv.sv rst_synch.sv uart_rx.sv uart_tx.sv SPI_mnrch.sv segway_math.sv PWM11.sv piezo_drv.sv inertial_integrator.sv}
 
 # Set the current design 
 set current_design Segway
