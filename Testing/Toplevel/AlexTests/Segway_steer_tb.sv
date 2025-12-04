@@ -55,18 +55,6 @@ rst_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
 
 initial begin
   $display("Starting Segway Steer Testbench Simulation");  
-
-  $display("Checking getting of mid balancing: Checking if the right and left velocities values are valid ")
-  startStandardOperation();
-  repeat (40000) @(posedge clk);
-  set_rider_lean(16'h0000, rider_lean, clk);
-  repeat (40000) @(posedge clk);
-  riderStepOff(ld_cell_lft,ld_cell_rght,clk);
-  repeat (40000) @(posedge clk);
-  assert_en_sterr_low();
-  assert_all_omegas_zero();
-  
-
   
   $display("END OF SIMULATION");
   $stop();

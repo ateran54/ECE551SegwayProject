@@ -1,5 +1,5 @@
-//Applying a steer pot value for a right and left turns gives proper left and right speed values as well as making segway angle converge to around 0
 //Check getting off segway mid balancing
+// check To fast
 module Segway_steer_tb();
 
 import Segway_toplevel_tb_tasks_pkg::*;
@@ -67,7 +67,7 @@ initial begin
   assert_all_omegas_zero();
   
 
-  
+
 
   
   $display("END OF SIMULATION");

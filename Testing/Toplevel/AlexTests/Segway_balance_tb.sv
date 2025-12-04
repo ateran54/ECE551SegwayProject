@@ -52,15 +52,7 @@ UART_tx iTX(.clk(clk),.rst_n(rst_n),.TX(RX_TX),.trmt(send_cmd),.tx_data(cmd),.tx
 rst_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
 
 initial begin
-  startStandardOperationProcedure(clk,RST_n,send_cmd,rider_lean,ld_cell_lft,ld_cell_rght,
-    steerPot,
-    batt,
-    OVR_I_lft,
-    OVR_I_rght,
-    tx_data,
-    trmt,
-    tx_done
-  );
+  startStandardOperation();
   repeat (40000) @(posedge clk);
 
   riderStepOff(ld_cell_lft, ld_cell_rght, clk);  // this should disable  ster_enable
@@ -85,6 +77,11 @@ initial begin
   $stop();
 end
 
+task automatic startStandardOperation();
+  startStandardOperationProcedure(clk,RST_n,send_cmd,rider_lean,ld_cell_lft,
+      ld_cell_rght,steerPot,batt,OVR_I_lft
+      ,OVR_I_rght,tx_data,trmt,tx_done);
+endtask
 
 
 
