@@ -295,4 +295,26 @@ task automatic assert_all_omegas_zero(
 endtask
 
 
+
+task automatic assert_all_omegas_not_zero(
+    ref logic signed [15:0] omega_platform,
+    ref logic signed [15:0] omega_lft,
+    ref logic signed [15:0] omega_rght
+);
+    if( (omega_platform != 0 &&
+        omega_lft      != 0 &&
+        omega_rght     != 0)) begin
+
+        $display("TEST: PHYSICS OMEGAS : PASSED — all omegas are not zero");
+    end 
+    else begin
+        $display("TEST: PHYSICS OMEGAS : FAILED");
+        $display("  omega_platform = %0d", omega_platform);
+        $display("  omega_lft      = %0d", omega_lft);
+        $display("  omega_rght     = %0d", omega_rght);
+        $stop;
+    end
+endtask
+
+
 endpackage : Segway_toplevel_tb_tasks_pkg

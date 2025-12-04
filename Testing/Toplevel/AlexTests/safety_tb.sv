@@ -1,7 +1,6 @@
-// - Sending auth code starts the segway
-//Sending stop code stops the segway
-//Auth flow, start segway, apply some steering inputs, then stop it
-module Segway_auth_flow_tb();
+//Applying a steer pot value for a right and left turns gives proper left and right speed values as well as making segway angle converge to around 0
+//Check getting off segway mid balancing
+module Segway_steer_tb();
 
 import Segway_toplevel_tb_tasks_pkg::*;
 //// Interconnects to DUT/support defined as type wire /////
@@ -55,62 +54,38 @@ UART_tx iTX(.clk(clk),.rst_n(rst_n),.TX(RX_TX),.trmt(send_cmd),.tx_data(cmd),.tx
 rst_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
 
 initial begin
+  $display("Starting Segway Safety Testbench Simulation");  
 
-    // in the SSOP task it intially sends the cmd to start know we must check the stop
+  $display("Checking getting of mid balancing: Checking if the right and left velocities values are valid ")
   startStandardOperation();
-
-  $display("Auth flow testbench: pulsing the auth and seeing what happnes");
-  repeat (40000) @(posedge clk); // some space
-  run_standard_stop_sequence( tx_data,trmt,tx_done,clk);
   repeat (40000) @(posedge clk);
-  // make sure motors and evehritng is off
-  assert_all_omegas_zero();
-
-
-  $display("Auth flow testbench: aplying some sterring inputs");
-  run_standard_start_sequence(tx_data,trmt,tx_done,clk);
+  set_rider_lean(16'h0000, rider_lean, clk);
   repeat (40000) @(posedge clk);
-  set_steerPot(2047, steerPot, clk);
+  riderStepOff(ld_cell_lft,ld_cell_rght,clk);
   repeat (40000) @(posedge clk);
-  run_standard_stop_sequence(tx_data,trmt,tx_done,clk);
-  repeat (40000) @(posedge clk);
-  assert_all_omegas_zero(
-    iPHYS.omega_platform,
-    iPHYS.omega_lft,
-    iPHYS.omega_rght
-);
-
-
-
-  $display("Auth flow testbench: aplying some sterring inputs and getting off first");
-  run_standard_start_sequence(tx_data,trmt,tx_done,clk);
-  repeat (40000) @(posedge clk);
-  set_steerPot(2047, steerPot, clk);
-  repeat (40000) @(posedge clk);
-  run_standard_stop_sequence(tx_data,trmt,tx_done,clk);
-  repeat (40000) @(posedge clk);
-  assert_all_omegas_zero(
-    iPHYS.omega_platform,
-    iPHYS.omega_lft,
-    iPHYS.omega_rght
-  );
   assert_en_sterr_low();
+  assert_all_omegas_zero();
+  
 
+  
 
-
+  
   $display("END OF SIMULATION");
   $stop();
 end
 
 
-task automatic startStandardOperation();
 
-startStandardOperationProcedure(clk,RST_n,send_cmd,rider_lean,ld_cell_lft,
-    ld_cell_rght,steerPot,batt,OVR_I_lft
-    ,OVR_I_rght,tx_data,trmt,tx_done);
+task automatic assert_en_sterr_low()
+  assert (iDUT.en_steer==0) $display("TEST: BALNCE CNTRL/SAFETY : PASSED");
+  else   $display("TEST: BALNCE CNTRL/SAFETY : FAILED : Balance theta did not converge to right value");
 endtask
 
-
+task automatic startStandardOperation();
+  startStandardOperationProcedure(clk,RST_n,send_cmd,rider_lean,ld_cell_lft,
+      ld_cell_rght,steerPot,batt,OVR_I_lft
+      ,OVR_I_rght,tx_data,trmt,tx_done);
+endtask
 
 
 always

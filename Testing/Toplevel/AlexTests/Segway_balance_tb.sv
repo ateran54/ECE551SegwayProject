@@ -1,6 +1,4 @@
-//Applying a steer pot value for a right and left turns gives proper left and right speed values as well as making segway angle converge to around 0
-//Check getting off segway mid balancing
-module Segway_steer_tb();
+module Segway_balance_tb();
 
 import Segway_toplevel_tb_tasks_pkg::*;
 //// Interconnects to DUT/support defined as type wire /////
@@ -54,41 +52,40 @@ UART_tx iTX(.clk(clk),.rst_n(rst_n),.TX(RX_TX),.trmt(send_cmd),.tx_data(cmd),.tx
 rst_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
 
 initial begin
-  $display("Starting Segway Steer Testbench Simulation");  
-
-  $display("Checking getting of mid balancing: Checking if the right and left velocities values are valid ")
-
-  startStandardOperation();
+  startStandardOperationProcedure(clk,RST_n,send_cmd,rider_lean,ld_cell_lft,ld_cell_rght,
+    steerPot,
+    batt,
+    OVR_I_lft,
+    OVR_I_rght,
+    tx_data,
+    trmt,
+    tx_done
+  );
   repeat (40000) @(posedge clk);
-  
-  set_rider_lean(16'h0000, rider_lean, clk);
-  repeat (40000) @(posedge clk);
-  riderStepOff(ld_cell_lft,ld_cell_rght,clk);
-  assert_en_sterr_low();
-  assert_all_omegas_zero();
-  
-  repeat (2000000) @(posedge clk);
 
+  riderStepOff(ld_cell_lft, ld_cell_rght, clk);  // this should disable  ster_enable
+  repeat (40000) @(posedge clk);
+
+  assert (iDUT.en_steer==0) $display("TEST: BALNCE CNTRL/SAFETY : PASSED");
+  else   $display("TEST: BALNCE CNTRL/SAFETY : FAILED : Balance theta did not converge to right value");
 
   repeat (40000) @(posedge clk);
-  
-  
+  riderStepOff(ld_cell_lft, ld_cell_rght, clk); // this should enbale steer like running
+
+  repeat (700000) @(posedge clk);
+  // BALNCE SHOULD HAVE CONVREGED TO ZEROP HERRE
+
+  assert (iPHYS.theta_platform<13'd250) $display("TEST: BALNCE CNTRL/SAFETY : PASSED");
+  else   $display("TEST: BALNCE CNTRL/SAFETY : FAILED : Balance theta did not converge to right value");
+
+
+
+
   $display("END OF SIMULATION");
   $stop();
 end
 
 
-
-task automatic assert_en_sterr_low()
-  assert (iDUT.en_steer==0) $display("TEST: BALNCE CNTRL/SAFETY : PASSED");
-  else   $display("TEST: BALNCE CNTRL/SAFETY : FAILED : Balance theta did not converge to right value");
-endtask
-
-task automatic startStandardOperation();
-  startStandardOperationProcedure(clk,RST_n,send_cmd,rider_lean,ld_cell_lft,
-      ld_cell_rght,steerPot,batt,OVR_I_lft
-      ,OVR_I_rght,tx_data,trmt,tx_done);
-endtask
 
 
 always
