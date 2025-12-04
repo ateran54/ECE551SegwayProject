@@ -235,8 +235,8 @@ package Segway_toplevel_tb_tasks_pkg;
 
 
 task automatic riderStepOff(
-    ref logic ld_cell_lft,
-    ref logic  ld_cell_rght,
+    ref logic [11:0] ld_cell_lft,
+    ref logic [11:0] ld_cell_rght,
     ref logic clk
     );
 

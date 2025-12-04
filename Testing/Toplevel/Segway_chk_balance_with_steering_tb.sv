@@ -65,7 +65,7 @@ initial begin
   repeat (700000) @(posedge clk);
   set_rider_lean(16'h0FFF, rider_lean, clk);
   //set steerpot half way to steer to the right
-  set_steerPot(2047, steerPot, clk);
+  set_steerPot(1536, steerPot, clk);
 
   repeat (2000000) @(posedge clk);
   //Check that theta platform angle is less than 300 

@@ -57,13 +57,17 @@ initial begin
   initialize_inputs(clk, RST_n, send_cmd, rider_lean, ld_cell_lft, ld_cell_rght, steerPot, batt, OVR_I_lft, OVR_I_rght);
   apply_reset(RST_n, clk);
   //set loads and wait for balance check
-  set_loads(700,20, ld_cell_lft, ld_cell_rght, clk);
+  set_loads(330,330, ld_cell_lft, ld_cell_rght, clk);
   repeat (40000) @(posedge clk);
   //send start command and wait a bit
   run_standard_start_sequence(cmd, send_cmd, cmd_sent, clk);
   repeat (700000) @(posedge clk);
   //lean forward and wait
   set_rider_lean(16'h0FFF, rider_lean, clk);
+
+  set_steerPot(16'h0800, steerPot, clk);
+
+
   repeat (2000000) @(posedge clk);
   //Check that theta platform angle is less than 300 
   check_condition("Theta Platform Angle Range For Forward Lean", (iPHYS.theta_platform <= 300) && (iPHYS.theta_platform >= -300), $sformatf("Value: %0d", iPHYS.theta_platform));
