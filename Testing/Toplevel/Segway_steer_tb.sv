@@ -57,7 +57,7 @@ initial begin
   $display("Starting Segway Steer Testbench Simulation");  
 
   $display("Checking getting of mid balancing: Checking if the right and left velocities values are valid ")
-    
+
   startStandardOperation();
   repeat (40000) @(posedge clk);
   
@@ -89,24 +89,6 @@ task automatic startStandardOperation();
       ld_cell_rght,steerPot,batt,OVR_I_lft
       ,OVR_I_rght,tx_data,trmt,tx_done);
 endtask
-
-
-task automatic assert_all_omegas_zero();
-    if (iPHYS.omega_platform == 0 &&
-        iPHYS.omega_lft      == 0 &&
-        iPHYS.omega_rght     == 0) begin
-
-        $display("TEST: PHYSICS OMEGAS : PASSED — all omegas are zero");
-    end 
-    else begin
-        $display("TEST: PHYSICS OMEGAS : FAILED");
-        $display("  omega_platform = %0d", iPHYS.omega_platform);
-        $display("  omega_lft      = %0d", iPHYS.omega_lft);
-        $display("  omega_rght     = %0d", iPHYS.omega_rght);
-        $stop;
-    end
-endtask
-
 
 
 always

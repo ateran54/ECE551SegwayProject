@@ -74,7 +74,28 @@ initial begin
   repeat (40000) @(posedge clk);
   run_standard_stop_sequence(tx_data,trmt,tx_done,clk);
   repeat (40000) @(posedge clk);
-  assert_all_omegas_zero();
+  assert_all_omegas_zero(
+    iPHYS.omega_platform,
+    iPHYS.omega_lft,
+    iPHYS.omega_rght
+);
+
+
+
+  $display("Auth flow testbench: aplying some sterring inputs and getting off first");
+  run_standard_start_sequence(tx_data,trmt,tx_done,clk);
+  repeat (40000) @(posedge clk);
+  set_steerPot(2047, steerPot, clk);
+  repeat (40000) @(posedge clk);
+  run_standard_stop_sequence(tx_data,trmt,tx_done,clk);
+  repeat (40000) @(posedge clk);
+  assert_all_omegas_zero(
+    iPHYS.omega_platform,
+    iPHYS.omega_lft,
+    iPHYS.omega_rght
+  );
+  assert_en_sterr_low();
+
 
 
   $display("END OF SIMULATION");
@@ -90,22 +111,6 @@ startStandardOperationProcedure(clk,RST_n,send_cmd,rider_lean,ld_cell_lft,
 endtask
 
 
-
-task automatic assert_all_omegas_zero();
-    if (iPHYS.omega_platform == 0 &&
-        iPHYS.omega_lft      == 0 &&
-        iPHYS.omega_rght     == 0) begin
-
-        $display("TEST: PHYSICS OMEGAS : PASSED — all omegas are zero");
-    end 
-    else begin
-        $display("TEST: PHYSICS OMEGAS : FAILED");
-        $display("  omega_platform = %0d", iPHYS.omega_platform);
-        $display("  omega_lft      = %0d", iPHYS.omega_lft);
-        $display("  omega_rght     = %0d", iPHYS.omega_rght);
-        $stop;
-    end
-endtask
 
 
 always
