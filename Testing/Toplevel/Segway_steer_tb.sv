@@ -55,25 +55,21 @@ rst_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
 
 initial begin
   $display("Starting Segway Steer Testbench Simulation");  
-  
-  startStandardOperationProcedure(clk,RST_n,send_cmd,rider_lean,ld_cell_lft,
-    ld_cell_rght,steerPot,batt,OVR_I_lft
-    ,OVR_I_rght,tx_data,trmt,tx_done);
+
+  $display("Checking getting of mid balancing: Checking if the right and left velocities values are valid ")
+    
+  startStandardOperation();
   repeat (40000) @(posedge clk);
   
-
-  $display("Checking getting of mid balancing")
   set_rider_lean(16'h0000, rider_lean, clk);
   repeat (40000) @(posedge clk);
   riderStepOff(ld_cell_lft,ld_cell_rght,clk);
   assert_en_sterr_low();
+  assert_all_omegas_zero();
+  
   repeat (2000000) @(posedge clk);
 
-  
-  $display("Checking if the right and left velocities values are valid");
-  startStandardOperationProcedure(clk,RST_n,send_cmd,rider_lean,ld_cell_lft, 
-    ld_cell_rght,steerPot,batt,OVR_I_lft
-    ,OVR_I_rght,tx_data,trmt,tx_done);
+
   repeat (40000) @(posedge clk);
   
   
@@ -81,10 +77,37 @@ initial begin
   $stop();
 end
 
+
+
 task automatic assert_en_sterr_low()
   assert (iDUT.en_steer==0) $display("TEST: BALNCE CNTRL/SAFETY : PASSED");
   else   $display("TEST: BALNCE CNTRL/SAFETY : FAILED : Balance theta did not converge to right value");
 endtask
+
+task automatic startStandardOperation();
+  startStandardOperationProcedure(clk,RST_n,send_cmd,rider_lean,ld_cell_lft,
+      ld_cell_rght,steerPot,batt,OVR_I_lft
+      ,OVR_I_rght,tx_data,trmt,tx_done);
+endtask
+
+
+task automatic assert_all_omegas_zero();
+    if (iPHYS.omega_platform == 0 &&
+        iPHYS.omega_lft      == 0 &&
+        iPHYS.omega_rght     == 0) begin
+
+        $display("TEST: PHYSICS OMEGAS : PASSED — all omegas are zero");
+    end 
+    else begin
+        $display("TEST: PHYSICS OMEGAS : FAILED");
+        $display("  omega_platform = %0d", iPHYS.omega_platform);
+        $display("  omega_lft      = %0d", iPHYS.omega_lft);
+        $display("  omega_rght     = %0d", iPHYS.omega_rght);
+        $stop;
+    end
+endtask
+
+
 
 always
   #10 clk = ~clk;

@@ -57,22 +57,24 @@ rst_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
 initial begin
 
     // in the SSOP task it intially sends the cmd to start know we must check the stop
-  startStandardOperationProcedure(clk,RST_n,send_cmd,rider_lean,ld_cell_lft,ld_cell_rght,
-    steerPot,
-    batt,
-    OVR_I_lft,
-    OVR_I_rght,
-    tx_data,
-    trmt,
-    tx_done
-  );
+  startStandardOperation();
+
+  $display("Auth flow testbench: pulsing the auth and seeing what happnes");
   repeat (40000) @(posedge clk); // some space
   run_standard_stop_sequence( tx_data,trmt,tx_done,clk);
   repeat (40000) @(posedge clk);
   // make sure motors and evehritng is off
+  assert_all_omegas_zero();
 
 
-  
+  $display("Auth flow testbench: aplying some sterring inputs");
+  run_standard_start_sequence(tx_data,trmt,tx_done,clk);
+  repeat (40000) @(posedge clk);
+  set_steerPot(2047, steerPot, clk);
+  repeat (40000) @(posedge clk);
+  run_standard_stop_sequence(tx_data,trmt,tx_done,clk);
+  repeat (40000) @(posedge clk);
+  assert_all_omegas_zero();
 
 
   $display("END OF SIMULATION");
@@ -80,6 +82,30 @@ initial begin
 end
 
 
+task automatic startStandardOperation();
+
+startStandardOperationProcedure(clk,RST_n,send_cmd,rider_lean,ld_cell_lft,
+    ld_cell_rght,steerPot,batt,OVR_I_lft
+    ,OVR_I_rght,tx_data,trmt,tx_done);
+endtask
+
+
+
+task automatic assert_all_omegas_zero();
+    if (iPHYS.omega_platform == 0 &&
+        iPHYS.omega_lft      == 0 &&
+        iPHYS.omega_rght     == 0) begin
+
+        $display("TEST: PHYSICS OMEGAS : PASSED — all omegas are zero");
+    end 
+    else begin
+        $display("TEST: PHYSICS OMEGAS : FAILED");
+        $display("  omega_platform = %0d", iPHYS.omega_platform);
+        $display("  omega_lft      = %0d", iPHYS.omega_lft);
+        $display("  omega_rght     = %0d", iPHYS.omega_rght);
+        $stop;
+    end
+endtask
 
 
 always
