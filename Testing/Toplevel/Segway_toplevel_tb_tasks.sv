@@ -246,32 +246,6 @@ task automatic riderStepOff(
 endtask
 
 
-task automatic startStandardOperationProcedure(
-    ref logic               clk,
-    ref logic               RST_n,
-    ref logic               send_cmd,
-    ref logic signed [15:0] rider_lean,
-    ref logic        [11:0] ld_cell_lft,
-    ref logic        [11:0] ld_cell_rght,
-    ref logic        [11:0] steerPot,
-    ref logic        [11:0] batt,
-    ref logic               OVR_I_lft,
-    ref logic               OVR_I_rght,
-    ref logic        [7:0]  tx_data,
-    ref logic               trmt,
-    ref logic               tx_done
-);
-    begin
-        initialize_inputs(clk, RST_n, send_cmd,
-                          rider_lean, ld_cell_lft, ld_cell_rght,
-                          steerPot, batt, OVR_I_lft, OVR_I_rght);
-        apply_reset(RST_n, clk);
-        set_loads(350, 350, ld_cell_lft, ld_cell_rght, clk);
-        repeat (40000) @(posedge clk);
-        run_standard_start_sequence(tx_data, trmt, tx_done, clk);
-    end
-endtask : startStandardOperationProcedure
-
 
 
 task automatic assert_all_omegas_zero(

@@ -54,30 +54,32 @@ rst_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
 initial begin
 
 
-  $display("Starting Segway Lean Convergence Testbench Simulation");
+  $display("Starting Segway Blance ctrl Testbench Simulation");
   //init inputs and apply reset
   initialize_inputs(clk, RST_n, send_cmd, rider_lean, ld_cell_lft, ld_cell_rght, steerPot, batt, OVR_I_lft, OVR_I_rght);
   apply_reset(RST_n, clk);
   //set loads and wait for balance check
   set_loads(330,330, ld_cell_lft, ld_cell_rght, clk);
   repeat (40000) @(posedge clk);
-  //send start command and wait a bit
    run_standard_start_sequence(cmd, send_cmd, cmd_sent, clk);
-   repeat (700000) @(posedge clk);
 
+  repeat (400000) @(posedge clk);
+  //send start command and wait a bit
+  //repeat (40000) @(posedge clk);
 
-  // riderStepOff(ld_cell_lft, ld_cell_rght, clk);  // this should disable  ster_enable
-  // repeat (40000) @(posedge clk);
+  riderStepOff(ld_cell_lft, ld_cell_rght, clk);  // this should disable  ster_enable
+  repeat (40000) @(posedge clk);
 
-  // assert (iDUT.en_steer==0) $display("TEST: BALNCE CNTRL/SAFETY : PASSED");
-  // else   $display("TEST: BALNCE CNTRL/SAFETY : FAILED : Balance theta did not converge to right value");
+  assert (iDUT.en_steer==0) $display("TEST: BALNCE CNTRL/SAFETY : PASSED");
+  else   $display("TEST: BALNCE CNTRL/SAFETY : FAILED : Balance theta did not converge to right value");
 
-  // repeat (40000) @(posedge clk);
-  // set_loads(330,330, ld_cell_lft, ld_cell_rght, clk);
+  repeat (40000) @(posedge clk);
+  set_loads(500,450, ld_cell_lft, ld_cell_rght, clk); // this should enbale steer like running
 
-  // repeat (700000) @(posedge clk);
+  repeat (700000) @(posedge clk);
   // BALNCE SHOULD HAVE CONVREGED TO ZEROP HERRE
-
+  set_loads(475,475, ld_cell_lft, ld_cell_rght, clk); 
+  
   assert (iPHYS.theta_platform<13'd250) $display("TEST: BALNCE CNTRL/SAFETY : PASSED");
   else   $display("TEST: BALNCE CNTRL/SAFETY : FAILED : Balance theta did not converge to right value");
 
