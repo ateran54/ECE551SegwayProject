@@ -61,17 +61,20 @@ initial begin
   //set loads and wait for balance check
   set_loads(330,330, ld_cell_lft, ld_cell_rght, clk);
   repeat (40000) @(posedge clk);
+  
   //send start command and wait a bit
-  set_steerPot(12'h0800, steerPot, clk);
   run_standard_start_sequence(cmd, send_cmd, cmd_sent, clk);
   repeat (700000) @(posedge clk);
   //lean forward and wait
+  set_steerPot(12'h0800, steerPot, clk);
+  @(posedge clk);
+  #1;
   set_rider_lean(16'h0FFF, rider_lean, clk);
-  repeat (2000000) @(posedge clk);
+  repeat (20000000) @(posedge clk);
   //Check that theta platform angle is less than 250 
   check_condition("Theta Platform Angle Range For Forward Lean", (iPHYS.theta_platform <= 250) && (iPHYS.theta_platform >= -250), $sformatf("Value: %0d", iPHYS.theta_platform));
   //check that left and right omega are roughly equal
-  check_condition("Left and Right Wheel Omega Equality For Forward Lean", ( (iPHYS.omega_lft - iPHYS.omega_rght) <= 5 ) && ( (iPHYS.omega_lft - iPHYS.omega_rght) >= -5 ), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
+  check_condition("Left and Right Wheel Omega Equality For Forward Lean", ( (iPHYS.omega_lft - iPHYS.omega_rght) == 0), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
   //lean backward and wait
   set_rider_lean(16'h0000, rider_lean, clk);
   repeat (2000000) @(posedge clk);
@@ -79,7 +82,6 @@ initial begin
   check_condition("Theta Platform Angle Range After Backward Lean", (iPHYS.theta_platform <= 300) && (iPHYS.theta_platform >= -300), $sformatf("Value: %0d", iPHYS.theta_platform));
   //check that left and right omega are roughly equal
   check_condition("Left and Right Wheel Omega Equality After Backward Lean", ( (iPHYS.omega_lft - iPHYS.omega_rght) <= 5 ) && ( (iPHYS.omega_lft - iPHYS.omega_rght) >= -5 ), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
-
   $display("END OF SIMULATION");
   $stop();
 end

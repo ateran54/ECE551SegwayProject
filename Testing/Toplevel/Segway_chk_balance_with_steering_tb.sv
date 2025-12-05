@@ -64,7 +64,7 @@ initial begin
   //lean forward and wait
   repeat (700000) @(posedge clk);
   set_rider_lean(16'h0FFF, rider_lean, clk);
-  //set steerpot half way to steer to the right
+  //set steerpot to steer to the right
   set_steerPot(12'hD00, steerPot, clk);
 
   repeat (2000000) @(posedge clk);
