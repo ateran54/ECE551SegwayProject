@@ -33,6 +33,8 @@ module balance_cntrl #(parameter fast_sim = 1)(
     
     // SegwayMath computes in pipeline stage 2 using pipelined inputs
     SegwayMath segMath(
+            .clk(clk),
+            .rst_n(rst_n),
             .PID_cntrl(PID_cntrl_pipe2),  // Use pipelined PID control
             .ss_tmr(ss_tmr_pipe2),        // Use pipelined soft start timer
             .steer_pot(steer_pot_pipe2),  // Use pipelined steering pot

@@ -6,7 +6,7 @@ module inertial_integrator
     input  logic               vld,    //High for a single clock cycle when new inertial readings are valid.
     input  logic signed [15:0] ptch_rt, //16-bit signed raw pitch rate from inertial sensor
     input  logic signed [15:0] AZ,  //Will be used for sensor fusion (acceleration in Z direction)
-    output logic signed [15:0] ptch //Fully compensated and “fused” 16-bit signed pitch.
+    output logic signed [15:0] ptch //Fully compensated and fused 16-bit signed pitch.
 );
 
 // Pitch integrating accumulator (signed 27-bit)
@@ -46,6 +46,7 @@ always_comb begin
 end
 
 // Integrate on vld pulses. We integrate the NEGATIVE of ptch_rt_comp due to sensor orientation
+// Note: This path uses multicycle constraints since vld only pulses periodically
 always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         ptch_int <= '0;
