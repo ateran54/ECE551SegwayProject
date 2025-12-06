@@ -52,7 +52,7 @@ UART_tx iTX(.clk(clk),.rst_n(rst_n),.TX(RX_TX),.trmt(send_cmd),.tx_data(cmd),.tx
 rst_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
 
 initial begin
-  $display("Starting Segway Lean with Steerpot Convergence Testbench Simulation");
+  $display("Starting Segway Lean Testing with Steering Testbench Simulation");
   //init inputs and apply reset
   initialize_inputs(clk, RST_n, send_cmd, rider_lean, ld_cell_lft, ld_cell_rght, steerPot, batt, OVR_I_lft, OVR_I_rght);
   apply_reset(RST_n, clk);
@@ -69,20 +69,34 @@ initial begin
 
   repeat (2000000) @(posedge clk);
   //Check that theta platform angle is less than 300 
-  check_condition("Theta Platform Angle Range For Forward Lean with Steering", (iPHYS.theta_platform <= 300) && (iPHYS.theta_platform >= -300), $sformatf("Value: %0d", iPHYS.theta_platform));
+  check_condition("TEST: Theta Platform Angle Range For Forward Lean with Steering", (iPHYS.theta_platform <= 300) && (iPHYS.theta_platform >= -300), $sformatf("Value: %0d", iPHYS.theta_platform));
   //check that left and right omega reflect a right turn (right wheel slower than left)
-  check_condition("Left and Right Wheel Omega for Right Turn", (iPHYS.omega_lft > iPHYS.omega_rght), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
+  check_condition("TEST: Left and Right Wheel Omega for Right Turn", (iPHYS.omega_lft > iPHYS.omega_rght), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
   set_rider_lean(16'h0000, rider_lean, clk);
     //Check that theta platform angle is less than 300 
-  check_condition("Theta Platform Angle Range For Forward Lean with Steering", (iPHYS.theta_platform <= 300) && (iPHYS.theta_platform >= -300), $sformatf("Value: %0d", iPHYS.theta_platform));
+  check_condition("TEST: Theta Platform Angle Range For Forward Lean with Steering", (iPHYS.theta_platform <= 300) && (iPHYS.theta_platform >= -300), $sformatf("Value: %0d", iPHYS.theta_platform));
   //check that left and right omega reflect a right turn (right wheel slower than left)
-  check_condition("Left and Right Wheel Omega for Right Turn", (iPHYS.omega_lft > iPHYS.omega_rght), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
+  check_condition("TEST: Left and Right Wheel Omega for Right Turn", (iPHYS.omega_lft > iPHYS.omega_rght), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
   set_rider_lean(16'h0000, rider_lean, clk);
     //Check that theta platform angle is less than 300 
-  check_condition("Theta Platform Angle Range For Forward Lean with Steering", (iPHYS.theta_platform <= 300) && (iPHYS.theta_platform >= -300), $sformatf("Value: %0d", iPHYS.theta_platform));
+  check_condition("TEST: Theta Platform Angle Range For Forward Lean with Steering", (iPHYS.theta_platform <= 300) && (iPHYS.theta_platform >= -300), $sformatf("Value: %0d", iPHYS.theta_platform));
   //check that left and right omega reflect a right turn (right wheel slower than left)
-  check_condition("Left and Right Wheel Omega for Right Turn", (iPHYS.omega_lft > iPHYS.omega_rght), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
+  check_condition("TEST: Left and Right Wheel Omega for Right Turn", (iPHYS.omega_lft > iPHYS.omega_rght), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
   repeat (2000000) @(posedge clk);
+
+  //now, lets check left turn by doing a sudden swerve to left by rapidly changing the steerpot
+  set_steerPot(12'h400, steerPot, clk);
+  set_rider_lean(16'h0FFF, rider_lean, clk);
+  repeat (2000000) @(posedge clk);
+  //Check that theta platform angle is less than 300 
+  check_condition("TEST: Theta Platform Angle Range For Forward Lean with Steering", (iPHYS.theta_platform <= 300) && (iPHYS.theta_platform >= -300), $sformatf("Value: %0d", iPHYS.theta_platform));
+  //check that left and right omega reflect a left turn (left wheel slower than right)
+  check_condition("TEST: Left and Right Wheel Omega for Left Turn", (iPHYS.omega_lft < iPHYS.omega_rght), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
+  set_rider_lean(16'h0000, rider_lean, clk);
+    //Check that theta platform angle is less than 300 
+  check_condition("TEST: Theta Platform Angle Range For Forward Lean with Steering", (iPHYS.theta_platform <= 300) && (iPHYS.theta_platform >= -300), $sformatf("Value: %0d", iPHYS.theta_platform));
+  //check that left and right omega reflect a left turn (left wheel slower than right)
+  check_condition("TEST: Left and Right Wheel Omega for Left Turn", (iPHYS.omega_lft < iPHYS.omega_rght), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
 
   $display("END OF SIMULATION");
   $stop();

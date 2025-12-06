@@ -52,25 +52,24 @@ UART_tx iTX(.clk(clk),.rst_n(rst_n),.TX(RX_TX),.trmt(send_cmd),.tx_data(cmd),.tx
 rst_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
 
 initial begin
-  $display("Starting Segway Lean Convergence Testbench Simulation");
+  $display("Starting Segway simple forward lean Convergence Testbench Simulation");
   //init inputs and apply reset
   initialize_inputs(clk, RST_n, send_cmd, rider_lean, ld_cell_lft, ld_cell_rght, steerPot, batt, OVR_I_lft, OVR_I_rght);
   apply_reset(RST_n, clk);
   //wait for a bit before rider goes on
   repeat (100) @(posedge clk);
+  //set steerpot and wait for a bit
+  set_steerPot(12'h0800, steerPot, clk);
+  repeat (40000) @(posedge clk);
   //set loads and wait for balance check
   set_loads(330,330, ld_cell_lft, ld_cell_rght, clk);
   repeat (40000) @(posedge clk);
-  
   //send start command and wait a bit
   run_standard_start_sequence(cmd, send_cmd, cmd_sent, clk);
   repeat (700000) @(posedge clk);
   //lean forward and wait
-  set_steerPot(12'h0800, steerPot, clk);
-  @(posedge clk);
-  #1;
   set_rider_lean(16'h0FFF, rider_lean, clk);
-  repeat (20000000) @(posedge clk);
+  repeat (2000000) @(posedge clk);
   //Check that theta platform angle is less than 250 
   check_condition("Theta Platform Angle Range For Forward Lean", (iPHYS.theta_platform <= 250) && (iPHYS.theta_platform >= -250), $sformatf("Value: %0d", iPHYS.theta_platform));
   //check that left and right omega are roughly equal
