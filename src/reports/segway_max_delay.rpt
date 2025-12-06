@@ -1,0 +1,89 @@
+Warning: Design 'Segway' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : Segway
+Version: X-2025.06
+Date   : Fri Dec  5 20:56:45 2025
+****************************************
+
+Operating Conditions: tt0p85v25c   Library: saed32rvt_tt0p85v25c
+Wire Load Model Mode: enclosed
+
+  Startpoint: ss_tmr_pipe2_reg[0]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: iBUZZ/current_state_reg[1]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  Segway             16000                 saed32rvt_tt0p85v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  ss_tmr_pipe2_reg[0]/CLK (DFFARX1_RVT)                   0.00       0.00 r
+  ss_tmr_pipe2_reg[0]/Q (DFFARX1_RVT)                     0.14       0.14 f
+  U117/Y (NOR2X0_RVT)                                     0.09       0.23 r
+  U100/Y (XOR2X2_RVT)                                     0.13       0.36 f
+  iBAL/segMath/mult_17/S2_2_9/CO (FADDX1_RVT)             0.11       0.48 f
+  iBAL/segMath/mult_17/S2_3_9/S (FADDX1_RVT)              0.18       0.66 r
+  iBAL/segMath/mult_17/S2_4_8/S (FADDX1_RVT)              0.18       0.83 f
+  iBAL/segMath/mult_17/S2_5_7/S (FADDX1_RVT)              0.17       1.00 r
+  iBAL/segMath/mult_17/S2_6_6/S (FADDX1_RVT)              0.17       1.17 f
+  iBAL/segMath/mult_17/U9/Y (NAND2X0_RVT)                 0.07       1.24 r
+  U94/Y (NAND3X0_RVT)                                     0.08       1.31 f
+  iBAL/segMath/mult_17/U74/Y (XOR2X2_RVT)                 0.13       1.45 f
+  iBAL/segMath/mult_17/U66/Y (XOR2X2_RVT)                 0.12       1.57 r
+  iBAL/segMath/mult_17/FS_1/U21/Y (OR2X2_RVT)             0.07       1.64 r
+  iBAL/segMath/mult_17/FS_1/U67/Y (NAND4X0_RVT)           0.07       1.71 f
+  iBAL/segMath/mult_17/FS_1/U24/Y (AND4X1_RVT)            0.11       1.82 f
+  iBAL/segMath/mult_17/FS_1/U18/Y (INVX1_RVT)             0.06       1.88 r
+  iBAL/segMath/mult_17/FS_1/U64/Y (XNOR2X2_RVT)           0.12       2.00 f
+  iBAL/segMath/sub_46/U18/Y (OR2X1_RVT)                   0.08       2.08 f
+  iBAL/segMath/sub_46/U14/Y (OA21X1_RVT)                  0.07       2.15 f
+  iBAL/segMath/sub_46/U102/Y (NAND3X0_RVT)                0.05       2.20 r
+  iBAL/segMath/sub_46/U101/Y (NAND3X0_RVT)                0.08       2.28 f
+  iBAL/segMath/sub_46/U100/Y (NAND3X0_RVT)                0.07       2.36 r
+  iBAL/segMath/sub_46/U99/Y (NAND3X0_RVT)                 0.08       2.43 f
+  U120/Y (XNOR2X2_RVT)                                    0.13       2.57 r
+  U74/Y (MUX21X1_RVT)                                     0.09       2.66 r
+  iBAL/segMath/deadzone_right/add_91/U24/Y (NAND4X0_RVT)
+                                                          0.08       2.73 f
+  U69/Y (XNOR2X2_RVT)                                     0.11       2.85 f
+  iBAL/segMath/deadzone_right/U43/Y (INVX0_RVT)           0.04       2.89 r
+  iBAL/segMath/deadzone_right/U33/Y (NAND3X0_RVT)         0.05       2.95 f
+  iBAL/segMath/deadzone_right/U36/Y (NAND2X0_RVT)         0.06       3.01 r
+  iBAL/segMath/deadzone_right/U86/Y (NAND2X0_RVT)         0.07       3.08 f
+  iBAL/segMath/deadzone_right/U35/Y (INVX0_RVT)           0.07       3.15 r
+  iBAL/segMath/deadzone_right/U96/Y (AO222X1_RVT)         0.11       3.26 r
+  U36/Y (NOR3X0_RVT)                                      0.10       3.36 f
+  iBAL/segMath/U76/Y (AND2X1_RVT)                         0.06       3.42 f
+  iBAL/segMath/U149/Y (NAND4X0_RVT)                       0.05       3.47 r
+  iBAL/segMath/U150/Y (NAND4X0_RVT)                       0.06       3.52 f
+  iBAL/segMath/U163/Y (NAND2X0_RVT)                       0.07       3.60 r
+  iBUZZ/U57/Y (NBUFFX2_RVT)                               0.07       3.66 r
+  iBUZZ/U42/Y (NAND4X0_RVT)                               0.06       3.72 f
+  iBUZZ/U118/Y (OA221X1_RVT)                              0.09       3.81 f
+  iBUZZ/current_state_reg[1]/D (DFFARX1_RVT)              0.01       3.82 f
+  data arrival time                                                  3.82
+
+  clock clk (rise edge)                                   3.00       3.00
+  clock network delay (ideal)                             0.00       3.00
+  iBUZZ/current_state_reg[1]/CLK (DFFARX1_RVT)            0.00       3.00 r
+  library setup time                                     -0.06       2.94
+  data required time                                                 2.94
+  --------------------------------------------------------------------------
+  data required time                                                 2.94
+  data arrival time                                                 -3.82
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.88
+
+
+1
