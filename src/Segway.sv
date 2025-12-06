@@ -20,8 +20,22 @@ module Segway(clk,RST_n,INERT_SS_n,INERT_MOSI,INERT_SCLK,
     
   wire rst_n;							// synchronized global reset signal
   wire vld;								// tells us a new inertial reading is valid
-  wire [15:0] ptch;						// ptch reading from inertial interface
-  wire [15:0] ptch_rt;
+  logic [15:0] ptch;						// ptch reading from inertial interface
+  logic [15:0] ptch_rt;
+  // Pipeline registers for breaking critical path
+  logic [15:0] ptch_pipe1, ptch_rt_pipe1;     // Stage 1 pipeline registers
+  logic vld_pipe1, pwr_up_pipe1, rider_off_pipe1;
+  logic [11:0] steer_pot_pipe1;
+  logic en_steer_pipe1;
+  
+  logic signed [11:0] PID_cntrl_stage1;       // Stage 1 PID outputs
+  logic [7:0] ss_tmr_stage1;
+  
+  logic signed [11:0] PID_cntrl_pipe2;         // Stage 2 pipeline registers
+  logic [7:0] ss_tmr_pipe2;
+  logic [11:0] steer_pot_pipe2;
+  logic en_steer_pipe2, pwr_up_pipe2;
+  
   wire signed [11:0] lft_spd, rght_spd;	// from balance_cntrl to mtr_drv, specify absolute speed to drive motor
   wire lft_rev, rght_rev;				// left & right motor direction
   wire [11:0] lft_ld, rght_ld;		// measurements from load cells
@@ -51,14 +65,61 @@ module Segway(clk,RST_n,INERT_SS_n,INERT_MOSI,INERT_SCLK,
                    .vld(vld),.SS_n(INERT_SS_n),.SCLK(INERT_SCLK),
 				   .MOSI(INERT_MOSI),.MISO(INERT_MISO),
 				   .INT(INERT_INT));
+
+  ///////////////////////////////////////////////////
+  // Pipeline Stage 1: Register inputs to PID    //
+  /////////////////////////////////////////////////
+  always_ff @(posedge clk, negedge rst_n) begin
+      if (!rst_n) begin
+            ptch_pipe1 <= 16'h0000;
+            ptch_rt_pipe1 <= 16'h0000;
+            vld_pipe1 <= 1'b0;
+            pwr_up_pipe1 <= 1'b0;
+            rider_off_pipe1 <= 1'b0;
+            steer_pot_pipe1 <= 12'h000;
+            en_steer_pipe1 <= 1'b0;
+      end else begin
+            ptch_pipe1 <= ptch;
+            ptch_rt_pipe1 <= ptch_rt;
+            vld_pipe1 <= vld;
+            pwr_up_pipe1 <= pwr_up;
+            rider_off_pipe1 <= rider_off;
+            steer_pot_pipe1 <= steer_pot;
+            en_steer_pipe1 <= en_steer;
+      end
+  end
+
+  
+  ///////////////////////////////////////////////////
+  // Pipeline Stage 2: Register PID outputs     //
+  /////////////////////////////////////////////////
+  always_ff @(posedge clk, negedge rst_n) begin
+      if (!rst_n) begin
+            PID_cntrl_pipe2 <= 12'h000;
+            ss_tmr_pipe2 <= 8'h00;
+            steer_pot_pipe2 <= 12'h000;
+            en_steer_pipe2 <= 1'b0;
+            pwr_up_pipe2 <= 1'b0;
+      end else begin
+            PID_cntrl_pipe2 <= PID_cntrl_stage1;  // Capture PID output from stage 1
+            ss_tmr_pipe2 <= ss_tmr_stage1;        // Capture ss_tmr output from stage 1
+            steer_pot_pipe2 <= steer_pot_pipe1;
+            en_steer_pipe2 <= en_steer_pipe1;
+            pwr_up_pipe2 <= pwr_up_pipe1;
+      end
+  end
   
   /////////////////////////////////////
   // Instantiate balance controller //
   ///////////////////////////////////					 
-  balance_cntrl #(fast_sim) iBAL(.clk(clk),.rst_n(rst_n),.vld(vld),.ptch(ptch),
-                     .ptch_rt(ptch_rt),.pwr_up(pwr_up),.rider_off(rider_off),
-					 .steer_pot(steer_pot),.en_steer(en_steer),.lft_spd(lft_spd),
-					 .rght_spd(rght_spd),.too_fast(too_fast));
+  balance_cntrl#(fast_sim) iBAL(.clk(clk),.rst_n(rst_n),.vld(vld_pipe1),.ptch(ptch_pipe1),
+                     .ptch_rt(ptch_rt_pipe1),.pwr_up(pwr_up_pipe1),.rider_off(rider_off_pipe1),
+					 .steer_pot_pipe2(steer_pot_pipe2),.en_steer_pipe2(en_steer_pipe2),.pwr_up_pipe2(pwr_up_pipe2),
+                     .PID_cntrl_pipe2(PID_cntrl_pipe2),.ss_tmr_pipe2(ss_tmr_pipe2),
+                     .PID_cntrl_stage1(PID_cntrl_stage1),.ss_tmr_stage1(ss_tmr_stage1),
+                     .lft_spd(lft_spd),.rght_spd(rght_spd),.too_fast(too_fast));
+
+
 
 
   //////////////////////////////////

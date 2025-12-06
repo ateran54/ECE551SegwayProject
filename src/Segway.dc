@@ -55,6 +55,11 @@ set_wire_load_model -name "16000" -library saed32rvt_tt0p85v25c
 compile -map_effort medium
 
 # Multicycle will be here TODO
+set_multicycle_path 2 -setup -from [find pin iNEMO/ptch_*_reg*/CLK]
+set_multicycle_path 2 -setup -from [find pin iNEMO/AZ*_reg*/CLK]
+set_multicycle_path 2 -hold -from [find pin iNEMO/ptch_*_reg*/CLK]
+set_multicycle_path 2 -hold -from [find pin iNEMO/AZ*_reg*/CLK]
+
 # Flatten the design to remove hierarchy
 ungroup -all -flatten
 
