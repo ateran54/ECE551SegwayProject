@@ -1,0 +1,1336 @@
+Info: [VCS_SAVE_RESTORE_INFO] ASLR (Address Space Layout Randomization) is detected on the machine. To enable $save functionality, ASLR will be switched off and simv re-executed.
+Please use '-no_save' simv switch to avoid this.
+
+                           Design Compiler Graphical 
+                                 DC Ultra (TM)
+                                  DFTMAX (TM)
+                              Power Compiler (TM)
+                                 DesignWare (R)
+                                 DC Expert (TM)
+                               Design Vision (TM)
+                               HDL Compiler (TM)
+                               VHDL Compiler (TM)
+                                  DFT Compiler
+                               Design Compiler(R)
+
+                 Version X-2025.06 for linux64 - May 27, 2025 
+
+                    Copyright (c) 1988 - 2025 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+Initializing...
+Current time:       Sat Dec  6 16:19:24 2025
+Hostname:           linux-2609
+CPU Model:          Intel(R) Core(TM) i5-14600
+CPU Details:        Cores = 20 : Sockets = 1 : Cache Size = 24576 KB : Freq = 1.00 GHz
+OS:                 Linux 6.1.0-41-amd64
+RAM:                 31 GB (Free   4 GB)
+Swap:                 1 GB (Free   1 GB)
+Work Filesystem:    /filespace/v mounted to files.cae.wisc.edu:/v
+Tmp Filesystem:     / mounted to /dev/mapper/linux--2609--vg-root
+Work Disk:           36 GB (Free  34 GB)
+Tmp Disk:           820 GB (Free 819 GB)
+
+CPU Load: 1%, Ram Free: 4 GB, Swap Free: 1 GB, Work Disk Free: 34 GB, Tmp Disk Free: 819 GB
+# Read the RTL design
+read_file -format SVERILOG {Segway.sv Auth_blk.sv inert_intf.sv balance_cntrl.sv steer_en.sv mtr_drv.sv A2D_Intf.sv piezo_drv.sv rst_synch.sv uart_rx.sv uart_tx.sv SPI_mnrch.sv segway_math.sv PWM11.sv piezo_drv.sv inertial_integrator.sv}
+Loading db file '/cae/apps/data/saed32_edk-2022/lib/stdcell_rvt/db_nldm/saed32rvt_tt0p85v25c.db'
+Loading db file '/cae/apps/data/saed32_edk-2022/lib/io_std/db_nldm/saed32io_wb_tt1p05v25c_2p5v.db'
+Loading db file '/cae/apps/data/synopsys-2025/syn/X-2025.06/libraries/syn/gtech.db'
+Loading db file '/cae/apps/data/synopsys-2025/syn/X-2025.06/libraries/syn/standard.sldb'
+  Loading link library 'saed32rvt_tt0p85v25c'
+  Loading link library 'saed32io_wb_tt1p05v25c_2p5v'
+  Loading link library 'gtech'
+Detecting input file type automatically (-rtl or -netlist).
+Reading with Presto HDL Compiler (equivalent to -rtl option).
+Running PRESTO HDLC
+Compiling source file /filespace/v/vaseidel/ece551/designvision/src/Segway.sv
+Compiling source file /filespace/v/vaseidel/ece551/designvision/src/Auth_blk.sv
+Compiling source file /filespace/v/vaseidel/ece551/designvision/src/inert_intf.sv
+Compiling source file /filespace/v/vaseidel/ece551/designvision/src/balance_cntrl.sv
+Compiling source file /filespace/v/vaseidel/ece551/designvision/src/steer_en.sv
+Compiling source file /filespace/v/vaseidel/ece551/designvision/src/mtr_drv.sv
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/mtr_drv.sv:33: the undeclared symbol 'LED' assumed to have the default net type, which is 'wire'. (VER-936)
+Compiling source file /filespace/v/vaseidel/ece551/designvision/src/A2D_Intf.sv
+Compiling source file /filespace/v/vaseidel/ece551/designvision/src/piezo_drv.sv
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/piezo_drv.sv:27: The construct 'declaration initial assignment' is not supported in synthesis; it is ignored. (VER-708)
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/piezo_drv.sv:63: The value 0x08F0D180 is too large for the numeric data type being used (VER-1)
+Compiling source file /filespace/v/vaseidel/ece551/designvision/src/rst_synch.sv
+Compiling source file /filespace/v/vaseidel/ece551/designvision/src/uart_rx.sv
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/uart_rx.sv:11: Using default enum base size of 32. (VER-533)
+Compiling source file /filespace/v/vaseidel/ece551/designvision/src/uart_tx.sv
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/uart_tx.sv:11: Using default enum base size of 32. (VER-533)
+Compiling source file /filespace/v/vaseidel/ece551/designvision/src/SPI_mnrch.sv
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/SPI_mnrch.sv:72: Using default enum base size of 32. (VER-533)
+Compiling source file /filespace/v/vaseidel/ece551/designvision/src/segway_math.sv
+Compiling source file /filespace/v/vaseidel/ece551/designvision/src/PWM11.sv
+Compiling source file /filespace/v/vaseidel/ece551/designvision/src/piezo_drv.sv
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/piezo_drv.sv:1: Overwriting existing design element 'piezo_drv' with newer version. (VER-64)
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/piezo_drv.sv:27: The construct 'declaration initial assignment' is not supported in synthesis; it is ignored. (VER-708)
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/piezo_drv.sv:63: The value 0x08F0D180 is too large for the numeric data type being used (VER-1)
+Compiling source file /filespace/v/vaseidel/ece551/designvision/src/inertial_integrator.sv
+
+Inferred memory devices in process in routine 'Segway' in file
+	 /filespace/v/vaseidel/ece551/designvision/src/Segway.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+| en_steer_pipe1_reg  | Flip-flop |   1   |  N  | N  | None  | Async | N  |  72  |
+|   ptch_pipe1_reg    | Flip-flop |  16   |  Y  | N  | None  | Async | N  |  72  |
+|  ptch_rt_pipe1_reg  | Flip-flop |  16   |  Y  | N  | None  | Async | N  |  72  |
+|    vld_pipe1_reg    | Flip-flop |   1   |  N  | N  | None  | Async | N  |  72  |
+|  pwr_up_pipe1_reg   | Flip-flop |   1   |  N  | N  | None  | Async | N  |  72  |
+| rider_off_pipe1_reg | Flip-flop |   1   |  N  | N  | None  | Async | N  |  72  |
+| steer_pot_pipe1_reg | Flip-flop |  12   |  Y  | N  | None  | Async | N  |  72  |
+|  pwr_up_pipe2_reg   | Flip-flop |   1   |  N  | N  | None  | Async | N  |  96  |
+| PID_cntrl_pipe2_reg | Flip-flop |  12   |  Y  | N  | None  | Async | N  |  96  |
+|  ss_tmr_pipe2_reg   | Flip-flop |   8   |  Y  | N  | None  | Async | N  |  96  |
+| steer_pot_pipe2_reg | Flip-flop |  12   |  Y  | N  | None  | Async | N  |  96  |
+| en_steer_pipe2_reg  | Flip-flop |   1   |  N  | N  | None  | Async | N  |  96  |
+==================================================================================
+
+Statistics for case statements in always block in file
+	'/filespace/v/vaseidel/ece551/designvision/src/Auth_blk.sv'
+===========================================================
+|    Line    |  full/ parallel  |      block location     |
+===========================================================
+|     53     |    auto/auto     | always block at line 48 |
+===========================================================
+
+Inferred memory devices in process in routine 'Auth_blk' in file
+	 /filespace/v/vaseidel/ece551/designvision/src/Auth_blk.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|  current_state_reg  | Flip-flop |   2   |  Y  | N  | None  | Async | N  |  39  |
+==================================================================================
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/inert_intf.sv:203: unsigned to signed assignment occurs. (VER-318)
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/inert_intf.sv:204: unsigned to signed assignment occurs. (VER-318)
+
+Statistics for case statements in always block in file
+	'/filespace/v/vaseidel/ece551/designvision/src/inert_intf.sv'
+===========================================================
+|    Line    |  full/ parallel  |      block location     |
+===========================================================
+|    104     |    auto/auto     | always block at line 93 |
+===========================================================
+
+Inferred memory devices in process in routine 'inert_intf' in file
+	 /filespace/v/vaseidel/ece551/designvision/src/inert_intf.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|     INT_ff2_reg     | Flip-flop |   1   |  N  | N  | None  | Async | N  |  64  |
+|     INT_ff1_reg     | Flip-flop |   1   |  N  | N  | None  | Async | N  |  64  |
+|      state_reg      | Flip-flop |   4   |  Y  | N  | None  | Async | N  |  76  |
+|      timer_reg      | Flip-flop |  16   |  Y  | N  | None  | Async | N  |  85  |
+|    ptch_rt_l_reg    | Flip-flop |   8   |  Y  | N  | None  | None  | N  | 187  |
+|    ptch_rt_h_reg    | Flip-flop |   8   |  Y  | N  | None  | None  | N  | 191  |
+|       AZl_reg       | Flip-flop |   8   |  Y  | N  | None  | None  | N  | 195  |
+|       AZh_reg       | Flip-flop |   8   |  Y  | N  | None  | None  | N  | 199  |
+==================================================================================
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/steer_en.sv:32: signed to unsigned assignment occurs. (VER-318)
+
+Statistics for case statements in always block in file
+	'/filespace/v/vaseidel/ece551/designvision/src/steer_en.sv'
+===========================================================
+|    Line    |  full/ parallel  |      block location     |
+===========================================================
+|     80     |    auto/auto     | always block at line 74 |
+===========================================================
+
+Inferred memory devices in process in routine 'steer_en' in file
+	 /filespace/v/vaseidel/ece551/designvision/src/steer_en.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|       tmr_reg       | Flip-flop |  26   |  Y  | N  | None  | Async | N  |  42  |
+|      state_reg      | Flip-flop |   2   |  Y  | N  | None  | Async | N  |  65  |
+==================================================================================
+
+Inferred memory devices in process in routine 'mtr_drv' in file
+	 /filespace/v/vaseidel/ece551/designvision/src/mtr_drv.sv'.
+====================================================================================
+|     Register Name     |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+====================================================================================
+|  rght_spd_synch_reg   | Flip-flop |   9   |  Y  | N  | Async | Async | N  |  39  |
+|   lft_spd_synch_reg   | Flip-flop |   9   |  Y  | N  | Async | Async | N  |  39  |
+|     OVR_I_ff3_reg     | Flip-flop |   1   |  N  | N  | None  | Async | N  |  66  |
+|     OVR_I_ff1_reg     | Flip-flop |   1   |  N  | N  | None  | Async | N  |  66  |
+|     OVR_I_ff2_reg     | Flip-flop |   1   |  N  | N  | None  | Async | N  |  66  |
+|     OVR_I_cnt_reg     | Flip-flop |   5   |  Y  | N  | None  | Async | N  |  85  |
+| OVR_I_inc_blank_n_reg | Flip-flop |   1   |  N  | N  | None  | None  | N  | 103  |
+|   PWM_cycle_cnt_reg   | Flip-flop |   4   |  Y  | N  | None  | Async | N  | 114  |
+|   OVR_I_shtdwn_reg    | Flip-flop |   1   |  N  | N  | None  | Async | N  | 123  |
+====================================================================================
+
+Statistics for case statements in always block in file
+	'/filespace/v/vaseidel/ece551/designvision/src/A2D_Intf.sv'
+===========================================================
+|    Line    |  full/ parallel  |      block location     |
+===========================================================
+|     54     |    auto/auto     | always block at line 45 |
+|     64     |    auto/auto     | always block at line 45 |
+|     86     |    auto/auto     | always block at line 45 |
+===========================================================
+
+Inferred memory devices in process in routine 'A2D_intf' in file
+	 /filespace/v/vaseidel/ece551/designvision/src/A2D_Intf.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|    robin_cnt_reg    | Flip-flop |   3   |  Y  | N  | None  | Async | N  |  98  |
+|    currState_reg    | Flip-flop |   2   |  Y  | N  | None  | Async | N  | 106  |
+|      batt_reg       | Flip-flop |  12   |  Y  | N  | None  | Async | N  | 113  |
+|     lft_ld_reg      | Flip-flop |  12   |  Y  | N  | None  | Async | N  | 113  |
+|     rght_ld_reg     | Flip-flop |  12   |  Y  | N  | None  | Async | N  | 113  |
+|    steer_pot_reg    | Flip-flop |  12   |  Y  | N  | None  | Async | N  | 113  |
+==================================================================================
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/piezo_drv.sv:66: signed to unsigned conversion occurs. (VER-318)
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/piezo_drv.sv:174: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block in file
+	'/filespace/v/vaseidel/ece551/designvision/src/piezo_drv.sv'
+============================================================
+|    Line    |  full/ parallel  |      block location      |
+============================================================
+|    114     |    auto/auto     | always block at line 107 |
+============================================================
+
+Inferred memory devices in process in routine 'piezo_drv' in file
+	 /filespace/v/vaseidel/ece551/designvision/src/piezo_drv.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+| duration_timer_reg  | Flip-flop |  32   |  Y  | N  | None  | Async | N  |  46  |
+|  repeat_timer_reg   | Flip-flop |  32   |  Y  | N  | None  | Async | N  |  59  |
+|     toggle_reg      | Flip-flop |   1   |  N  | N  | None  | None  | N  |  78  |
+| period_counter_reg  | Flip-flop |  32   |  Y  | N  | None  | Async | N  |  78  |
+|     piezo_n_reg     | Flip-flop |   1   |  N  | N  | None  | Async | N  |  94  |
+|      piezo_reg      | Flip-flop |   1   |  N  | N  | None  | Async | N  |  94  |
+|  current_state_reg  | Flip-flop |   4   |  Y  | N  | None  | Async | N  | 212  |
+==================================================================================
+
+Inferred memory devices in process in routine 'rst_synch' in file
+	 /filespace/v/vaseidel/ece551/designvision/src/rst_synch.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|   rst_n_inter_reg   | Flip-flop |   1   |  N  | N  | None  | Async | N  |  7   |
+|      rst_n_reg      | Flip-flop |   1   |  N  | N  | None  | Async | N  |  14  |
+==================================================================================
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/uart_rx.sv:89: signed to unsigned part selection occurs. (VER-318)
+
+Statistics for case statements in always block in file
+	'/filespace/v/vaseidel/ece551/designvision/src/uart_rx.sv'
+===========================================================
+|    Line    |  full/ parallel  |      block location     |
+===========================================================
+|     89     |    auto/auto     | always block at line 82 |
+===========================================================
+
+Inferred memory devices in process in routine 'UART_rx' in file
+	 /filespace/v/vaseidel/ece551/designvision/src/uart_rx.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|    baud_cnt_reg     | Flip-flop |  13   |  Y  | N  | None  | Async | N  |  24  |
+|    cur_state_reg    | Flip-flop |  32   |  Y  | N  | None  | Async | N  |  37  |
+|     bit_cnt_reg     | Flip-flop |   4   |  Y  | N  | None  | Async | N  |  45  |
+|   rx_dbl_ff_1_reg   | Flip-flop |   1   |  N  | N  | Async | None  | N  |  59  |
+|   rx_dbl_ff_2_reg   | Flip-flop |   1   |  N  | N  | Async | None  | N  |  66  |
+|   rx_shft_reg_reg   | Flip-flop |   9   |  Y  | N  | None  | None  | N  | 113  |
+|       rdy_reg       | Flip-flop |   1   |  N  | N  | None  | Async | N  | 122  |
+==================================================================================
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/uart_tx.sv:76: signed to unsigned part selection occurs. (VER-318)
+
+Statistics for case statements in always block in file
+	'/filespace/v/vaseidel/ece551/designvision/src/uart_tx.sv'
+===========================================================
+|    Line    |  full/ parallel  |      block location     |
+===========================================================
+|     76     |    auto/auto     | always block at line 68 |
+===========================================================
+
+Inferred memory devices in process in routine 'UART_tx' in file
+	 /filespace/v/vaseidel/ece551/designvision/src/uart_tx.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|   tx_shft_reg_reg   | Flip-flop |   9   |  Y  | N  | Async | None  | N  |  22  |
+|    baud_cnt_reg     | Flip-flop |  13   |  Y  | N  | None  | None  | N  |  35  |
+|     bit_cnt_reg     | Flip-flop |   4   |  Y  | N  | None  | None  | N  |  47  |
+|    cur_state_reg    | Flip-flop |  32   |  Y  | N  | None  | Async | N  |  56  |
+|     tx_done_reg     | Flip-flop |   1   |  N  | N  | None  | Async | N  |  98  |
+==================================================================================
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/SPI_mnrch.sv:82: signed to unsigned part selection occurs. (VER-318)
+
+Statistics for case statements in always block in file
+	'/filespace/v/vaseidel/ece551/designvision/src/SPI_mnrch.sv'
+===========================================================
+|    Line    |  full/ parallel  |      block location     |
+===========================================================
+|     82     |    auto/auto     | always block at line 75 |
+===========================================================
+
+Inferred memory devices in process in routine 'SPI_mnrch' in file
+	 /filespace/v/vaseidel/ece551/designvision/src/SPI_mnrch.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|    SCLK_div_reg     | Flip-flop |   4   |  Y  | N  | None  | None  | N  |  25  |
+|    bit_cntr_reg     | Flip-flop |   4   |  Y  | N  | None  | None  | N  |  39  |
+|    MISO_SMPL_reg    | Flip-flop |   1   |  N  | N  | None  | None  | N  |  50  |
+|    shft_reg_reg     | Flip-flop |  16   |  Y  | N  | None  | None  | N  |  57  |
+|    cur_state_reg    | Flip-flop |  32   |  Y  | N  | None  | Async | N  | 117  |
+|      done_reg       | Flip-flop |   1   |  N  | N  | None  | Async | N  | 125  |
+|      SS_n_reg       | Flip-flop |   1   |  N  | N  | Async | None  | N  | 133  |
+==================================================================================
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/segway_math.sv:57: unsigned to signed assignment occurs. (VER-318)
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/segway_math.sv:61: signed to unsigned part selection occurs. (VER-318)
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/segway_math.sv:124: signed to unsigned part selection occurs. (VER-318)
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/segway_math.sv:128: signed to unsigned part selection occurs. (VER-318)
+
+Inferred memory devices in process in routine 'SegwayMath' in file
+	 /filespace/v/vaseidel/ece551/designvision/src/segway_math.sv'.
+=======================================================================================
+|      Register Name       |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+=======================================================================================
+|     pwr_up_pipeA_reg     | Flip-flop |   1   |  N  | N  | None  | Async | N  |  29  |
+| PID_ss_unscaled_pipe_reg | Flip-flop |  12   |  Y  | N  | None  | Async | N  |  29  |
+|   steer_pot_pipeA_reg    | Flip-flop |  12   |  Y  | N  | None  | Async | N  |  29  |
+|    en_steer_pipeA_reg    | Flip-flop |   1   |  N  | N  | None  | Async | N  |  29  |
+|     pwr_up_pipeB_reg     | Flip-flop |   1   |  N  | N  | None  | Async | N  |  82  |
+|   lft_torque_pipe_reg    | Flip-flop |  13   |  Y  | N  | None  | Async | N  |  82  |
+|   rght_torque_pipe_reg   | Flip-flop |  13   |  Y  | N  | None  | Async | N  |  82  |
+|   rght_shaped_pipe_reg   | Flip-flop |  13   |  Y  | N  | None  | Async | N  | 108  |
+|   lft_shaped_pipe_reg    | Flip-flop |  13   |  Y  | N  | None  | Async | N  | 108  |
+|       too_fast_reg       | Flip-flop |   1   |  N  | N  | None  | Async | N  | 135  |
+|       lft_spd_reg        | Flip-flop |  12   |  Y  | N  | None  | Async | N  | 135  |
+|       rght_spd_reg       | Flip-flop |  12   |  Y  | N  | None  | Async | N  | 135  |
+=======================================================================================
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/segway_math.sv:171: signed to unsigned part selection occurs. (VER-318)
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/segway_math.sv:173: signed to unsigned conversion occurs. (VER-318)
+
+Inferred memory devices in process in routine 'PWM11' in file
+	 /filespace/v/vaseidel/ece551/designvision/src/PWM11.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|       cnt_reg       | Flip-flop |  11   |  Y  | N  | None  | Async | N  |  24  |
+|     pwm1_ff_reg     | Flip-flop |   1   |  N  | N  | None  | Async | N  |  39  |
+|     pwm2_ff_reg     | Flip-flop |   1   |  N  | N  | Async | None  | N  |  51  |
+==================================================================================
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/inertial_integrator.sv:32: unsigned to signed assignment occurs. (VER-318)
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/inertial_integrator.sv:39: signed to unsigned part selection occurs. (VER-318)
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/inertial_integrator.sv:59: signed to unsigned part selection occurs. (VER-318)
+
+Inferred memory devices in process in routine 'inertial_integrator' in file
+	 /filespace/v/vaseidel/ece551/designvision/src/inertial_integrator.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|      ptch_reg       | Flip-flop |  16   |  Y  | N  | None  | Async | N  |  50  |
+|    ptch_int_reg     | Flip-flop |  27   |  Y  | N  | None  | Async | N  |  50  |
+==================================================================================
+Presto compilation completed successfully.
+Loaded 16 designs.
+Current design is 'Segway'.
+Segway Auth_blk inert_intf balance_cntrl steer_en mtr_drv A2D_intf piezo_drv rst_synch UART_rx UART_tx SPI_mnrch SegwayMath DeadzoneShaping PWM11 inertial_integrator
+# Set the current design 
+set current_design Segway
+Segway
+#########################################################################
+# Clock Definition and Constraints
+#########################################################################
+# Define 333MHz clock (period = 3ns)
+create_clock -name "clk" -period 3 -waveform {0 1} {clk}
+Information: Building the design 'inert_intf' instantiated from design 'Segway' with
+	the parameters "0". (HDL-193)
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/inert_intf.sv:203: unsigned to signed assignment occurs. (VER-318)
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/inert_intf.sv:204: unsigned to signed assignment occurs. (VER-318)
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/inert_intf.sv:209: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block in file
+	'/filespace/v/vaseidel/ece551/designvision/src/inert_intf.sv'
+===========================================================
+|    Line    |  full/ parallel  |      block location     |
+===========================================================
+|    104     |    auto/auto     | always block at line 93 |
+===========================================================
+
+Inferred memory devices in process in routine 'inert_intf_fast_sim0' in file
+	 /filespace/v/vaseidel/ece551/designvision/src/inert_intf.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|     INT_ff2_reg     | Flip-flop |   1   |  N  | N  | None  | Async | N  |  64  |
+|     INT_ff1_reg     | Flip-flop |   1   |  N  | N  | None  | Async | N  |  64  |
+|      state_reg      | Flip-flop |   4   |  Y  | N  | None  | Async | N  |  76  |
+|      timer_reg      | Flip-flop |  16   |  Y  | N  | None  | Async | N  |  85  |
+|    ptch_rt_l_reg    | Flip-flop |   8   |  Y  | N  | None  | None  | N  | 187  |
+|    ptch_rt_h_reg    | Flip-flop |   8   |  Y  | N  | None  | None  | N  | 191  |
+|       AZl_reg       | Flip-flop |   8   |  Y  | N  | None  | None  | N  | 195  |
+|       AZh_reg       | Flip-flop |   8   |  Y  | N  | None  | None  | N  | 199  |
+==================================================================================
+Presto compilation completed successfully. (inert_intf_fast_sim0)
+Module: inert_intf_fast_sim0, Ports: 40, Input: 4, Output: 36, Inout: 0
+Module: inert_intf_fast_sim0, Registers: 54, Async set/reset: 22, Sync set/reset: 0
+Information: Module inert_intf_fast_sim0 report end. (ELAB-965)
+Information: Building the design 'balance_cntrl' instantiated from design 'Segway' with
+	the parameters "0". (HDL-193)
+Presto compilation completed successfully. (balance_cntrl_fast_sim0)
+Module: balance_cntrl_fast_sim0, Ports: 116, Input: 71, Output: 45, Inout: 0
+Module: balance_cntrl_fast_sim0, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Information: Module balance_cntrl_fast_sim0 report end. (ELAB-965)
+Information: Building the design 'steer_en' instantiated from design 'Segway' with
+	the parameters "0". (HDL-193)
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/steer_en.sv:32: signed to unsigned assignment occurs. (VER-318)
+
+Statistics for case statements in always block in file
+	'/filespace/v/vaseidel/ece551/designvision/src/steer_en.sv'
+===========================================================
+|    Line    |  full/ parallel  |      block location     |
+===========================================================
+|     80     |    auto/auto     | always block at line 74 |
+===========================================================
+
+Inferred memory devices in process in routine 'steer_en_fast_sim0' in file
+	 /filespace/v/vaseidel/ece551/designvision/src/steer_en.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|       tmr_reg       | Flip-flop |  26   |  Y  | N  | None  | Async | N  |  42  |
+|      state_reg      | Flip-flop |   2   |  Y  | N  | None  | Async | N  |  65  |
+==================================================================================
+Presto compilation completed successfully. (steer_en_fast_sim0)
+Module: steer_en_fast_sim0, Ports: 28, Input: 26, Output: 2, Inout: 0
+Module: steer_en_fast_sim0, Registers: 28, Async set/reset: 28, Sync set/reset: 0
+Information: Module steer_en_fast_sim0 report end. (ELAB-965)
+Information: Building the design 'piezo_drv' instantiated from design 'Segway' with
+	the parameters "0". (HDL-193)
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/piezo_drv.sv:66: signed to unsigned conversion occurs. (VER-318)
+Warning:  /filespace/v/vaseidel/ece551/designvision/src/piezo_drv.sv:174: signed to unsigned conversion occurs. (VER-318)
+
+Statistics for case statements in always block in file
+	'/filespace/v/vaseidel/ece551/designvision/src/piezo_drv.sv'
+============================================================
+|    Line    |  full/ parallel  |      block location      |
+============================================================
+|    114     |    auto/auto     | always block at line 107 |
+============================================================
+
+Inferred memory devices in process in routine 'piezo_drv_fast_sim0' in file
+	 /filespace/v/vaseidel/ece551/designvision/src/piezo_drv.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+| duration_timer_reg  | Flip-flop |  32   |  Y  | N  | None  | Async | N  |  46  |
+|  repeat_timer_reg   | Flip-flop |  32   |  Y  | N  | None  | Async | N  |  59  |
+|     toggle_reg      | Flip-flop |   1   |  N  | N  | None  | None  | N  |  78  |
+| period_counter_reg  | Flip-flop |  32   |  Y  | N  | None  | Async | N  |  78  |
+|     piezo_n_reg     | Flip-flop |   1   |  N  | N  | None  | Async | N  |  94  |
+|      piezo_reg      | Flip-flop |   1   |  N  | N  | None  | Async | N  |  94  |
+|  current_state_reg  | Flip-flop |   4   |  Y  | N  | None  | Async | N  | 212  |
+==================================================================================
+Presto compilation completed successfully. (piezo_drv_fast_sim0)
+Module: piezo_drv_fast_sim0, Ports: 7, Input: 5, Output: 2, Inout: 0
+Module: piezo_drv_fast_sim0, Registers: 103, Async set/reset: 102, Sync set/reset: 0
+Information: Module piezo_drv_fast_sim0 report end. (ELAB-965)
+Information: Building the design 'PID' instantiated from design 'balance_cntrl_fast_sim0' with
+	the parameters "0". (HDL-193)
+Warning: Cannot find the design 'PID' in the library 'WORK'. (LBR-1)
+Warning: Unable to resolve reference 'PID' in 'balance_cntrl_fast_sim0'. (LINK-5)
+Information: Search path: '. /cae/apps/data/saed32_edk-2022/lib/stdcell_rvt/db_nldm /cae/apps/data/saed32_edk-2022/lib/stdcell_lvt/db_nldm /cae/apps/data/saed32_edk-2022/lib/stdcell_hvt/db_nldm /cae/apps/data/saed32_edk-2022/lib/io_std/db_nldm'. (LINK-1801)
+Information: List of linked libraries: 'saed32rvt_tt0p85v25c.db saed32io_wb_tt1p05v25c_2p5v.db * /cae/apps/data/synopsys-2025/syn/X-2025.06/libraries/syn/gtech.db /cae/apps/data/synopsys-2025/syn/X-2025.06/libraries/syn/standard.sldb'. (LINK-1802)
+Warning: Design 'Segway' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+1
+# Set don't touch on clock network
+set_dont_touch_network [get_clocks clk]
+Warning: Design 'Segway' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+Warning: Design 'Segway' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+1
+#########################################################################
+# Input Constraints
+#########################################################################
+set prim_inputs [remove_from_collection [all_inputs] [find port clk]]
+{RST_n INERT_MISO INERT_INT A2D_MISO OVR_I_lft OVR_I_rght RX}
+set_input_delay -clock clk 0.25 $prim_inputs
+Warning: Design 'Segway' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+1
+set_driving_cell -lib_cell NAND2X2_RVT -library saed32rvt_tt0p85v25c $prim_inputs
+Warning: Design 'Segway' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+Warning: Design rule attributes from the driving cell will be set on the port 'RST_n'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'INERT_MISO'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'INERT_INT'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'A2D_MISO'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'OVR_I_lft'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'OVR_I_rght'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'RX'. (UID-401)
+1
+## set_drive 0.0001 rst_n //not sure if needed
+#########################################################################
+# Output Constraints  
+#########################################################################
+# Define output delay of 0.75ns on all outputs
+set_output_delay 0.35 -clock clk [all_outputs]
+Warning: Design 'Segway' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+1
+# Define 50fF load on all outputs
+set_load 0.05 [all_outputs]
+1
+#########################################################################
+# Design Rule Constraints
+#########################################################################
+# Set maximum transition time of 0.10ns on all nodes
+set_max_transition 0.10 [current_design]
+1
+#########################################################################
+# Wire Load Model
+#########################################################################
+# Set Synopsys 32nm wire load model for 16000 sq micron block
+set_wire_load_model -name "16000" -library saed32rvt_tt0p85v25c
+Warning: Design 'Segway' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+1
+#########################################################################
+# Compilation Flow
+#########################################################################
+# First pass: compile and flatten to get gate-level netlist
+compile -map_effort low
+Warning: Design 'Segway' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+Warning: The compile -map_effort low is obsolete. Setting this variable now defaults to compile -map_effort medium. Please update your script accordingly. (OPT-1303)
+CPU Load: 1%, Ram Free: 4 GB, Swap Free: 1 GB, Work Disk Free: 34 GB, Tmp Disk Free: 819 GB
+Warning: Setting attribute 'fix_multiple_port_nets' on design 'Segway'. (UIO-59)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | X-2025.06-DWBB_202506.0 |     *     |
+| Licensed DW Building Blocks        |                         |           |
+============================================================================
+
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler                                                                   |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 2098                                   |
+| Number of User Hierarchies                              | 17                                     |
+| Sequential Cell Count                                   | 712                                    |
+| Macro Count                                             | 0                                      |
+| Pad Count                                               | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 2                                      |
+| Number of VT Class                                      | 1                                      |
+| Number of Clocks                                        | 1                                      |
+| Number of Dont Touch Cells                              | 447                                    |
+| Number of Dont Touch Nets                               | 16                                     |
+| Number of Size Only Cells                               | 35                                     |
+| Design with Target Library Subset (with clock_path)     | false  (false )                        |
+| Design with UPF Data                                    | false                                  |
+====================================================================================================
+
+Information: There are 132 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+
+Warning: Operating condition tt0p85v25c set on design Segway has different process,
+voltage and temperatures parameters than the parameters at which target library 
+saed32io_wb_tt1p05v25c_2p5v is characterized. Delays may be inaccurate as a result. (OPT-998)
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'rst_synch'
+  Processing 'piezo_drv_fast_sim0'
+Information: The register 'current_state_reg[3]' is a constant and will be removed. (OPT-1206)
+  Processing 'SPI_mnrch_0'
+Module: DW01_inc_width4, Ports: 8, Input: 4, Output: 4, Inout: 0
+Module: DW01_inc_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Information: The register 'cur_state_reg[31]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[30]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[29]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[28]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[27]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[26]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[25]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[24]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[23]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[22]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[21]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[20]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[19]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[18]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[17]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[16]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[15]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[14]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[13]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[12]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[11]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[10]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[9]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[8]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[7]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[6]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[2]' is a constant and will be removed. (OPT-1206)
+  Processing 'A2D_intf'
+Module: DW01_inc_width3, Ports: 6, Input: 3, Output: 3, Inout: 0
+Module: DW01_inc_width3, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'PWM11_0'
+  Processing 'mtr_drv'
+  Processing 'steer_en_fast_sim0'
+  Processing 'DeadzoneShaping_0'
+  Processing 'SegwayMath'
+  Processing 'balance_cntrl_fast_sim0'
+  Processing 'inertial_integrator'
+  Processing 'inert_intf_fast_sim0'
+  Processing 'UART_rx'
+Information: The register 'cur_state_reg[31]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[30]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[29]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[28]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[27]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[26]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[25]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[24]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[23]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[22]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[21]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[20]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[19]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[18]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[17]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[16]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[15]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[14]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[13]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[12]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[11]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[10]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[9]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[8]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[7]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[6]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cur_state_reg[1]' is a constant and will be removed. (OPT-1206)
+  Processing 'Auth_blk'
+  Processing 'Segway'
+Information: Building the design 'PID' instantiated from design 'balance_cntrl_fast_sim0' with
+	the parameters "0". (HDL-193)
+Warning: Cannot find the design 'PID' in the library 'WORK'. (LBR-1)
+Warning: Unable to resolve reference 'PID' in 'balance_cntrl_fast_sim0'. (LINK-5)
+Information: Search path: '. /cae/apps/data/saed32_edk-2022/lib/stdcell_rvt/db_nldm /cae/apps/data/saed32_edk-2022/lib/stdcell_lvt/db_nldm /cae/apps/data/saed32_edk-2022/lib/stdcell_hvt/db_nldm /cae/apps/data/saed32_edk-2022/lib/io_std/db_nldm'. (LINK-1801)
+Information: List of linked libraries: 'saed32rvt_tt0p85v25c.db saed32io_wb_tt1p05v25c_2p5v.db * /cae/apps/data/synopsys-2025/syn/X-2025.06/libraries/syn/gtech.db /cae/apps/data/synopsys-2025/syn/X-2025.06/libraries/syn/standard.sldb'. (LINK-1802)
+Warning: Design 'Segway' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+
+  Beginning Implementation Selection
+  ----------------------------------
+Module: DW01_cmp2_width32, Ports: 68, Input: 66, Output: 2, Inout: 0
+Module: DW01_cmp2_width32, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'piezo_drv_fast_sim0_DW01_cmp2_0'
+Module: DW01_inc_width32, Ports: 64, Input: 32, Output: 32, Inout: 0
+Module: DW01_inc_width32, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'piezo_drv_fast_sim0_DW01_inc_0_DW01_inc_5'
+  Processing 'piezo_drv_fast_sim0_DW01_cmp2_1'
+Module: DW01_sub_width32, Ports: 98, Input: 65, Output: 33, Inout: 0
+Module: DW01_sub_width32, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'piezo_drv_fast_sim0_DW01_sub_0'
+  Processing 'piezo_drv_fast_sim0_DW01_cmp2_2'
+Module: DW01_dec_width5, Ports: 10, Input: 5, Output: 5, Inout: 0
+Module: DW01_dec_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'mtr_drv_DW01_dec_0'
+Module: DW01_inc_width5, Ports: 10, Input: 5, Output: 5, Inout: 0
+Module: DW01_inc_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'mtr_drv_DW01_inc_0_DW01_inc_6'
+Module: DW01_add_width12, Ports: 38, Input: 25, Output: 13, Inout: 0
+Module: DW01_add_width12, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'mtr_drv_DW01_add_0'
+  Processing 'mtr_drv_DW01_add_1'
+Module: DW01_cmp2_width11, Ports: 26, Input: 24, Output: 2, Inout: 0
+Module: DW01_cmp2_width11, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'PWM11_1_DW01_cmp2_0_DW01_cmp2_3'
+Module: DW01_add_width11, Ports: 35, Input: 23, Output: 12, Inout: 0
+Module: DW01_add_width11, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'PWM11_1_DW01_add_0_DW01_add_2'
+  Processing 'PWM11_1_DW01_cmp2_1_DW01_cmp2_4'
+  Processing 'PWM11_1_DW01_cmp2_2_DW01_cmp2_5'
+Module: DW01_inc_width11, Ports: 22, Input: 11, Output: 11, Inout: 0
+Module: DW01_inc_width11, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'PWM11_1_DW01_inc_0_DW01_inc_7'
+Module: DW01_cmp6_width11, Ports: 29, Input: 23, Output: 6, Inout: 0
+Module: DW01_cmp6_width11, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'PWM11_1_DW01_cmp6_0'
+  Processing 'PWM11_1_DW01_add_1_DW01_add_3'
+  Processing 'PWM11_0_DW01_cmp2_0_DW01_cmp2_6'
+  Processing 'PWM11_0_DW01_add_0_DW01_add_4'
+  Processing 'PWM11_0_DW01_cmp2_1_DW01_cmp2_7'
+  Processing 'PWM11_0_DW01_cmp2_2_DW01_cmp2_8'
+  Processing 'PWM11_0_DW01_inc_0_DW01_inc_8'
+  Processing 'PWM11_0_DW01_cmp6_0_DW01_cmp6_1'
+  Processing 'PWM11_0_DW01_add_1_DW01_add_5'
+Module: DW01_inc_width26, Ports: 52, Input: 26, Output: 26, Inout: 0
+Module: DW01_inc_width26, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'steer_en_fast_sim0_DW01_inc_0_DW01_inc_9'
+Module: DW01_cmp2_width13, Ports: 30, Input: 28, Output: 2, Inout: 0
+Module: DW01_cmp2_width13, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'steer_en_fast_sim0_DW01_cmp2_0_DW01_cmp2_9'
+  Processing 'steer_en_fast_sim0_DW01_cmp2_1_DW01_cmp2_10'
+  Processing 'steer_en_fast_sim0_DW01_cmp2_2_DW01_cmp2_11'
+  Processing 'steer_en_fast_sim0_DW01_cmp2_3_DW01_cmp2_12'
+Module: DW01_sub_width12, Ports: 38, Input: 25, Output: 13, Inout: 0
+Module: DW01_sub_width12, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'steer_en_fast_sim0_DW01_sub_0_DW01_sub_1'
+Module: DW01_cmp2_width12, Ports: 28, Input: 26, Output: 2, Inout: 0
+Module: DW01_cmp2_width12, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'steer_en_fast_sim0_DW01_cmp2_4_DW01_cmp2_13'
+  Processing 'steer_en_fast_sim0_DW01_sub_1_DW01_sub_2'
+  Processing 'SegwayMath_DW01_cmp2_0_DW01_cmp2_14'
+  Processing 'SegwayMath_DW01_cmp2_1_DW01_cmp2_15'
+Module: DW01_sub_width13, Ports: 41, Input: 27, Output: 14, Inout: 0
+Module: DW01_sub_width13, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'SegwayMath_DW01_sub_0_DW01_sub_3'
+Module: DW01_add_width13, Ports: 41, Input: 27, Output: 14, Inout: 0
+Module: DW01_add_width13, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'SegwayMath_DW01_add_0_DW01_add_6'
+  Processing 'SegwayMath_DW01_add_1_DW01_add_7'
+  Processing 'SegwayMath_DW01_sub_1_DW01_sub_4'
+  Processing 'SegwayMath_DW01_cmp2_2_DW01_cmp2_16'
+  Processing 'DeadzoneShaping_1_DW01_cmp2_0_DW01_cmp2_17'
+Module: DW01_inc_width12, Ports: 24, Input: 12, Output: 12, Inout: 0
+Module: DW01_inc_width12, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'DeadzoneShaping_1_DW01_inc_0_DW01_inc_10'
+  Processing 'DeadzoneShaping_1_DW01_add_0_DW01_add_8'
+  Processing 'DeadzoneShaping_1_DW01_sub_0_DW01_sub_5'
+  Processing 'DeadzoneShaping_0_DW01_cmp2_0_DW01_cmp2_18'
+  Processing 'DeadzoneShaping_0_DW01_inc_0_DW01_inc_11'
+  Processing 'DeadzoneShaping_0_DW01_add_0_DW01_add_9'
+  Processing 'DeadzoneShaping_0_DW01_sub_0_DW01_sub_6'
+Module: DW01_cmp2_width16, Ports: 36, Input: 34, Output: 2, Inout: 0
+Module: DW01_cmp2_width16, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'inert_intf_fast_sim0_DW01_cmp2_0_DW01_cmp2_19'
+  Processing 'inert_intf_fast_sim0_DW01_cmp2_1_DW01_cmp2_20'
+Module: DW01_inc_width16, Ports: 32, Input: 16, Output: 16, Inout: 0
+Module: DW01_inc_width16, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'inert_intf_fast_sim0_DW01_inc_0_DW01_inc_12'
+  Processing 'inertial_integrator_DW01_cmp2_0_DW01_cmp2_21'
+Module: DW01_sub_width16, Ports: 50, Input: 33, Output: 17, Inout: 0
+Module: DW01_sub_width16, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'inertial_integrator_DW01_sub_0_DW01_sub_7'
+  Processing 'inertial_integrator_DW01_sub_1_DW01_sub_8'
+Module: DW01_dec_width13, Ports: 26, Input: 13, Output: 13, Inout: 0
+Module: DW01_dec_width13, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'UART_rx_DW01_dec_0_DW01_dec_1'
+Module: DW02_mult_A_width9_B_width12, Ports: 43, Input: 22, Output: 21, Inout: 0
+Module: DW02_mult_A_width9_B_width12, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Allocating blocks in 'DW02_mult_A_width9_B_width12'
+Module: DW01_MUX, Ports: 4, Input: 3, Output: 1, Inout: 0
+Module: DW01_MUX, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_MUX'
+  Processing 'DW01_MUX'
+Module: DW01_mmux_width2, Ports: 7, Input: 5, Output: 2, Inout: 0
+Module: DW01_mmux_width2, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_mmux_width2'
+  Processing 'DW01_mmux_width2'
+Module: DW01_mmux_width3, Ports: 10, Input: 7, Output: 3, Inout: 0
+Module: DW01_mmux_width3, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_mmux_width3'
+  Processing 'DW01_mmux_width3'
+Module: DW01_mmux_width4, Ports: 13, Input: 9, Output: 4, Inout: 0
+Module: DW01_mmux_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_mmux_width4'
+  Processing 'DW01_mmux_width4'
+Module: DW01_mmux_width5, Ports: 16, Input: 11, Output: 5, Inout: 0
+Module: DW01_mmux_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_mmux_width5'
+  Processing 'DW01_mmux_width5'
+Module: DW01_add_width19, Ports: 59, Input: 39, Output: 20, Inout: 0
+Module: DW01_add_width19, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_NAND2, Ports: 3, Input: 2, Output: 1, Inout: 0
+Module: DW01_NAND2, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_NAND2'
+  Processing 'DW01_NAND2'
+  Building model 'DW01_add_width19' (cla)
+  Processing 'DW01_add_width19'
+  Building model 'DW02_mult_A_width9_B_width12' (csa)
+  Processing 'DW02_mult_A_width9_B_width12'
+  Building model 'DW01_add_width13' (rpl)
+  Processing 'DW01_add_width13'
+Module: DW01_add_width13, Ports: 41, Input: 27, Output: 14, Inout: 0
+Module: DW01_add_width13, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_add_width13' (cla)
+  Processing 'DW01_add_width13'
+Module: DW02_mult_A_width9_B_width4, Ports: 27, Input: 14, Output: 13, Inout: 0
+Module: DW02_mult_A_width9_B_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Allocating blocks in 'DW02_mult_A_width9_B_width4'
+Module: DW01_add_width11, Ports: 35, Input: 23, Output: 12, Inout: 0
+Module: DW01_add_width11, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_add_width11' (cla)
+  Processing 'DW01_add_width11'
+  Building model 'DW02_mult_A_width9_B_width4' (csa)
+  Processing 'DW02_mult_A_width9_B_width4'
+Module: DW02_mult_A_width4_B_width9, Ports: 27, Input: 14, Output: 13, Inout: 0
+Module: DW02_mult_A_width4_B_width9, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Allocating blocks in 'DW02_mult_A_width4_B_width9'
+  Building model 'DW02_mult_A_width4_B_width9' (csa)
+  Processing 'DW02_mult_A_width4_B_width9'
+Module: DW02_mult_A_width16_B_width10, Ports: 53, Input: 27, Output: 26, Inout: 0
+Module: DW02_mult_A_width16_B_width10, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Allocating blocks in 'DW02_mult_A_width16_B_width10'
+Module: DW01_add_width24, Ports: 74, Input: 49, Output: 25, Inout: 0
+Module: DW01_add_width24, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_add_width24' (cla)
+  Processing 'DW01_add_width24'
+  Building model 'DW02_mult_A_width16_B_width10' (csa)
+  Processing 'DW02_mult_A_width16_B_width10'
+Module: DW01_add_width27, Ports: 83, Input: 55, Output: 28, Inout: 0
+Module: DW01_add_width27, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_add_width27' (rpl)
+  Processing 'DW01_add_width27'
+Module: DW01_add_width27, Ports: 83, Input: 55, Output: 28, Inout: 0
+Module: DW01_add_width27, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_add_width27' (cla)
+  Processing 'DW01_add_width27'
+Module: DW01_sub_width27, Ports: 83, Input: 55, Output: 28, Inout: 0
+Module: DW01_sub_width27, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_sub_width27' (rpl)
+  Processing 'DW01_sub_width27'
+Module: DW01_sub_width27, Ports: 83, Input: 55, Output: 28, Inout: 0
+Module: DW01_sub_width27, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_sub_width27' (cla)
+  Processing 'DW01_sub_width27'
+Module: DW01_add_width32, Ports: 98, Input: 65, Output: 33, Inout: 0
+Module: DW01_add_width32, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_add_width32' (rpl)
+  Processing 'DW01_add_width32'
+Module: DW01_add_width32, Ports: 98, Input: 65, Output: 33, Inout: 0
+Module: DW01_add_width32, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_add_width32' (cla)
+  Processing 'DW01_add_width32'
+Module: DW02_mult_A_width32_B_width1, Ports: 67, Input: 34, Output: 33, Inout: 0
+Module: DW02_mult_A_width32_B_width1, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Allocating blocks in 'DW02_mult_A_width32_B_width1'
+Module: DW01_absval_width32, Ports: 64, Input: 32, Output: 32, Inout: 0
+Module: DW01_absval_width32, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Allocating blocks in 'DW01_absval_width32'
+Module: DW01_inc_width32, Ports: 64, Input: 32, Output: 32, Inout: 0
+Module: DW01_inc_width32, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_inc_width32' (cla)
+  Processing 'DW01_inc_width32'
+  Building model 'DW01_absval_width32' (cla)
+  Processing 'DW01_absval_width32'
+Module: DW01_absval_width1, Ports: 2, Input: 1, Output: 1, Inout: 0
+Module: DW01_absval_width1, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Allocating blocks in 'DW01_absval_width1'
+Module: DW01_inc_width1, Ports: 2, Input: 1, Output: 1, Inout: 0
+Module: DW01_inc_width1, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_inc_width1' (cla)
+  Processing 'DW01_inc_width1'
+  Building model 'DW01_absval_width1' (cla)
+  Processing 'DW01_absval_width1'
+Module: DW01_inc_width33, Ports: 66, Input: 33, Output: 33, Inout: 0
+Module: DW01_inc_width33, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_inc_width33' (cla)
+  Processing 'DW01_inc_width33'
+  Building model 'DW02_mult_A_width32_B_width1' (csa)
+  Processing 'DW02_mult_A_width32_B_width1'
+Module: DW02_mult_A_width1_B_width32, Ports: 67, Input: 34, Output: 33, Inout: 0
+Module: DW02_mult_A_width1_B_width32, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Allocating blocks in 'DW02_mult_A_width1_B_width32'
+  Building model 'DW02_mult_A_width1_B_width32' (csa)
+  Processing 'DW02_mult_A_width1_B_width32'
+  Processing 'SegwayMath_DW02_mult_0'
+  Processing 'SegwayMath_DW01_add_2_DW01_add_10'
+  Processing 'steer_en_fast_sim0_DW02_mult_0_DW02_mult_1'
+  Processing 'steer_en_fast_sim0_DW01_add_0_DW01_add_11'
+  Processing 'steer_en_fast_sim0_DW01_add_1_DW01_add_12'
+  Processing 'inertial_integrator_DW02_mult_0_DW02_mult_2'
+  Processing 'inertial_integrator_DW01_add_0_DW01_add_13'
+  Processing 'inertial_integrator_DW01_add_1_DW01_add_14'
+  Processing 'inertial_integrator_DW01_sub_2_DW01_sub_9'
+  Processing 'piezo_drv_fast_sim0_DW01_add_0_DW01_add_15'
+  Processing 'piezo_drv_fast_sim0_DW02_mult_0_DW02_mult_3'
+
+  Beginning Mapping Optimizations  (Medium effort)
+  -------------------------------
+Module: DW01_add_width24, Ports: 74, Input: 49, Output: 25, Inout: 0
+Module: DW01_add_width24, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Mapping Optimization (Phase 1)
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:06   11760.5      1.54     102.9     495.6                          
+    0:00:06   11760.5      1.54     102.9     495.6                          
+
+  Beginning Delay Optimization Phase
+  ----------------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:06   11760.5      1.54     102.9     495.6                          
+Information: The register 'iBUZZ/repeat_timer_reg[2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[6]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[9]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[10]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[11]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[13]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[16]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[17]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[18]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[19]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[31]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[24]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[26]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[30]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[29]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[25]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[28]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/repeat_timer_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[10]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[11]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[12]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[13]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[14]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[15]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[16]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[17]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[18]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[19]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[20]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[21]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[22]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[23]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[24]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[25]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[26]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[27]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[28]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[29]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[30]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[31]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[6]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[7]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[8]' is a constant and will be removed. (OPT-1206)
+Information: The register 'iBUZZ/duration_timer_reg[9]' is a constant and will be removed. (OPT-1206)
+    0:00:06   11314.7      1.54      53.5     497.1                          
+    0:00:06   11314.7      1.54      53.5     497.1                          
+    0:00:06   11323.4      1.41      51.6     491.1 iNEMO/iINT/ptch_int_reg[26]/D
+    0:00:06   11333.6      1.37      51.1     486.2 iNEMO/iINT/ptch_int_reg[19]/D
+    0:00:07   11333.6      1.33      50.4     486.2 iNEMO/iINT/ptch_int_reg[19]/D
+    0:00:07   11345.8      1.32      50.3     486.2 iNEMO/iINT/ptch_int_reg[26]/D
+    0:00:07   11364.6      1.26      49.3     486.2 iNEMO/iINT/ptch_int_reg[26]/D
+    0:00:07   11378.8      1.23      48.8     486.2 iNEMO/iINT/ptch_int_reg[21]/D
+    0:00:07   11390.0      1.20      48.5     485.3 iNEMO/iINT/ptch_int_reg[24]/D
+    0:00:07   11416.9      1.19      48.3     485.3 iNEMO/iINT/ptch_int_reg[26]/D
+    0:00:07   11430.6      1.17      47.9     482.2 iNEMO/iINT/ptch_int_reg[26]/D
+    0:00:07   11435.0      1.16      47.6     482.2 iNEMO/iINT/ptch_int_reg[26]/D
+    0:00:07   11448.2      1.14      47.5     482.2 iNEMO/iINT/ptch_int_reg[26]/D
+    0:00:07   11448.2      1.11      47.1     479.2 iNEMO/iINT/ptch_int_reg[21]/D
+    0:00:07   11443.6      1.10      46.8     481.3 iNEMO/iINT/ptch_int_reg[26]/D
+    0:00:07   11445.1      1.09      46.7     481.3 iNEMO/iINT/ptch_int_reg[26]/D
+    0:00:07   11437.0      1.08      46.5     483.3 iNEMO/iINT/ptch_int_reg[26]/D
+    0:00:07   11435.7      1.07      46.4     483.3 iNEMO/iINT/ptch_int_reg[26]/D
+    0:00:07   11435.5      1.05      46.3     483.3 iNEMO/iINT/ptch_int_reg[26]/D
+    0:00:07   11441.8      1.02      45.9     476.0 iNEMO/iINT/ptch_int_reg[26]/D
+    0:00:07   11446.6      1.02      45.8     476.0 iNEMO/iINT/ptch_int_reg[26]/D
+    0:00:07   11446.4      1.01      45.7     476.0 iNEMO/iINT/ptch_int_reg[24]/D
+    0:00:07   11446.4      1.01      45.6     476.0 iNEMO/iINT/ptch_int_reg[26]/D
+    0:00:07   11449.7      1.00      45.4     476.0                          
+    0:00:08   11370.7      1.00      45.5     528.1                          
+
+
+  Beginning Design Rule Fixing  (max_transition)  (max_capacitance)
+  ----------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:08   11370.7      1.00      45.2     528.1                          
+    0:00:08   11392.0      1.00      45.1       0.3                          
+    0:00:08   11393.0      1.00      45.1       0.3                          
+    0:00:08   11392.5      1.00      45.0       0.3                          
+    0:00:08   11403.2      1.00      38.9       0.3                          
+    0:00:08   11404.2      1.00      39.0       0.3                          
+    0:00:08   11405.2      1.00      38.8       0.3                          
+    0:00:08   11418.2      1.00      38.8       0.3                          
+    0:00:08   11431.4      1.00      38.6       0.3                          
+    0:00:08   11432.9      1.00      38.1       0.3                          
+
+
+  Beginning Area-Recovery Phase  (cleanup)
+  -----------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:08   11432.9      1.00      38.1       0.3                          
+    0:00:08   11432.9      1.00      38.1       0.3                          
+    0:00:08   10922.6      1.00      29.4       0.6                          
+    0:00:08   10749.5      1.00      27.5       0.6                          
+    0:00:08   10660.6      1.00      28.0       0.6                          
+    0:00:08   10626.8      0.99      27.9       0.6                          
+    0:00:08   10612.5      0.99      27.9       0.6                          
+    0:00:08   10612.5      0.99      27.9       0.6                          
+    0:00:08   10612.5      0.99      27.9       0.6                          
+    0:00:08   10479.1      0.99      27.8       0.6                          
+    0:00:08   10442.3      0.99      26.8       0.6                          
+    0:00:08   10434.4      0.99      26.8       0.6                          
+    0:00:08   10430.6      0.99      26.7       0.6                          
+    0:00:08   10429.6      0.99      26.7       0.6                          
+    0:00:08   10412.3      0.99      26.7       0.6                          
+    0:00:08   10412.3      0.99      26.7       0.6                          
+    0:00:08   10412.3      0.99      26.7       0.6                          
+    0:00:09   10411.0      1.00      28.0       0.6 iNEMO/iINT/ptch_int_reg[24]/D
+    0:00:09   10397.3      0.99      27.7       0.6                          
+    0:00:09   10397.3      0.98      27.6       0.6                          
+    0:00:09   10413.0      0.97      27.4       0.6                          
+    0:00:09   10409.5      0.96      27.3       0.6                          
+    0:00:09   10421.4      0.96      27.1       0.6                          
+    0:00:09   10421.4      0.96      26.9       0.6                          
+    0:00:09   10364.2      0.96      26.9       0.6                          
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+CPU Load: 1%, Ram Free: 4 GB, Swap Free: 1 GB, Work Disk Free: 34 GB, Tmp Disk Free: 819 GB
+Information: Total number of MV cells in the design.
+----------------------------------------------------------------------------------------------------
+ MV Cells                                           Total Number                                   
+----------------------------------------------------------------------------------------------------
+ Level Shifter:                                     0                                             
+ Enable Level Shifter:                              0                                             
+ Isolation Cell:                                    0                                             
+ Retention Cell:                                    0                                             
+ Retention Clamp Cell:                              0                                             
+ Switch Cell:                                       0                                             
+ Always-On Cell:                                    0                                             
+ Repeater Cell:                                     0                                             
+
+----------------------------------------------------------------------------------------------------
+Unmapped MV Cells 
+----------------------------------------------------------------------------------------------------
+0 Isolation Cells are unmapped 
+0 Retention Clamp Cells are unmapped 
+----------------------------------------------------------------------------------------------------
+1
+# Flatten the design to remove hierarchy
+ungroup -all -flatten
+Information: Building the design 'PID' instantiated from design 'balance_cntrl_fast_sim0' with
+	the parameters "0". (HDL-193)
+Warning: Cannot find the design 'PID' in the library 'WORK'. (LBR-1)
+Warning: Unable to resolve reference 'PID' in 'balance_cntrl_fast_sim0'. (LINK-5)
+Information: Search path: '. /cae/apps/data/saed32_edk-2022/lib/stdcell_rvt/db_nldm /cae/apps/data/saed32_edk-2022/lib/stdcell_lvt/db_nldm /cae/apps/data/saed32_edk-2022/lib/stdcell_hvt/db_nldm /cae/apps/data/saed32_edk-2022/lib/io_std/db_nldm'. (LINK-1801)
+Information: List of linked libraries: 'saed32rvt_tt0p85v25c.db saed32io_wb_tt1p05v25c_2p5v.db * /cae/apps/data/synopsys-2025/syn/X-2025.06/libraries/syn/gtech.db /cae/apps/data/synopsys-2025/syn/X-2025.06/libraries/syn/standard.sldb'. (LINK-1802)
+Warning: Design 'Segway' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+Information: Updating graph... (UID-83)
+1
+# Apply multicycle path constraints AFTER flattening (required for get_pins to work)
+# All paths TO the inertial integrator only matter when vld pulses
+set_multicycle_path 2 -setup -to [get_pins -hier *ptch_int_reg*/D]
+Warning: Design 'Segway' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+1
+set_multicycle_path 1 -hold -to [get_pins -hier *ptch_int_reg*/D]
+Warning: Design 'Segway' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+1
+# Set max area constraint to help optimizer focus on area
+#set_max_area 11900
+# Final optimized compile - balance timing and area
+compile -map_effort high
+Warning: Design 'Segway' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+CPU Load: 1%, Ram Free: 4 GB, Swap Free: 1 GB, Work Disk Free: 34 GB, Tmp Disk Free: 819 GB
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler                                                                   |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 3066                                   |
+| Number of User Hierarchies                              | 0                                      |
+| Sequential Cell Count                                   | 566                                    |
+| Macro Count                                             | 0                                      |
+| Pad Count                                               | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 2                                      |
+| Number of VT Class                                      | 1                                      |
+| Number of Clocks                                        | 1                                      |
+| Number of Dont Touch Cells                              | 0                                      |
+| Number of Dont Touch Nets                               | 1                                      |
+| Number of Size Only Cells                               | 36                                     |
+| Design with Target Library Subset (with clock_path)     | false  (false )                        |
+| Design with UPF Data                                    | false                                  |
+====================================================================================================
+
+Information: There are 79 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+
+Warning: Operating condition tt0p85v25c set on design Segway has different process,
+voltage and temperatures parameters than the parameters at which target library 
+saed32io_wb_tt1p05v25c_2p5v is characterized. Delays may be inaccurate as a result. (OPT-998)
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'Segway'
+Information: The register 'iBAL/segMath/lft_spd_reg[0]' will be removed. (OPT-1207)
+Information: The register 'iBAL/segMath/rght_spd_reg[0]' will be removed. (OPT-1207)
+Information: The register 'iA2D/batt_reg[10]' will be removed. (OPT-1207)
+Information: The register 'iA2D/batt_reg[9]' will be removed. (OPT-1207)
+Information: The register 'iA2D/batt_reg[8]' will be removed. (OPT-1207)
+Information: The register 'iA2D/batt_reg[7]' will be removed. (OPT-1207)
+Information: The register 'iA2D/batt_reg[6]' will be removed. (OPT-1207)
+Information: The register 'iA2D/batt_reg[5]' will be removed. (OPT-1207)
+Information: The register 'iA2D/batt_reg[4]' will be removed. (OPT-1207)
+Information: The register 'iA2D/batt_reg[3]' will be removed. (OPT-1207)
+Information: The register 'iA2D/batt_reg[2]' will be removed. (OPT-1207)
+Information: The register 'iA2D/batt_reg[1]' will be removed. (OPT-1207)
+Information: The register 'iA2D/batt_reg[0]' will be removed. (OPT-1207)
+Information: Building the design 'PID' instantiated from design 'Segway' with
+	the parameters "0". (HDL-193)
+Warning: Cannot find the design 'PID' in the library 'WORK'. (LBR-1)
+Warning: Unable to resolve reference 'PID' in 'Segway'. (LINK-5)
+Information: Search path: '. /cae/apps/data/saed32_edk-2022/lib/stdcell_rvt/db_nldm /cae/apps/data/saed32_edk-2022/lib/stdcell_lvt/db_nldm /cae/apps/data/saed32_edk-2022/lib/stdcell_hvt/db_nldm /cae/apps/data/saed32_edk-2022/lib/io_std/db_nldm'. (LINK-1801)
+Information: List of linked libraries: 'saed32rvt_tt0p85v25c.db saed32io_wb_tt1p05v25c_2p5v.db * /cae/apps/data/synopsys-2025/syn/X-2025.06/libraries/syn/gtech.db /cae/apps/data/synopsys-2025/syn/X-2025.06/libraries/syn/standard.sldb'. (LINK-1802)
+Warning: Design 'Segway' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+
+  Beginning Mapping Optimizations  (High effort)
+  -------------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:01   10673.3      0.39       9.8      90.9                          
+    0:00:01   10666.7      0.39       9.7      90.9                          
+    0:00:01   10666.7      0.39       9.7      90.9                          
+    0:00:01   10665.9      0.39       9.7      90.9                          
+    0:00:01   10665.9      0.39       9.7      90.9                          
+    0:00:01    9598.0      0.39       6.2      59.6                          
+    0:00:01    9601.3      0.38       5.8      59.6                          
+    0:00:01    9640.2      0.44       9.4      59.6                          
+    0:00:01    9648.6      0.40       7.7      59.6                          
+    0:00:01    9672.2      0.39       7.5      59.6                          
+    0:00:01    9674.8      0.38       7.4      59.6                          
+    0:00:01    9674.8      0.38       7.4      59.6                          
+    0:00:01    9674.8      0.38       7.4      59.6                          
+    0:00:01    9674.8      0.38       7.4      59.6                          
+    0:00:01    9683.9      0.38       6.9      35.8                          
+    0:00:01    9688.0      0.38       6.9      18.8                          
+    0:00:01    9688.5      0.38       6.9      13.0                          
+    0:00:01    9688.5      0.38       6.9      13.0                          
+    0:00:01    9688.5      0.38       6.9      13.0                          
+    0:00:01    9688.5      0.38       6.9      13.0                          
+
+
+
+  Beginning Delay Optimization Phase
+  ----------------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:01    9688.5      0.38       6.9      13.0                          
+    0:00:01    9696.1      0.35       5.6      13.0 iBUZZ/current_state_reg[1]/D
+    0:00:01    9729.1      0.29       4.4      13.0 iBUZZ/current_state_reg[1]/D
+    0:00:01    9734.5      0.21       3.5      12.9 iBUZZ/current_state_reg[2]/D
+    0:00:01    9736.3      0.20       3.2      12.9 iBUZZ/current_state_reg[2]/D
+    0:00:01    9720.0      0.19       3.5      12.9 iBUZZ/current_state_reg[2]/D
+    0:00:01    9721.3      0.19       3.0      13.0 iBUZZ/current_state_reg[2]/D
+    0:00:01    9724.1      0.19       3.4      13.0 iBUZZ/current_state_reg[2]/D
+    0:00:01    9734.5      0.19       3.4      13.0 iBUZZ/current_state_reg[2]/D
+    0:00:01    9737.0      0.14       2.7      13.0 iBUZZ/current_state_reg[2]/D
+    0:00:01    9751.0      0.08       2.4      13.0 iBUZZ/current_state_reg[2]/D
+    0:00:02    9756.3      0.08       2.4      13.0 iBUZZ/current_state_reg[2]/D
+    0:00:02    9791.2      0.06       1.3       5.9                          
+    0:00:02    9789.9      0.05       1.2       5.9 iBUZZ/current_state_reg[2]/D
+    0:00:02    9794.5      0.05       0.9       5.9 iBUZZ/current_state_reg[2]/D
+    0:00:02    9790.4      0.04       0.8       5.9 iBUZZ/current_state_reg[2]/D
+    0:00:02    9797.3      0.04       0.5       5.9 iBUZZ/current_state_reg[2]/D
+    0:00:02    9808.9      0.03       0.5       3.6 iBUZZ/current_state_reg[2]/D
+    0:00:02    9855.7      0.01       0.1       2.8                          
+    0:00:02    9844.5      0.00       0.0       0.6 en_steer_pipe1_reg/D     
+    0:00:02    9842.7      0.00       0.0       0.6                          
+    0:00:02    9754.6      0.00       0.0       4.0                          
+
+
+  Beginning Design Rule Fixing  (max_transition)  (max_capacitance)
+  ----------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:02    9754.6      0.00       0.0       4.0                          
+    0:00:02    9755.1      0.00       0.0       0.6                          
+
+
+  Beginning Area-Recovery Phase  (cleanup)
+  -----------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:02    9755.1      0.00       0.0       0.6                          
+    0:00:02    9755.1      0.00       0.0       0.6                          
+    0:00:03    9520.7      0.00       0.0       0.6                          
+    0:00:03    9465.6      0.01       0.1       0.6                          
+    0:00:03    9447.8      0.01       0.1       0.6                          
+    0:00:03    9439.9      0.01       0.1       0.6                          
+    0:00:03    9437.4      0.01       0.1       0.6                          
+    0:00:03    9437.4      0.01       0.1       0.6                          
+    0:00:03    9434.8      0.01       0.0       0.6                          
+    0:00:03    9427.5      0.00       0.0       0.6                          
+    0:00:03    9417.1      0.00       0.0       0.8                          
+    0:00:03    9415.3      0.00       0.0       0.8                          
+    0:00:03    9414.8      0.00       0.0       0.8                          
+    0:00:03    9414.8      0.00       0.0       0.8                          
+    0:00:03    9414.8      0.00       0.0       0.8                          
+    0:00:03    9414.8      0.00       0.0       0.8                          
+    0:00:03    9414.8      0.00       0.0       0.8                          
+    0:00:03    9414.8      0.00       0.0       0.8                          
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+CPU Load: 1%, Ram Free: 4 GB, Swap Free: 1 GB, Work Disk Free: 34 GB, Tmp Disk Free: 819 GB
+Information: Total number of MV cells in the design.
+----------------------------------------------------------------------------------------------------
+ MV Cells                                           Total Number                                   
+----------------------------------------------------------------------------------------------------
+ Level Shifter:                                     0                                             
+ Enable Level Shifter:                              0                                             
+ Isolation Cell:                                    0                                             
+ Retention Cell:                                    0                                             
+ Retention Clamp Cell:                              0                                             
+ Switch Cell:                                       0                                             
+ Always-On Cell:                                    0                                             
+ Repeater Cell:                                     0                                             
+
+----------------------------------------------------------------------------------------------------
+Unmapped MV Cells 
+----------------------------------------------------------------------------------------------------
+0 Isolation Cells are unmapped 
+0 Retention Clamp Cells are unmapped 
+----------------------------------------------------------------------------------------------------
+1
+#########################################################################
+# Design Reports
+#########################################################################
+echo "Generating reports..."
+Generating reports...
+# Min delay report
+report_timing -delay min > segway_min_delay.rpt
+# Max delay report  
+report_timing -delay  max > segway_max_delay.rpt
+# Area report
+report_area  > segwayl_area.rpt
+#########################################################################
+# Final Design Output
+#########################################################################
+# Write out the gate level Verilog netlist
+write -format verilog -output segway.vg
+Warning: Design 'Segway' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
+Writing verilog file '/filespace/v/vaseidel/ece551/designvision/src/segway.vg'.
+1
+1
+Information: Term was not able to be set up using xterm-256color . Using "xterm" by default instead. (CLE-10)
+Warning: Cannot use command line editor for terminal type 'xterm-256color'.  (UI-74)
+dc_shell> .			     UART_TX.mr
+..			     UART_rx-verilog.pvl
+A2D_INTF.mr		     UART_rx-verilog.syn
+A2D_Intf.sv		     UART_tx-verilog.pvl
+A2D_intf-verilog.pvl	     UART_tx-verilog.syn
+A2D_intf-verilog.syn	     balance_cntrl-verilog.pvl
+AUTH_BLK.mr		     balance_cntrl-verilog.syn
+Auth_blk-verilog.pvl	     balance_cntrl.sv
+Auth_blk-verilog.syn	     balance_cntrl_pipelined.sv
+Auth_blk.sv		     cksum_dir
+BALANCE_CNTRL.mr	     default.svf
+DEADZONESHAPING.mr	     filenames.log
+DeadzoneShaping-verilog.pvl  inert_intf-verilog.pvl
+DeadzoneShaping-verilog.syn  inert_intf-verilog.syn
+INERTIAL_INTEGRATOR.mr	     inert_intf.sv
+INERT_INTF.mr		     inertial_integrator-verilog.pvl
+MTR_DRV.mr		     inertial_integrator-verilog.syn
+PB_release.sv		     inertial_integrator.sv
+PID.sv			     log.txt
+PIEZO_DRV.mr		     mtr_drv-verilog.pvl
+PWM11-verilog.pvl	     mtr_drv-verilog.syn
+PWM11-verilog.syn	     mtr_drv.sv
+PWM11.mr		     piezoTest.sv
+PWM11.sv		     piezo_drv-verilog.pvl
+ProjectSpec.pdf		     piezo_drv-verilog.syn
+README.md		     piezo_drv.sv
+RST_SYNCH.mr		     reports
+SEGWAY.mr		     rst_synch-verilog.pvl
+SEGWAYMATH.mr		     rst_synch-verilog.syn
+SPI_MNRCH.mr		     rst_synch.sv
+SPI_mnrch-verilog.pvl	     segway.vg
+SPI_mnrch-verilog.syn	     segway_math.sv
+SPI_mnrch.sv		     segway_max_delay.rpt
+STEER_EN.mr		     segway_min_delay.rpt
+Segway-verilog.pvl	     segwayl_area.rpt
+Segway-verilog.syn	     setup.txt
+Segway.dc		     steer_en-verilog.pvl
+Segway.sv		     steer_en-verilog.syn
+SegwayMath-verilog.pvl	     steer_en.sv
+SegwayMath-verilog.syn	     uart_rx.sv
+UART_RX.mr		     uart_tx.sv
+dc_shell> 
+Information: Ignoring interrupt signal since design is being mapped.
+             One more interrupt will abort optimization without
+             transferring the design... (INT-7)
+
+Information: Aborting optimization without transferring the design... (INT-8)
+
+Information: Process terminated by interrupt. (INT-4)
