@@ -8,7 +8,7 @@ Report : timing
         -max_paths 1
 Design : Segway
 Version: X-2025.06
-Date   : Sat Dec  6 15:02:36 2025
+Date   : Sat Dec  6 17:15:46 2025
 ****************************************
 
 Operating Conditions: tt0p85v25c   Library: saed32rvt_tt0p85v25c

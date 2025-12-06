@@ -112,7 +112,7 @@ module Segway(clk,RST_n,INERT_SS_n,INERT_MOSI,INERT_SCLK,
   /////////////////////////////////////
   // Instantiate balance controller //
   ///////////////////////////////////					 
-  balance_cntrl#(fast_sim) iBAL(.clk(clk),.rst_n(rst_n),.vld(vld_pipe1),.ptch(ptch_pipe1),
+  balance_cntrl_pipelined#(fast_sim) iBAL(.clk(clk),.rst_n(rst_n),.vld(vld_pipe1),.ptch(ptch_pipe1),
                      .ptch_rt(ptch_rt_pipe1),.pwr_up(pwr_up_pipe1),.rider_off(rider_off_pipe1),
 					 .steer_pot_pipe2(steer_pot_pipe2),.en_steer_pipe2(en_steer_pipe2),.pwr_up_pipe2(pwr_up_pipe2),
                      .PID_cntrl_pipe2(PID_cntrl_pipe2),.ss_tmr_pipe2(ss_tmr_pipe2),
