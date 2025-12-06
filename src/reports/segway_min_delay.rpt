@@ -8,16 +8,16 @@ Report : timing
         -max_paths 1
 Design : Segway
 Version: X-2025.06
-Date   : Sat Dec  6 14:42:10 2025
+Date   : Sat Dec  6 15:02:36 2025
 ****************************************
 
 Operating Conditions: tt0p85v25c   Library: saed32rvt_tt0p85v25c
 Wire Load Model Mode: enclosed
 
-  Startpoint: iRST/rst_n_inter_reg/CLK
-              (internal path startpoint clocked by clk)
-  Endpoint: iRST/rst_n_reg
-            (falling edge-triggered flip-flop clocked by clk)
+  Startpoint: iDRV/iPWM_rght/cnt_reg[0]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: iDRV/iPWM_rght/cnt_reg[0]
+            (rising edge-triggered flip-flop clocked by clk)
   Path Group: clk
   Path Type: min
 
@@ -27,24 +27,23 @@ Wire Load Model Mode: enclosed
 
   Point                                                   Incr       Path
   --------------------------------------------------------------------------
-  clock clk (fall edge)                                   1.00       1.00
-  clock network delay (ideal)                             0.00       1.00
-  input external delay                                    0.00       1.00 f
-  iRST/rst_n_inter_reg/CLK (DFFNARX1_RVT)                 0.00       1.00 f
-  iRST/rst_n_inter_reg/Q (DFFNARX1_RVT)                   0.14       1.14 r
-  iRST/rst_n_reg/D (DFFNARX1_RVT)                         0.01       1.15 r
-  data arrival time                                                  1.15
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  iDRV/iPWM_rght/cnt_reg[0]/CLK (DFFARX1_RVT)             0.00       0.00 r
+  iDRV/iPWM_rght/cnt_reg[0]/QN (DFFARX1_RVT)              0.10       0.10 f
+  iDRV/iPWM_rght/cnt_reg[0]/D (DFFARX1_RVT)               0.01       0.11 f
+  data arrival time                                                  0.11
 
-  clock clk (fall edge)                                   1.00       1.00
-  clock network delay (ideal)                             0.00       1.00
-  iRST/rst_n_reg/CLK (DFFNARX1_RVT)                       0.00       1.00 f
-  library hold time                                      -0.01       0.99
-  data required time                                                 0.99
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  iDRV/iPWM_rght/cnt_reg[0]/CLK (DFFARX1_RVT)             0.00       0.00 r
+  library hold time                                      -0.02      -0.02
+  data required time                                                -0.02
   --------------------------------------------------------------------------
-  data required time                                                 0.99
-  data arrival time                                                 -1.15
+  data required time                                                -0.02
+  data arrival time                                                 -0.11
   --------------------------------------------------------------------------
-  slack (MET)                                                        0.16
+  slack (MET)                                                        0.13
 
 
 1

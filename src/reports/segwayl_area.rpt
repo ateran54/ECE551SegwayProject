@@ -4,7 +4,7 @@ Warning: Design 'Segway' has '1' unresolved references. For more detailed inform
 Report : area
 Design : Segway
 Version: X-2025.06
-Date   : Sat Dec  6 14:42:10 2025
+Date   : Sat Dec  6 15:02:36 2025
 ****************************************
 
 Library(s) Used:
@@ -12,22 +12,22 @@ Library(s) Used:
     saed32rvt_tt0p85v25c (File: /cae/apps/data/saed32_edk-2022/lib/stdcell_rvt/db_nldm/saed32rvt_tt0p85v25c.db)
 
 Number of ports:                           20
-Number of nets:                          3521
-Number of cells:                         3096
-Number of combinational cells:           2540
+Number of nets:                          3226
+Number of cells:                         2701
+Number of combinational cells:           2146
 Number of sequential cells:               554
 Number of macros/black boxes:               0
-Number of buf/inv:                        483
-Number of references:                      72
+Number of buf/inv:                        281
+Number of references:                      62
 
-Combinational area:               6559.456663
-Buf/Inv area:                      808.432068
-Noncombinational area:            3891.453004
+Combinational area:               5523.819839
+Buf/Inv area:                      378.166272
+Noncombinational area:            3890.944716
 Macro/Black Box area:                0.000000
-Net Interconnect area:            2256.808446
+Net Interconnect area:            2001.769639
 
-Total cell area:                 10450.909667
-Total area:                      12707.718114
+Total cell area:                  9414.764556
+Total area:                      11416.534195
 
 Information: This design contains black box (unknown) components. (RPT-8)
 1

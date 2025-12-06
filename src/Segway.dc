@@ -51,20 +51,22 @@ set_wire_load_model -name "16000" -library saed32rvt_tt0p85v25c
 # Compilation Flow
 #########################################################################
 
-# First compilation to elaborate the design
-compile -map_effort medium
+# First pass: compile and flatten to get gate-level netlist
+compile -map_effort low
 
 # Flatten the design to remove hierarchy
 ungroup -all -flatten
 
-# Now apply multicycle path constraints AFTER flattening
+# Apply multicycle path constraints AFTER flattening (required for get_pins to work)
 # All paths TO the inertial integrator only matter when vld pulses
-# After flattening, use get_pins with wildcards on flattened names
 set_multicycle_path 2 -setup -to [get_pins -hier *ptch_int_reg*/D]
 set_multicycle_path 1 -hold -to [get_pins -hier *ptch_int_reg*/D]
 
-# Second compilation with multicycle constraints applied
-compile -map_effort high -incremental_mapping
+# Set max area constraint to help optimizer focus on area
+set_max_area 11900
+
+# Final optimized compile - balance timing and area
+compile -map_effort high
 
 #########################################################################
 # Design Reports

@@ -7,15 +7,15 @@ Report : timing
         -max_paths 1
 Design : Segway
 Version: X-2025.06
-Date   : Sat Dec  6 14:42:10 2025
+Date   : Sat Dec  6 15:02:36 2025
 ****************************************
 
 Operating Conditions: tt0p85v25c   Library: saed32rvt_tt0p85v25c
 Wire Load Model Mode: enclosed
 
-  Startpoint: iA2D/rght_ld_reg[0]
+  Startpoint: iA2D/lft_ld_reg[1]
               (rising edge-triggered flip-flop clocked by clk)
-  Endpoint: iBUZZ/repeat_timer_reg[8]
+  Endpoint: iBUZZ/current_state_reg[1]
             (rising edge-triggered flip-flop clocked by clk)
   Path Group: clk
   Path Type: max
@@ -28,50 +28,48 @@ Wire Load Model Mode: enclosed
   --------------------------------------------------------------------------
   clock clk (rise edge)                                   0.00       0.00
   clock network delay (ideal)                             0.00       0.00
-  iA2D/rght_ld_reg[0]/CLK (DFFARX1_RVT)                   0.00       0.00 r
-  iA2D/rght_ld_reg[0]/Q (DFFARX1_RVT)                     0.15       0.15 f
-  iSTR/add_30/U5/Y (AND2X1_RVT)                           0.07       0.22 f
-  iSTR/add_30/U1_1/CO (FADDX1_RVT)                        0.11       0.32 f
-  iSTR/add_30/U1_2/CO (FADDX1_RVT)                        0.11       0.43 f
-  iSTR/add_30/U1_3/CO (FADDX1_RVT)                        0.11       0.54 f
-  iSTR/add_30/U1_4/CO (FADDX1_RVT)                        0.11       0.65 f
-  iSTR/add_30/U1_5/CO (FADDX1_RVT)                        0.11       0.76 f
-  U122/Y (NAND2X0_RVT)                                    0.06       0.82 r
-  U120/Y (NAND3X0_RVT)                                    0.07       0.89 f
-  iSTR/add_30/U1_7/CO (FADDX1_RVT)                        0.12       1.01 f
-  iSTR/add_30/U1_8/S (FADDX1_RVT)                         0.17       1.18 r
-  U119/Y (NBUFFX2_RVT)                                    0.06       1.24 r
-  iSTR/mult_33/S3_4_2/S (FADDX1_RVT)                      0.18       1.42 f
-  iSTR/mult_33/S2_5_1/CO (FADDX1_RVT)                     0.12       1.54 f
-  U107/Y (NAND2X0_RVT)                                    0.06       1.59 r
-  U106/Y (NAND3X0_RVT)                                    0.07       1.67 f
-  iSTR/mult_33/S2_7_1/CO (FADDX1_RVT)                     0.12       1.79 f
-  iSTR/mult_33/S4_1/S (FADDX1_RVT)                        0.17       1.95 r
-  iSTR/mult_33/U7/Y (INVX0_RVT)                           0.04       2.00 f
-  U200/Y (XNOR2X2_RVT)                                    0.11       2.11 f
-  U180/Y (OAI221X1_RVT)                                   0.14       2.24 r
-  U175/Y (NAND3X0_RVT)                                    0.05       2.29 f
-  U176/Y (AOI22X1_RVT)                                    0.11       2.40 r
-  U240/Y (OA21X1_RVT)                                     0.08       2.48 r
-  U45/Y (OR2X2_RVT)                                       0.07       2.55 r
-  U15/Y (NAND4X0_RVT)                                     0.06       2.61 f
-  U14/Y (NAND2X0_RVT)                                     0.07       2.68 r
-  U104/Y (NAND2X0_RVT)                                    0.05       2.72 f
-  U136/Y (AND2X1_RVT)                                     0.08       2.80 f
-  iBUZZ/U33/Y (AO221X1_RVT)                               0.11       2.92 f
-  iBUZZ/repeat_timer_reg[8]/D (DFFARX1_RVT)               0.01       2.93 f
-  data arrival time                                                  2.93
+  iA2D/lft_ld_reg[1]/CLK (DFFARX1_RVT)                    0.00       0.00 r
+  iA2D/lft_ld_reg[1]/Q (DFFARX1_RVT)                      0.18       0.18 r
+  iSTR/add_30/U1_1/CO (FADDX1_RVT)                        0.16       0.34 r
+  iSTR/add_30/U1_2/CO (FADDX1_RVT)                        0.12       0.45 r
+  iSTR/add_30/U1_3/CO (FADDX1_RVT)                        0.12       0.57 r
+  iSTR/add_30/U1_4/CO (FADDX1_RVT)                        0.12       0.68 r
+  iSTR/add_30/U1_5/CO (FADDX1_RVT)                        0.12       0.80 r
+  iSTR/add_30/U1_6/S (FADDX1_RVT)                         0.18       0.98 f
+  U2484/Y (NBUFFX2_RVT)                                   0.08       1.06 f
+  iSTR/mult_33/S2_2_1/CO (FADDX1_RVT)                     0.14       1.20 f
+  iSTR/mult_33/S2_3_1/S (FADDX1_RVT)                      0.18       1.38 r
+  iSTR/mult_33/S1_4_0/CO (FADDX1_RVT)                     0.12       1.50 r
+  iSTR/mult_33/S1_5_0/CO (FADDX1_RVT)                     0.13       1.63 r
+  iSTR/mult_33/S1_6_0/CO (FADDX1_RVT)                     0.13       1.77 r
+  iSTR/mult_33/S1_7_0/CO (FADDX1_RVT)                     0.13       1.90 r
+  iSTR/mult_33/S4_0/CO (FADDX1_RVT)                       0.14       2.04 r
+  U1905/Y (XNOR2X1_RVT)                                   0.14       2.18 f
+  U1962/Y (NAND2X0_RVT)                                   0.05       2.23 r
+  U1964/Y (NAND3X0_RVT)                                   0.06       2.29 f
+  U1939/Y (AND3X1_RVT)                                    0.08       2.37 f
+  U1852/Y (AO21X1_RVT)                                    0.06       2.42 f
+  U1933/Y (AO22X1_RVT)                                    0.06       2.48 f
+  U1922/Y (OR2X1_RVT)                                     0.07       2.55 f
+  U2017/Y (AO21X1_RVT)                                    0.08       2.63 f
+  U2021/Y (NAND2X0_RVT)                                   0.05       2.69 r
+  U2022/Y (AND2X1_RVT)                                    0.06       2.75 r
+  U2490/Y (AND3X1_RVT)                                    0.07       2.82 r
+  U2488/Y (AND2X1_RVT)                                    0.06       2.88 r
+  U1156/Y (AO21X1_RVT)                                    0.05       2.93 r
+  iBUZZ/current_state_reg[1]/D (DFFARX1_RVT)              0.01       2.94 r
+  data arrival time                                                  2.94
 
   clock clk (rise edge)                                   3.00       3.00
   clock network delay (ideal)                             0.00       3.00
-  iBUZZ/repeat_timer_reg[8]/CLK (DFFARX1_RVT)             0.00       3.00 r
+  iBUZZ/current_state_reg[1]/CLK (DFFARX1_RVT)            0.00       3.00 r
   library setup time                                     -0.06       2.94
   data required time                                                 2.94
   --------------------------------------------------------------------------
   data required time                                                 2.94
-  data arrival time                                                 -2.93
+  data arrival time                                                 -2.94
   --------------------------------------------------------------------------
-  slack (MET)                                                        0.01
+  slack (MET)                                                        0.00
 
 
 1
