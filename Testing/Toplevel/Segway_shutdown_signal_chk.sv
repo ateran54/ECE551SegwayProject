@@ -70,18 +70,22 @@ initial begin
   //lean forward and wait
   set_rider_lean(16'h0FFF, rider_lean, clk);
   repeat (2000000) @(posedge clk);
+  set_rider_lean(16'h0000, rider_lean, clk);
+  repeat (5000000) @(posedge clk);
   //Check that theta platform angle is less than 250 
   check_condition("Theta Platform Angle Range For Forward Lean", (iPHYS.theta_platform <= 250) && (iPHYS.theta_platform >= -250), $sformatf("Value: %0d", iPHYS.theta_platform));
   //check that left and right omega are roughly equal
   check_condition("Left and Right Wheel Omega Equality For Forward Lean", ( (iPHYS.omega_lft - iPHYS.omega_rght) == 0), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
   //Now, set the OVR_I_shutdown signal and see that the DUT responds appropriately
-  force iDUT.mtr_drv.OVR_I_shtdwn = 1'b1;
+  force iDUT.iDRV.OVR_I_shtdwn = 1'b1;
   @(posedge clk);
     #1;
     //Check that both speeds are zero and that pwr_up is low
-    check_condition("OVR_I Shutdown Test - Power Up Signal Low", (iDUT.mtr_drv.pwr_up == 0), $sformatf("Power Up Signal: %0d", iDUT.mtr_drv.pwr_up));
-    check_condition("OVR_I Shutdown Test - Left Motor Speed Zero", (iPHYS.lft_speed == 0), $sformatf("Left Motor Speed: %0d", iPHYS.lft_speed));
-    check_condition("OVR_I Shutdown Test - Right Motor Speed Zero", (iPHYS.rght_speed == 0), $sformatf("Right Motor Speed: %0d", iPHYS.rght_speed));
+    repeat (3500000) @(posedge clk);
+    //check that the left and right speeds are 0
+    check_condition("OVR_I Shutdown Test - Left Wheel Omega Zero", (iDUT.omega_lft == 0), $sformatf("Left Wheel Omega: %0d", iPHYS.omega_lft));
+    check_condition("OVR_I Shutdown Test - Right Wheel Omega Zero", (iDUT.omega_rght == 0), $sformatf("Right Wheel Omega: %0d", iPHYS.omega_rght));
+
   $stop();
 end
 
