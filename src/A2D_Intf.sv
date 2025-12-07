@@ -20,7 +20,7 @@ module A2D_intf (
     typedef enum logic [1:0] {IDLE, T1, DEAD, T2} state_t;
 
     state_t currState, nextState;
-    logic [2:0] robin_cnt;
+    logic [1:0] robin_cnt;
     logic [15:0] wt_data, rd_data;
     logic wrt, done, count_en;
 
