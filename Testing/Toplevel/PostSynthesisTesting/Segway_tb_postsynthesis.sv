@@ -1,4 +1,8 @@
-module Segway_balance_tb();
+`timescale 1ns/1ps
+
+
+module Segway_lean_conv_tb();
+
 
 import Segway_toplevel_tb_tasks_pkg::*;
 //// Interconnects to DUT/support defined as type wire /////
@@ -52,43 +56,42 @@ UART_tx iTX(.clk(clk),.rst_n(rst_n),.TX(RX_TX),.trmt(send_cmd),.tx_data(cmd),.tx
 rst_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
 
 initial begin
-
-
-  $display("Starting Segway Blance ctrl Testbench Simulation");
+  $display("----------Starting Segway simple forward AND backward lean Convergence Testbench Simulation----------");
   //init inputs and apply reset
   initialize_inputs(clk, RST_n, send_cmd, rider_lean, ld_cell_lft, ld_cell_rght, steerPot, batt, OVR_I_lft, OVR_I_rght);
   apply_reset(RST_n, clk);
+  //wait for a bit before rider goes on
+  repeat (100) @(posedge clk);
+  //set steerpot and wait for a bit
+  $display("Setting steerPot to mid position (0x0800)");
+  set_steerPot(12'h0800, steerPot, clk);
+  repeat (40000) @(posedge clk);
   //set loads and wait for balance check
+  $display("Setting load cells to 330 each. (Rider on board)");
   set_loads(330,330, ld_cell_lft, ld_cell_rght, clk);
   repeat (40000) @(posedge clk);
-  run_standard_start_sequence(cmd, send_cmd, cmd_sent, clk);
-
-  repeat (400000) @(posedge clk);
   //send start command and wait a bit
-  //repeat (40000) @(posedge clk);
-
-  set_loads(0,0, ld_cell_lft, ld_cell_rght, clk);  // this should disable  ster_enable
-  repeat (40000) @(posedge clk);
-  check_condition("TEST: BALNCE CNTRL/SAFETY : Check en_steer equals 0.", (iDUT.en_steer==0), $sformatf("Value: %0d", iDUT.en_steer));
-
-  repeat (40000) @(posedge clk);
-  set_loads(500,450, ld_cell_lft, ld_cell_rght, clk); // this should enbale steer like running
-
+  run_standard_start_sequence(cmd, send_cmd, cmd_sent, clk);
   repeat (700000) @(posedge clk);
-  // BALNCE SHOULD HAVE CONVREGED TO ZEROP HERRE
-  set_loads(475,475, ld_cell_lft, ld_cell_rght, clk); 
-  
-  check_condition("TEST: BALNCE CNTRL/STEER ENABLED : Balance theta convergence", (iPHYS.theta_platform <=  THETA_PLATFORM_ZERO_THRESHOLD) && (iPHYS.theta_platform >= -THETA_PLATFORM_ZERO_THRESHOLD), $sformatf("Value: %0d", iPHYS.theta_platform));
-
-
-
+  //lean forward and wait
+  $display("Leaning forward with rider_lean = 0x0FFF");
+  set_rider_lean(16'h0FFF, rider_lean, clk);
+  repeat (2000000) @(posedge clk);
+  //Check that theta platform angle is less than 250 
+  check_condition("TEST: Theta Platform Angle Range After Forward Lean Converges:", (iPHYS.theta_platform <= THETA_PLATFORM_ZERO_THRESHOLD) && (iPHYS.theta_platform >= -THETA_PLATFORM_ZERO_THRESHOLD), $sformatf("Value: %0d", iPHYS.theta_platform));
+  //check that left and right omega are roughly equal
+  check_condition("TEST: Left and Right Wheel Omega Equality For Forward Lean", (iPHYS.omega_lft == iPHYS.omega_rght), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
+  //lean backward and wait
+  $display("Leaning backward with rider_lean = 0x0000");
+  set_rider_lean(16'h0000, rider_lean, clk);
+  repeat (2000000) @(posedge clk);
+  //Check that theta platform angle is less than 300 
+  check_condition("TEST: Theta Platform Angle Range After Backward Lean Converges:", (iPHYS.theta_platform <= THETA_PLATFORM_ZERO_THRESHOLD) && (iPHYS.theta_platform >= -THETA_PLATFORM_ZERO_THRESHOLD), $sformatf("Value: %0d", iPHYS.theta_platform));
+  //check that left and right omega are roughly equal
+  check_condition("TEST: Left and Right Wheel Omega are equal after Backward Lean:", (iPHYS.omega_lft == iPHYS.omega_rght), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
   $display("END OF SIMULATION");
   $stop();
 end
-
-
-
-
 
 always
   #10 clk = ~clk;

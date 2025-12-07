@@ -6,15 +6,15 @@ Report : timing
         -max_paths 1
 Design : Segway
 Version: X-2025.06
-Date   : Sun Dec  7 13:46:52 2025
+Date   : Sun Dec  7 14:18:02 2025
 ****************************************
 
 Operating Conditions: tt0p85v25c   Library: saed32rvt_tt0p85v25c
 Wire Load Model Mode: enclosed
 
-  Startpoint: ptch_pipelined_reg[11]
+  Startpoint: iNEMO/iINT/ptch_rt_comp_ext_piped_reg[1]
               (rising edge-triggered flip-flop clocked by clk)
-  Endpoint: iBAL/pid/integrator_reg[0]
+  Endpoint: iNEMO/iINT/ptch_int_reg[26]
             (rising edge-triggered flip-flop clocked by clk)
   Path Group: clk
   Path Type: max
@@ -27,43 +27,51 @@ Wire Load Model Mode: enclosed
   --------------------------------------------------------------------------
   clock clk (rise edge)                                   0.00       0.00
   clock network delay (ideal)                             0.00       0.00
-  ptch_pipelined_reg[11]/CLK (DFFARX1_RVT)                0.00       0.00 r
-  ptch_pipelined_reg[11]/QN (DFFARX1_RVT)                 0.09       0.09 f
-  U2199/Y (NOR3X0_RVT)                                    0.11       0.20 r
-  U1920/Y (NAND4X0_RVT)                                   0.05       0.26 f
-  U1919/Y (NAND2X0_RVT)                                   0.08       0.33 r
-  U1916/Y (AO21X1_RVT)                                    0.11       0.44 r
-  U1866/Y (AND2X1_RVT)                                    0.07       0.51 r
-  iBAL/pid/add_22/U1_1/CO (FADDX1_RVT)                    0.11       0.62 r
-  iBAL/pid/add_22/U1_2/CO (FADDX1_RVT)                    0.12       0.74 r
-  iBAL/pid/add_22/U1_3/CO (FADDX1_RVT)                    0.12       0.85 r
-  iBAL/pid/add_22/U1_4/CO (FADDX1_RVT)                    0.12       0.97 r
-  iBAL/pid/add_22/U1_5/CO (FADDX1_RVT)                    0.12       1.09 r
-  iBAL/pid/add_22/U1_6/CO (FADDX1_RVT)                    0.12       1.20 r
-  iBAL/pid/add_22/U1_7/CO (FADDX1_RVT)                    0.12       1.32 r
-  iBAL/pid/add_22/U1_8/CO (FADDX1_RVT)                    0.12       1.44 r
-  iBAL/pid/add_22/U1_9/CO (FADDX1_RVT)                    0.12       1.55 r
-  iBAL/pid/add_22/U1_10/CO (FADDX1_RVT)                   0.12       1.67 r
-  iBAL/pid/add_22/U1_11/CO (FADDX1_RVT)                   0.12       1.78 r
-  iBAL/pid/add_22/U1_12/CO (FADDX1_RVT)                   0.12       1.90 r
-  iBAL/pid/add_22/U1_13/CO (FADDX1_RVT)                   0.12       2.02 r
-  iBAL/pid/add_22/U1_14/CO (FADDX1_RVT)                   0.12       2.14 r
-  U2224/Y (NAND2X0_RVT)                                   0.05       2.19 f
-  U2226/Y (NAND3X0_RVT)                                   0.07       2.25 r
-  U2219/Y (NAND2X0_RVT)                                   0.05       2.30 f
-  U2221/Y (NAND3X0_RVT)                                   0.06       2.36 r
-  U2175/Y (XOR3X2_RVT)                                    0.09       2.45 f
-  U2174/Y (INVX0_RVT)                                     0.05       2.50 r
-  U1809/Y (AO222X1_RVT)                                   0.12       2.62 r
-  U2216/Y (AND3X2_RVT)                                    0.12       2.74 r
-  U1789/Y (AO21X1_RVT)                                    0.11       2.85 r
-  U1787/Y (AO22X1_RVT)                                    0.08       2.93 r
-  iBAL/pid/integrator_reg[0]/D (DFFARX1_RVT)              0.01       2.94 r
+  iNEMO/iINT/ptch_rt_comp_ext_piped_reg[1]/CLK (DFFARX1_RVT)
+                                                          0.00       0.00 r
+  iNEMO/iINT/ptch_rt_comp_ext_piped_reg[1]/QN (DFFARX1_RVT)
+                                                          0.11       0.11 r
+  U2202/Y (XNOR2X1_RVT)                                   0.14       0.25 f
+  U2771/Y (NOR3X0_RVT)                                    0.12       0.37 r
+  U2785/Y (AOI21X1_RVT)                                   0.07       0.45 f
+  U2855/Y (AO22X1_RVT)                                    0.06       0.51 f
+  U2856/Y (AO22X1_RVT)                                    0.07       0.58 f
+  U2857/Y (INVX1_RVT)                                     0.05       0.63 r
+  U2862/Y (OA22X1_RVT)                                    0.08       0.72 r
+  U2781/Y (AOI22X1_RVT)                                   0.09       0.81 f
+  U2868/Y (AO21X1_RVT)                                    0.08       0.88 f
+  U2576/Y (AO21X1_RVT)                                    0.08       0.96 f
+  U2874/Y (AO21X1_RVT)                                    0.08       1.04 f
+  U2879/Y (INVX1_RVT)                                     0.05       1.09 r
+  U2880/Y (AO21X1_RVT)                                    0.08       1.16 r
+  U2224/Y (AOI221X2_RVT)                                  0.09       1.25 f
+  U2881/Y (AO22X1_RVT)                                    0.07       1.33 f
+  U2787/Y (AOI22X1_RVT)                                   0.09       1.42 r
+  U2884/Y (AO22X1_RVT)                                    0.07       1.49 r
+  U2885/Y (AO22X1_RVT)                                    0.09       1.57 r
+  U2886/Y (AO22X1_RVT)                                    0.09       1.66 r
+  U2887/Y (AO22X1_RVT)                                    0.09       1.75 r
+  U2772/Y (OR3X1_RVT)                                     0.08       1.83 r
+  U2888/Y (OA221X1_RVT)                                   0.07       1.90 r
+  U2777/Y (AOI22X1_RVT)                                   0.08       1.99 f
+  U2890/Y (AO22X1_RVT)                                    0.06       2.05 f
+  U2775/Y (OA22X1_RVT)                                    0.07       2.12 f
+  U2572/Y (AOI22X1_RVT)                                   0.09       2.21 r
+  U2893/Y (AO22X1_RVT)                                    0.07       2.28 r
+  U2566/Y (AO22X1_RVT)                                    0.07       2.35 r
+  U2565/Y (OR2X1_RVT)                                     0.06       2.42 r
+  U2570/Y (AO22X1_RVT)                                    0.07       2.49 r
+  U2569/Y (OR2X1_RVT)                                     0.06       2.55 r
+  U2897/Y (AO22X1_RVT)                                    0.07       2.62 r
+  U2192/Y (XOR2X1_RVT)                                    0.12       2.74 f
+  U2571/Y (AND2X1_RVT)                                    0.07       2.81 f
+  U2191/Y (XNOR2X1_RVT)                                   0.12       2.93 r
+  iNEMO/iINT/ptch_int_reg[26]/D (DFFARX1_RVT)             0.01       2.94 r
   data arrival time                                                  2.94
 
   clock clk (rise edge)                                   3.00       3.00
   clock network delay (ideal)                             0.00       3.00
-  iBAL/pid/integrator_reg[0]/CLK (DFFARX1_RVT)            0.00       3.00 r
+  iNEMO/iINT/ptch_int_reg[26]/CLK (DFFARX1_RVT)           0.00       3.00 r
   library setup time                                     -0.06       2.94
   data required time                                                 2.94
   --------------------------------------------------------------------------

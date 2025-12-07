@@ -1,0 +1,233 @@
+m255
+K4
+z2
+!s12c _opt
+Z0 !s99 nomlopt
+!s11f vlog 2024.3_2 2024.11, Nov 25 2024
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z1 d/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting
+T_opt
+!s110 1765140274
+VR_0O:D5_<O8PPzi?`I2Wg1
+04 19 4 work Segway_lean_conv_tb fast 0
+=1-000ae431a4f1-6935e732-88be8-1f51d3
+R0
+!s12f OEM100
+!s12b OEM100
+!s124 OEM100
+!s135 nogc
+o-quiet -auto_acc_if_foreign -work work -L /filespace/m/mohan34/ECE551/SAED32_lib_RVT
+Z2 tCvgOpt 0
+n@_opt
+OE;O;2024.3_2;79
+vADC128S_FC
+2/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/ADC128S_FC.sv
+Z3 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z4 !s110 1765140268
+!i10b 1
+!s100 n1UPndo6Ol_azTTf4hd=N2
+IT@d_=VfWlbFNeYmGJ?EPC2
+S1
+R1
+Z5 w1765138920
+8/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/ADC128S_FC.sv
+F/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/ADC128S_FC.sv
+!i122 26
+L0 1 114
+Z6 VDg1SIo80bB@j0V0VzS_@n1
+Z7 OE;L;2024.3_2;79
+r1
+!s85 0
+31
+Z8 !s108 1765140268.000000
+!s107 /filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/ADC128S_FC.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/ADC128S_FC.sv|
+!i113 0
+Z9 o-work work -sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+n@a@d@c128@s_@f@c
+vrst_synch
+2/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/rst_synch.sv
+R3
+R4
+!i10b 1
+!s100 ?hA3<]alfzn^:9QXR:?T00
+IBh8UYPmNhHDVjlOe:]g?L2
+S1
+R1
+w1765139030
+8/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/rst_synch.sv
+F/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/rst_synch.sv
+!i122 27
+L0 1 22
+R6
+R7
+r1
+!s85 0
+31
+R8
+!s107 /filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/rst_synch.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/rst_synch.sv|
+!i113 0
+R9
+R2
+vSegway
+2/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/segway.vg
+Z10 !s110 1765140269
+!i10b 1
+!s100 TRcHgE3eWOL0WRm=Vgm>i3
+I5^LHjZ`YMRWaA6l2[^c`n2
+R1
+w1765139999
+8/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/segway.vg
+F/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/segway.vg
+!i122 32
+L0 9 6055
+R6
+R7
+r1
+!s85 0
+31
+Z11 !s108 1765140269.000000
+!s107 /filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/segway.vg|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/segway.vg|
+!i113 0
+o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+n@segway
+vSegway_lean_conv_tb
+2/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/Segway_tb_postsynthesis.sv
+R3
+DXx4 work 28 Segway_toplevel_tb_tasks_pkg 0 22 oGWHGIRE<n4FAoJ]6TCdF0
+R4
+!i10b 1
+!s100 9dF>;5Z`jV]GKXWZ=W61n3
+I8Vc`][TU:Mj1V=mCMP5T=0
+S1
+R1
+w1765140023
+8/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/Segway_tb_postsynthesis.sv
+F/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/Segway_tb_postsynthesis.sv
+!i122 28
+L0 4 96
+R6
+R7
+r1
+!s85 0
+31
+R8
+!s107 /filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/Segway_tb_postsynthesis.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/Segway_tb_postsynthesis.sv|
+!i113 0
+R9
+R2
+n@segway_lean_conv_tb
+XSegway_toplevel_tb_tasks_pkg
+2/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/Segway_toplevel_tb_tasks.sv
+R3
+R10
+!i10b 1
+!s100 2V6RLh]YfLih@8X4JTck10
+IoGWHGIRE<n4FAoJ]6TCdF0
+S1
+R1
+w1765140079
+8/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/Segway_toplevel_tb_tasks.sv
+F/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/Segway_toplevel_tb_tasks.sv
+!i122 31
+L0 1 0
+VoGWHGIRE<n4FAoJ]6TCdF0
+R7
+r1
+!s85 0
+31
+R8
+!s107 /filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/Segway_toplevel_tb_tasks.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/Segway_toplevel_tb_tasks.sv|
+!i113 0
+R9
+R2
+n@segway_toplevel_tb_tasks_pkg
+vSegwayModel
+2/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/SegwayModel.sv
+R3
+R4
+!i10b 1
+!s100 B7OKdA:T]Tjga96<li^>]3
+IXZ:o=h[7Pz9ko@c[QG_>j0
+S1
+R1
+w1765140031
+8/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/SegwayModel.sv
+F/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/SegwayModel.sv
+!i122 29
+L0 3 454
+R6
+R7
+r1
+!s85 0
+31
+R8
+!s107 /filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/SegwayModel.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/SegwayModel.sv|
+!i113 0
+R9
+R2
+n@segway@model
+vSPI_ADC128S
+2/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/SPI_ADC128S.sv
+R3
+R4
+!i10b 1
+!s100 93oj0i;UV@::cHMPGHMJ>1
+IB3VA21:ThbhIKP4k=a81U3
+S1
+R1
+R5
+8/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/SPI_ADC128S.sv
+F/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/SPI_ADC128S.sv
+!i122 30
+L0 1 140
+R6
+R7
+r1
+!s85 0
+31
+R8
+!s107 /filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/SPI_ADC128S.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/SPI_ADC128S.sv|
+!i113 0
+R9
+R2
+n@s@p@i_@a@d@c128@s
+vUART_tx
+2/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/uart_tx.sv
+R3
+R10
+!i10b 1
+!s100 EJ?8oGkiZhz?JBofZFkVb3
+I7McFVdE4KWMI9VHQ:8DiJ1
+S1
+R1
+w1765140259
+8/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/uart_tx.sv
+F/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/uart_tx.sv
+!i122 33
+L0 1 106
+R6
+R7
+r1
+!s85 0
+31
+R11
+!s107 /filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/uart_tx.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/filespace/m/mohan34/Desktop/NEWWWWW/ECE551SegwayProject/Testing/Toplevel/PostSynthesisTesting/uart_tx.sv|
+!i113 0
+R9
+R2
+n@u@a@r@t_tx
