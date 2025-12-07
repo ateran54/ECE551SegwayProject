@@ -270,6 +270,25 @@ endtask
 
 
 
+
+task automatic assert_all_speeds_zero(
+    ref logic signed [15:0] lft_speed,
+    ref logic signed [15:0] rgt_speed,
+);
+    if (lft_speed == 0 &&
+        rgt_speed      == 0 ) begin
+
+        $display("TEST: SPPEED  : PASSED — all Speeds are zero");
+    end 
+    else begin
+        $display("TEST: SPEED : FAILED");
+        $display("  lft_speed      = %0d", lft_speed);
+        $display("  rgt_speed     = %0d", rgt_speed);
+        $stop;
+    end
+
+
+endtask
 task automatic assert_all_omegas_not_zero(
     ref logic signed [15:0] omega_platform,
     ref logic signed [15:0] omega_lft,
