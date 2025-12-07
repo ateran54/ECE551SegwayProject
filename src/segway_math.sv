@@ -1,4 +1,6 @@
 module SegwayMath (
+    input clk,
+    input rst_n,
     input  logic  signed [11:0] PID_cntrl,
     input  logic         [7:0] ss_tmr,
     input  logic        [11:0] steer_pot,
@@ -47,11 +49,25 @@ module SegwayMath (
     //assign the left torque based on the en_steer signal
     assign rght_torque = en_steer ? rght_torque_steering : PID_ss_sext;
 
+    //pipeline the lft and rght torque for deadzone shaping
+    logic signed [12:0] lft_torque_pipelined;
+    logic signed [12:0] rght_torque_pipelined;
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            lft_torque_pipelined <= '0;
+            rght_torque_pipelined <= '0;
+        end else begin
+            lft_torque_pipelined <= lft_torque;
+            rght_torque_pipelined <= rght_torque;
+        end
+    end
+
     //deadzone shaping (left torque)
     logic signed [12:0] lft_shaped;
     logic signed [12:0] rhgt_shaped;
-    DeadzoneShaping deadzone_left(.torque_in(lft_torque), .pwr_up(pwr_up), .torque_shaped(lft_shaped));
-    DeadzoneShaping deadzone_right(.torque_in(rght_torque), .pwr_up(pwr_up), .torque_shaped(rhgt_shaped));
+    DeadzoneShaping deadzone_left(.torque_in(lft_torque_pipelined), .pwr_up(pwr_up), .torque_shaped(lft_shaped));
+    DeadzoneShaping deadzone_right(.torque_in(rght_torque_pipelined), .pwr_up(pwr_up), .torque_shaped(rhgt_shaped));
+
 
     //final saturation
     assign lft_spd = lft_shaped[12] ? 

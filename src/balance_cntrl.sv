@@ -29,9 +29,24 @@ module balance_cntrl #(parameter fast_sim = 1)(
                         .ss_tmr(ss_tmr)
                     );
     
+    //pipeline PID_cntrl, ss_tmr to SegwayMath
+    logic signed [11:0] PID_cntrl_pipelined;
+    logic [7:0] ss_tmr_pipelined;
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            PID_cntrl_pipelined <= '0;
+            ss_tmr_pipelined <= '0;
+        end else begin
+            PID_cntrl_pipelined <= PID_cntrl;
+            ss_tmr_pipelined <= ss_tmr;
+        end
+    end
+    
     SegwayMath segMath(
-            .PID_cntrl(PID_cntrl),
-            .ss_tmr(ss_tmr),
+            .clk(clk),
+            .rst_n(rst_n),
+            .PID_cntrl(PID_cntrl_pipelined),
+            .ss_tmr(ss_tmr_pipelined),
             .steer_pot(steer_pot),
             .en_steer(en_steer),
             .pwr_up(pwr_up),

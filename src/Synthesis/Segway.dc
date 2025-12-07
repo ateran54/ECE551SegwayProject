@@ -1,5 +1,5 @@
 # Read the RTL design
-read_file -format SVERILOG {../Segway.sv ../Auth_blk.sv ../inert_intf.sv ../balance_cntrl.sv ../steer_en.sv ../mtr_drv.sv ../A2D_Intf.sv ../piezo_drv.sv ../rst_synch.sv ../uart_rx.sv ../uart_tx.sv ../SPI_mnrch.sv ../segway_math.sv ../PWM11.sv ../piezo_drv.sv ../inertial_integrator.sv}
+read_file -format SVERILOG {../Segway.sv ../Auth_blk.sv ../PID.sv ../inert_intf.sv ../balance_cntrl.sv ../steer_en.sv ../mtr_drv.sv ../A2D_Intf.sv ../piezo_drv.sv ../rst_synch.sv ../uart_rx.sv ../SPI_mnrch.sv ../segway_math.sv ../PWM11.sv ../piezo_drv.sv ../inertial_integrator.sv}
 
 # Set the current design 
 set current_design Segway
@@ -59,8 +59,12 @@ ungroup -all -flatten
 
 # Apply multicycle path constraints AFTER flattening (required for get_pins to work)
 # All paths TO the inertial integrator only matter when vld pulses
-set_multicycle_path 2 -setup -to [get_pins -hier *ptch_int_reg*/D]
-set_multicycle_path 1 -hold -to [get_pins -hier *ptch_int_reg*/D]
+set_multicycle_path 2 -setup -from [find pin iNEMO/ptch_*_reg*/CLK]
+set_multicycle_path 2 -setup -from [find pin iNEMO/AZ*_reg*/CLK]
+set_multicycle_path 2 -hold -from [find pin iNEMO/ptch_*_reg*/CLK]
+set_multicycle_path 2 -hold -from [find pin iNEMO/AZ*_reg*/CLK]
+set_multicycle_path 2 -setup -from [find pin iBAL/iCNTRL/ss_tmr_reg*/CLK]
+set_multicycle_path 2 -hold -from [find pin iBAL/iCNTRL/ss_tmr_reg*/CLK]
 
 # Set max area constraint to help optimizer focus on area
 set_max_area 11900
@@ -81,11 +85,11 @@ report_timing -delay min > Reports/segway_min_delay.rpt
 report_timing -delay  max > Reports/segway_max_delay.rpt
 
 # Area report
-report_area  > segwayl_area.rpt
+report_area  > Reports/segway_area.rpt
 
 #########################################################################
 # Final Design Output
 #########################################################################
 
 # Write out the gate level Verilog netlist
-write -format verilog -output segway.vg
+write -format verilog -output OutputNetlist/segway.vg

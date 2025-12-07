@@ -75,8 +75,6 @@ module PID #(parameter fast_sim = 1) (
     logic signed [12:0] D_term;
     logic signed [15:0] PID_SUM_16;
 
-
-
     // --- Proportional Term ---
     assign P_term = ptch_err_sat * $signed(P_COEFF); 
 
@@ -89,12 +87,14 @@ module PID #(parameter fast_sim = 1) (
     end
     endgenerate
     
-
     // --- Derivative Term ---
-    assign D_term = $signed(-1)*(ptch_rt >>> 6);  // D_term is signed [12:0]
+    // D_term = - (ptch_rt / 64)
+    assign D_term = -(ptch_rt >>> 6);  // D_term is signed [12:0]
+
+ 
 
     // --- PID Sum ---
-    assign PID_SUM_16 = P_term + I_term + D_term;
+    assign PID_SUM_16 = P_term + I_term + D_term; // 16-bit signed sum
 
     // --- Output Saturation ---
     assign PID_cntrl = PID_SUM_16[15] ? 

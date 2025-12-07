@@ -120,6 +120,7 @@ package Segway_toplevel_tb_tasks_pkg;
         begin
             RST_n = 0;
             repeat (10) @(posedge clk);
+            @(negedge clk);
             RST_n = 1;
             repeat (5) @(posedge clk);
         end

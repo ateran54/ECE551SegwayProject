@@ -83,6 +83,7 @@ module A2D_intf (
             T2: begin
                 if (done) begin // chnacge for a decoder this is stupid.
                     count_en = 1'b1;
+                    //make this use simpler logic
                     case (robin_cnt)
                         2'b00: nextLeftLoadLevel         = rd_data[11:0];
                         2'b01: nextRightLoadLevel        = rd_data[11:0];

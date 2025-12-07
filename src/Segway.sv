@@ -52,14 +52,32 @@ module Segway(clk,RST_n,INERT_SS_n,INERT_MOSI,INERT_SCLK,
 				   .MOSI(INERT_MOSI),.MISO(INERT_MISO),
 				   .INT(INERT_INT));
   
+
+  //pipeline signals to balance controller
+  logic signed [15:0] ptch_pipelined;
+  logic signed [15:0] ptch_rt_pipelined;
+  logic pwr_up_pipelined;
+  always_ff @(posedge clk or negedge rst_n) begin
+      if (!rst_n) begin
+          ptch_pipelined <= '0;
+          ptch_rt_pipelined <= '0;
+          pwr_up_pipelined <= '0;
+      end else begin
+          ptch_pipelined <= ptch;
+          ptch_rt_pipelined <= ptch_rt;
+          pwr_up_pipelined <= pwr_up;
+      end
+  end
   /////////////////////////////////////
   // Instantiate balance controller //
   ///////////////////////////////////					 
-  balance_cntrl #(fast_sim) iBAL(.clk(clk),.rst_n(rst_n),.vld(vld),.ptch(ptch),
-                     .ptch_rt(ptch_rt),.pwr_up(pwr_up),.rider_off(rider_off),
+  balance_cntrl #(fast_sim) iBAL(.clk(clk),.rst_n(rst_n),.vld(vld),.ptch(ptch_pipelined),
+                     .ptch_rt(ptch_rt_pipelined),.pwr_up(pwr_up_pipelined),.rider_off(rider_off),
 					 .steer_pot(steer_pot),.en_steer(en_steer),.lft_spd(lft_spd),
 					 .rght_spd(rght_spd),.too_fast(too_fast));
 
+
+  
 
   //////////////////////////////////
   // Instantiate steering enable //

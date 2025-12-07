@@ -24,3 +24,6 @@ __pycache__/
 transcript
 *.mti
 *.wlf
+*.pvl
+*.syn
+*.mr
