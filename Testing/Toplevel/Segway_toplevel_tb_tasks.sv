@@ -3,6 +3,13 @@ package Segway_toplevel_tb_tasks_pkg;
     localparam logic [7:0] CMD_START     = 8'h47; // 'G'
     localparam logic [7:0] CMD_STOP      = 8'h53; // 'S'
 
+    //enum for turn direction
+    typedef enum logic [1:0] {
+        TURN_NONE = 2'b00,
+        TURN_LEFT = 2'b01,
+        TURN_RIGHT= 2'b10
+    } turn_dir_e;
+
     // Task to initialize all inputs to default values
     task automatic initialize_inputs(
         ref logic       clk,
@@ -16,6 +23,7 @@ package Segway_toplevel_tb_tasks_pkg;
         ref logic       OVR_I_lft,
         ref logic       OVR_I_rght
     );
+        $display("Initializing inputs...");
         begin
             clk = 0;
             RST_n = 0;
@@ -29,6 +37,81 @@ package Segway_toplevel_tb_tasks_pkg;
             OVR_I_rght = 0;
         end
     endtask : initialize_inputs
+
+    //task to check both turn diretion and that platform is balanced
+    task automatic check_balance_and_turn_direction(
+        ref logic signed [15:0] theta_platform,
+        ref logic signed [15:0] omega_lft,
+        ref logic signed [15:0] omega_rght,
+        input turn_dir_e expected_direction,
+        ref logic clk
+    );
+        begin
+            check_platform_is_balanced(theta_platform, clk);
+            check_turn_direction(omega_lft, omega_rght, expected_direction);
+        end
+    endtask : check_balance_and_turn_direction
+
+    task automatic check_platform_is_balanced(
+        ref logic signed [15:0] theta_platform,
+        ref logic clk
+    );
+        begin
+            if ( (theta_platform <= 200) && (theta_platform >= -200) ) begin
+                $display("TEST: PLATFORM BALANCED : PASSED — theta_platform = %0d", theta_platform);
+            end 
+            else begin
+                $display("TEST: PLATFORM BALANCED : FAILED — theta_platform = %0d", theta_platform);
+                $stop;
+            end
+        end
+    endtask : check_platform_is_balanced
+
+    task automatic check_turn_direction(
+        ref logic signed [15:0] omega_lft,
+        ref logic signed [15:0] omega_rght,
+        input turn_dir_e expected_direction
+    );
+        begin
+            case (expected_direction) 
+                TURN_NONE: begin
+                    if ( (omega_lft == omega_rght) ) begin
+                        $display("TEST: TURN DIRECTION NONE : PASSED");
+                    end 
+                    else begin
+                        $display("TEST: TURN DIRECTION NONE : FAILED — omega_lft = %0d, omega_rght = %0d", omega_lft, omega_rght);
+                        $stop;
+                    end
+                end
+
+                TURN_LEFT: begin
+                    if ( (omega_lft < omega_rght) ) begin
+                        $display("TEST: TURN DIRECTION LEFT : PASSED");
+                    end 
+                    else begin
+                        $display("TEST: TURN DIRECTION LEFT : FAILED — omega_lft = %0d, omega_rght = %0d", omega_lft, omega_rght);
+                        $stop;
+                    end
+                end
+
+                TURN_RIGHT: begin
+                    if ( (omega_lft > omega_rght) ) begin
+                        $display("TEST: TURN DIRECTION RIGHT : PASSED");
+                    end 
+                    else begin
+                        $display("TEST: TURN DIRECTION RIGHT : FAILED — omega_lft = %0d, omega_rght = %0d", omega_lft, omega_rght);
+                        $stop;
+                    end
+                end
+
+                default: begin
+                    $display("ERROR: INVALID EXPECTED DIRECTION!");
+                    $stop;
+                end
+            endcase
+        end
+    endtask : check_turn_direction
+
 
     task automatic apply_reset(
         ref logic RST_n,
@@ -70,60 +153,6 @@ package Segway_toplevel_tb_tasks_pkg;
             join
         end
     endtask : send_uart_byte
-
-    task automatic spi_transaction(
-        input logic [15:0] tx_data,
-        ref logic clk,
-        ref logic wrt,
-        ref logic [15:0] wrt_data,
-        ref logic done,
-        ref logic [15:0] rd_data
-    );
-
-        wrt_data = tx_data;
-        wrt = 1;
-        @(posedge clk);
-        #1;
-        wrt = 0;
-
-        begin : spi_transaction_block
-            fork 
-                begin
-                    wait(done == 1'b1);
-                    disable spi_transaction_block;
-                end
-
-                begin
-                    repeat(10000000) @(posedge clk);
-                    $display("ERROR: SPI TRANSACTION TIMED OUT! DATA: %h", wrt_data);
-                    $stop;
-                end
-            join
-        end
-        
-        @(posedge clk);
-        $display("[%0t] Transaction complete: wt_data=%h | rd_data=%h", $time, tx_data, rd_data);
-    endtask
-
-    task automatic wait_for_INT(
-        ref logic INT,
-        ref logic clk
-    );
-        begin : wait_for_int
-            fork 
-                begin
-                    wait(INT);
-                    disable wait_for_int;
-                end
-
-                begin
-                    repeat(10000000) @(posedge clk);
-                    $display("ERROR: WAITING FOR INT TIMED OUT!");
-                    $stop;
-                end
-            join
-        end
-    endtask : wait_for_INT
 
     task automatic run_standard_start_sequence(
         ref logic [7:0] tx_data,

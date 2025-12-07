@@ -80,10 +80,6 @@ initial begin
   //check that left and right omega are equally balanced
   check_condition("TEST: Left and Right Wheel Omega are equal", (iPHYS.omega_lft == iPHYS.omega_rght), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
   set_rider_lean(16'h0000, rider_lean, clk);
-    //Check that theta platform angle is less than 250 
-  check_condition("TEST: Theta Platform Angle Range For Forward Lean with Steering", (iPHYS.theta_platform <= 250) && (iPHYS.theta_platform >= -250), $sformatf("Value: %0d", iPHYS.theta_platform));
-  //check that left and right omega reflect a right turn (right wheel slower than left)
-  check_condition("TEST: Left and Right Wheel Omega are equal", (iPHYS.omega_lft == iPHYS.omega_rght), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
   
   //oscillate lean ramping up and down 10 times
   for (int i=0; i<15; i=i+1) begin

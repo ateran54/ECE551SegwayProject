@@ -54,8 +54,11 @@ rst_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
 initial begin
   $display("Starting Segway Lean Testing with Steering Testbench Simulation");
   //init inputs and apply reset
+  $display("Initializing inputs...");
   initialize_inputs(clk, RST_n, send_cmd, rider_lean, ld_cell_lft, ld_cell_rght, steerPot, batt, OVR_I_lft, OVR_I_rght);
   apply_reset(RST_n, clk);
+
+  $display("Rider is getting on the Segway...");
   //set loads and wait for balance check
   set_loads(330,320, ld_cell_lft, ld_cell_rght, clk);
   repeat (40000) @(posedge clk);
@@ -63,6 +66,7 @@ initial begin
   run_standard_start_sequence(cmd, send_cmd, cmd_sent, clk);
   //lean forward and wait
   repeat (700000) @(posedge clk);
+  $display("Leaning forward with rider_lean = 0x0FFF while steering to the right...");
   set_rider_lean(16'h0FFF, rider_lean, clk);
   //set steerpot to steer to the right
   set_steerPot(12'hD00, steerPot, clk);
@@ -72,6 +76,7 @@ initial begin
   check_condition("TEST: Theta Platform Angle Range For Forward Lean with Steering", (iPHYS.theta_platform <= 300) && (iPHYS.theta_platform >= -300), $sformatf("Value: %0d", iPHYS.theta_platform));
   //check that left and right omega reflect a right turn (right wheel slower than left)
   check_condition("TEST: Left and Right Wheel Omega for Right Turn", (iPHYS.omega_lft > iPHYS.omega_rght), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
+  $display("Leaning back to neutral while maintaining right steer...");
   set_rider_lean(16'h0000, rider_lean, clk);
   repeat (2000000) @(posedge clk);
   //Check that theta platform angle is less than 300 

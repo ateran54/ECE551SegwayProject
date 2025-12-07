@@ -59,15 +59,18 @@ initial begin
   //wait for a bit before rider goes on
   repeat (100) @(posedge clk);
   //set steerpot and wait for a bit
+  $display("Setting steerPot to mid position (0x0800)");
   set_steerPot(12'h0800, steerPot, clk);
   repeat (40000) @(posedge clk);
   //set loads and wait for balance check
+  $display("Setting load cells to 330 each. (Rider on board)");
   set_loads(330,330, ld_cell_lft, ld_cell_rght, clk);
   repeat (40000) @(posedge clk);
   //send start command and wait a bit
   run_standard_start_sequence(cmd, send_cmd, cmd_sent, clk);
   repeat (700000) @(posedge clk);
   //lean forward and wait
+  $display("Leaning forward with rider_lean = 0x0FFF");
   set_rider_lean(16'h0FFF, rider_lean, clk);
   repeat (2000000) @(posedge clk);
   //Check that theta platform angle is less than 250 
@@ -75,6 +78,7 @@ initial begin
   //check that left and right omega are roughly equal
   check_condition("Left and Right Wheel Omega Equality For Forward Lean", ( (iPHYS.omega_lft - iPHYS.omega_rght) == 0), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
   //lean backward and wait
+  $display("Leaning backward with rider_lean = 0x0000");
   set_rider_lean(16'h0000, rider_lean, clk);
   repeat (2000000) @(posedge clk);
   //Check that theta platform angle is less than 300 
