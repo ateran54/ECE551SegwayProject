@@ -6,15 +6,15 @@ Report : timing
         -max_paths 1
 Design : Segway
 Version: X-2025.06
-Date   : Sun Dec  7 10:07:22 2025
+Date   : Sun Dec  7 11:31:04 2025
 ****************************************
 
 Operating Conditions: tt0p85v25c   Library: saed32rvt_tt0p85v25c
 Wire Load Model Mode: enclosed
 
-  Startpoint: iNEMO/iINT/ptch_int_reg[2]
+  Startpoint: rght_ld_pipelined_reg[0]
               (rising edge-triggered flip-flop clocked by clk)
-  Endpoint: iNEMO/iINT/ptch_int_reg[26]
+  Endpoint: iSTR/tmr_reg[0]
             (rising edge-triggered flip-flop clocked by clk)
   Path Group: clk
   Path Type: max
@@ -27,61 +27,44 @@ Wire Load Model Mode: enclosed
   --------------------------------------------------------------------------
   clock clk (rise edge)                                   0.00       0.00
   clock network delay (ideal)                             0.00       0.00
-  iNEMO/iINT/ptch_int_reg[2]/CLK (DFFARX1_RVT)            0.00       0.00 r
-  iNEMO/iINT/ptch_int_reg[2]/Q (DFFARX1_RVT)              0.16       0.16 r
-  U1928/Y (NAND2X0_RVT)                                   0.04       0.20 f
-  U1921/Y (OA21X1_RVT)                                    0.07       0.27 f
-  U1917/Y (AOI22X1_RVT)                                   0.08       0.35 r
-  U1922/Y (OA21X1_RVT)                                    0.07       0.42 r
-  U1930/Y (AO21X1_RVT)                                    0.08       0.50 r
-  U1916/Y (AO22X1_RVT)                                    0.08       0.58 r
-  iNEMO/iINT/sub_0_root_sub_0_root_add_84/U2_7/CO (FADDX1_RVT)
-                                                          0.11       0.70 r
-  iNEMO/iINT/sub_0_root_sub_0_root_add_84/U2_8/CO (FADDX1_RVT)
-                                                          0.12       0.81 r
-  iNEMO/iINT/sub_0_root_sub_0_root_add_84/U2_9/CO (FADDX1_RVT)
-                                                          0.12       0.93 r
-  iNEMO/iINT/sub_0_root_sub_0_root_add_84/U2_10/CO (FADDX1_RVT)
-                                                          0.12       1.05 r
-  iNEMO/iINT/sub_0_root_sub_0_root_add_84/U2_11/CO (FADDX1_RVT)
-                                                          0.12       1.16 r
-  iNEMO/iINT/sub_0_root_sub_0_root_add_84/U2_12/CO (FADDX1_RVT)
-                                                          0.12       1.28 r
-  iNEMO/iINT/sub_0_root_sub_0_root_add_84/U2_13/CO (FADDX1_RVT)
-                                                          0.12       1.40 r
-  iNEMO/iINT/sub_0_root_sub_0_root_add_84/U2_14/CO (FADDX1_RVT)
-                                                          0.12       1.51 r
-  iNEMO/iINT/sub_0_root_sub_0_root_add_84/U2_15/CO (FADDX1_RVT)
-                                                          0.12       1.63 r
-  iNEMO/iINT/sub_0_root_sub_0_root_add_84/U2_16/CO (FADDX1_RVT)
-                                                          0.12       1.74 r
-  iNEMO/iINT/sub_0_root_sub_0_root_add_84/U2_17/CO (FADDX1_RVT)
-                                                          0.12       1.86 r
-  U1959/Y (NAND2X0_RVT)                                   0.05       1.91 f
-  U1958/Y (NAND3X0_RVT)                                   0.06       1.97 r
-  iNEMO/iINT/sub_0_root_sub_0_root_add_84/U2_19/CO (FADDX1_RVT)
-                                                          0.12       2.09 r
-  iNEMO/iINT/sub_0_root_sub_0_root_add_84/U2_20/CO (FADDX1_RVT)
-                                                          0.12       2.21 r
-  U1950/Y (NAND2X0_RVT)                                   0.05       2.26 f
-  U1948/Y (NAND3X0_RVT)                                   0.06       2.32 r
-  iNEMO/iINT/sub_0_root_sub_0_root_add_84/U2_22/CO (FADDX1_RVT)
-                                                          0.12       2.44 r
-  iNEMO/iINT/sub_0_root_sub_0_root_add_84/U2_23/CO (FADDX1_RVT)
-                                                          0.12       2.56 r
-  iNEMO/iINT/sub_0_root_sub_0_root_add_84/U2_24/CO (FADDX1_RVT)
-                                                          0.12       2.68 r
-  U2005/Y (NAND2X0_RVT)                                   0.05       2.72 f
-  U2006/Y (NAND3X0_RVT)                                   0.06       2.78 r
-  iNEMO/iINT/sub_0_root_sub_0_root_add_84/U2_26/Y (XOR3X2_RVT)
-                                                          0.08       2.87 f
-  U809/Y (AO22X1_RVT)                                     0.07       2.93 f
-  iNEMO/iINT/ptch_int_reg[26]/D (DFFARX1_RVT)             0.01       2.94 f
+  rght_ld_pipelined_reg[0]/CLK (DFFARX1_RVT)              0.00       0.00 r
+  rght_ld_pipelined_reg[0]/Q (DFFARX1_RVT)                0.16       0.16 r
+  U2173/Y (AND2X1_RVT)                                    0.07       0.23 r
+  iSTR/add_30/U1_1/CO (FADDX1_RVT)                        0.12       0.35 r
+  U2377/Y (NAND2X0_RVT)                                   0.05       0.40 f
+  U2376/Y (NAND3X0_RVT)                                   0.06       0.46 r
+  iSTR/add_30/U1_3/CO (FADDX1_RVT)                        0.13       0.59 r
+  U2250/CO (FADDX1_RVT)                                   0.13       0.73 r
+  U2253/Y (OR2X1_RVT)                                     0.07       0.80 r
+  U2249/Y (AO22X1_RVT)                                    0.08       0.87 r
+  U2219/Y (XOR2X1_RVT)                                    0.14       1.01 f
+  U2388/Y (OR2X1_RVT)                                     0.09       1.10 f
+  U2391/Y (NAND2X0_RVT)                                   0.07       1.17 r
+  U2324/Y (XNOR2X1_RVT)                                   0.15       1.32 r
+  U759/Y (OR2X1_RVT)                                      0.07       1.39 r
+  U758/Y (AO22X1_RVT)                                     0.08       1.48 r
+  U2179/Y (XNOR3X1_RVT)                                   0.22       1.70 r
+  iSTR/mult_33/S1_5_0/CO (FADDX1_RVT)                     0.13       1.83 r
+  U2264/CO (FADDX1_RVT)                                   0.13       1.96 r
+  U2266/Y (OR2X1_RVT)                                     0.07       2.03 r
+  U2261/Y (AO22X1_RVT)                                    0.08       2.11 r
+  U2260/Y (NAND2X0_RVT)                                   0.05       2.16 f
+  U2256/Y (NAND3X0_RVT)                                   0.08       2.23 r
+  U2263/Y (XNOR2X1_RVT)                                   0.14       2.37 r
+  U2283/Y (NAND2X0_RVT)                                   0.04       2.42 f
+  U2282/Y (NAND3X0_RVT)                                   0.05       2.47 r
+  U2130/Y (OA221X1_RVT)                                   0.07       2.54 r
+  U2129/Y (AO21X1_RVT)                                    0.05       2.59 r
+  U2128/Y (AO22X1_RVT)                                    0.08       2.67 r
+  U779/Y (NAND4X0_RVT)                                    0.07       2.73 f
+  U2278/Y (AND3X1_RVT)                                    0.12       2.85 f
+  U777/Y (AND2X1_RVT)                                     0.08       2.93 f
+  iSTR/tmr_reg[0]/D (DFFARX1_RVT)                         0.01       2.94 f
   data arrival time                                                  2.94
 
   clock clk (rise edge)                                   3.00       3.00
   clock network delay (ideal)                             0.00       3.00
-  iNEMO/iINT/ptch_int_reg[26]/CLK (DFFARX1_RVT)           0.00       3.00 r
+  iSTR/tmr_reg[0]/CLK (DFFARX1_RVT)                       0.00       3.00 r
   library setup time                                     -0.05       2.95
   data required time                                                 2.95
   --------------------------------------------------------------------------

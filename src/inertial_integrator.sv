@@ -36,20 +36,37 @@ assign AZ_comp = AZ - AZ_OFFSET;
 //pipeline the multiplier for ptch_acc_product
 assign ptch_acc_product = AZ_comp * $signed(327);
 
-logic signed [25:0] ptch_acc_product_pipelined;
+
+
+//Pipline 
+logic signed [15:0] ptch_acc_piped;
 always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-        ptch_acc_product_pipelined <= '0;
+        ptch_acc_piped <= '0;
+
     end else begin
-        ptch_acc_product_pipelined <= ptch_acc_product;
+        ptch_acc_piped <= ptch_acc;
     end
 end
 
     // Shift down and sign-extend to 16 bits: take bits [25:13] and extend with 3 MSBs
-assign ptch_acc = {{3{ptch_acc_product_pipelined[25]}}, ptch_acc_product_pipelined[25:13]};
+assign ptch_acc = {{3{ptch_acc_product[25]}}, ptch_acc_product[25:13]};
     // Determine fusion offset direction
-assign fusion_ptch_offset = (ptch_acc > ptch) ? 27'sd1024 : -27'sd1024;
+assign fusion_ptch_offset = (ptch_acc_piped > ptch) ? 27'sd1024 : -27'sd1024;
 
+// Pipeline ptch_rt_comp_ext and fusion_ptch_offset
+logic signed [26:0] ptch_rt_comp_ext_piped;
+logic signed [26:0] fusion_ptch_offset_piped;
+
+always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        ptch_rt_comp_ext_piped <= '0;
+        fusion_ptch_offset_piped <= '0;
+    end else begin
+        ptch_rt_comp_ext_piped <= ptch_rt_comp_ext;
+        fusion_ptch_offset_piped <= fusion_ptch_offset;
+    end
+end
 
 always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
@@ -57,7 +74,7 @@ always_ff @(posedge clk or negedge rst_n) begin
         ptch     <= '0;
     end else begin
         if (vld) begin
-            ptch_int <= ptch_int - ptch_rt_comp_ext + fusion_ptch_offset;
+            ptch_int <= ptch_int - ptch_rt_comp_ext_piped + fusion_ptch_offset_piped;
         end
         // Output is bits [26:11] (divide by 2^11)
         ptch <= ptch_int[26:11];

@@ -52,7 +52,7 @@ set_wire_load_model -name "16000" -library saed32rvt_tt0p85v25c
 #########################################################################
 
 # First pass: compile and flatten to get gate-level netlist
-compile -map_effort low
+compile -map_effort high
 
 # Flatten the design to remove hierarchy
 ungroup -all -flatten
