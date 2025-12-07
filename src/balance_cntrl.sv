@@ -15,7 +15,7 @@ module balance_cntrl #(parameter fast_sim = 1)(
     // Module's internal logic for balance control here
     // This may involve PID control and other algorithms based on the inputs.
     logic signed [11:0] PID_cntrl;
-    logic [7:0] ss_tmr;
+    reg [7:0] ss_tmr;
 
     PID #(fast_sim) pid(
                         .clk(clk),

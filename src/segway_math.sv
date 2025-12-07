@@ -18,7 +18,20 @@ module SegwayMath (
     //signed multiply since we want a signed quantity, then right shift by 8 to divide by 256
     assign PID_ss_unscaled = $signed({1'b0,ss_tmr}) *  PID_cntrl;
     assign PID_ss = PID_ss_unscaled >> 8;
-    assign PID_ss_sext = $signed({PID_ss[11], PID_ss});
+    //pipeline PID_ss for steering calculation
+
+    logic signed [11:0] PID_ss_pipelined;   
+    always_ff @(posedge clk, negedge rst_n) begin
+        if (!rst_n) begin
+            PID_ss_pipelined <= '0;
+        end else begin
+            PID_ss_pipelined <= PID_ss;
+        end
+    end
+
+    assign PID_ss_sext = $signed({PID_ss_pipelined[11], PID_ss_pipelined});
+
+    //
 
     //steering input
     logic [11:0] steer_pot_saturated;
@@ -38,14 +51,14 @@ module SegwayMath (
     logic signed [12:0] lft_torque_steering;
     logic signed [12:0] lft_torque;
     //sext PID_ss and the steering_offset_scaled and add them togethor to get the normal left torque
-    assign lft_torque_steering = $signed({PID_ss[11], PID_ss}) + $signed({steering_offset_scaled[11], steering_offset_scaled});//CHECK THIS LINE
+    assign lft_torque_steering = $signed({  PID_ss_pipelined[11], PID_ss_pipelined}) + $signed({steering_offset_scaled[11], steering_offset_scaled});//CHECK THIS LINE
     //assign the left torque based on the en_steer signal
     assign lft_torque = en_steer ? lft_torque_steering : PID_ss_sext;
     //calculate right torque
     logic signed [12:0] rght_torque_steering;
     logic signed [12:0] rght_torque;
     //sext PID_ss and the steering_offset_scaled and add them togethor to get the normal left torque
-    assign rght_torque_steering = $signed({PID_ss[11], PID_ss}) - $signed({steering_offset_scaled[11], steering_offset_scaled}); //CHECK THIS LINE
+    assign rght_torque_steering = $signed({PID_ss_pipelined[11], PID_ss_pipelined}) - $signed({steering_offset_scaled[11], steering_offset_scaled}); //CHECK THIS LINE
     //assign the left torque based on the en_steer signal
     assign rght_torque = en_steer ? rght_torque_steering : PID_ss_sext;
 

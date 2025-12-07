@@ -27,25 +27,30 @@ logic signed [15:0] ptch_acc;                // accel-derived pitch (signed)
 logic signed [26:0] fusion_ptch_offset;      // +/-1024 extended to 27 bits
 
 // Compute compensated rate and sign-extend
-always_comb begin
-    ptch_rt_comp = ptch_rt - PTCH_RT_OFFSET;
-    ptch_rt_comp_ext = { {11{ptch_rt_comp[15]}}, ptch_rt_comp };
+assign ptch_rt_comp = ptch_rt - PTCH_RT_OFFSET;
+assign ptch_rt_comp_ext = { {11{ptch_rt_comp[15]}}, ptch_rt_comp };
 
     // Accelerometer-based pitch calculation
-    AZ_comp = AZ - AZ_OFFSET;
+assign AZ_comp = AZ - AZ_OFFSET;
     // Multiply by fudge factor 327. Product width: 16+9=25 -> use 26 bits to be safe
-    ptch_acc_product = AZ_comp * $signed(327);
-    // Shift down and sign-extend to 16 bits: take bits [25:13] and extend with 3 MSBs
-    ptch_acc = {{3{ptch_acc_product[25]}}, ptch_acc_product[25:13]};
+//pipeline the multiplier for ptch_acc_product
+assign ptch_acc_product = AZ_comp * $signed(327);
 
-    // Fusion offset decision: +1024 or -1024 (27-bit signed)
-    if (ptch_acc > ptch)
-        fusion_ptch_offset = 27'sd1024;
-    else
-        fusion_ptch_offset = -27'sd1024;
+logic signed [25:0] ptch_acc_product_pipelined;
+always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        ptch_acc_product_pipelined <= '0;
+    end else begin
+        ptch_acc_product_pipelined <= ptch_acc_product;
+    end
 end
 
-// Integrate on vld pulses. We integrate the NEGATIVE of ptch_rt_comp due to sensor orientation
+    // Shift down and sign-extend to 16 bits: take bits [25:13] and extend with 3 MSBs
+assign ptch_acc = {{3{ptch_acc_product_pipelined[25]}}, ptch_acc_product_pipelined[25:13]};
+    // Determine fusion offset direction
+assign fusion_ptch_offset = (ptch_acc > ptch) ? 27'sd1024 : -27'sd1024;
+
+
 always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         ptch_int <= '0;

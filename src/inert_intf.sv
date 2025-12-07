@@ -52,6 +52,24 @@ module inert_intf(clk,rst_n,ptch,ptch_rt,vld,SS_n,SCLK,
 				  .rd_data(inert_data),.wrt_data(cmd));
 
   
+  //pipeline inputs to intertial integrator	
+  logic signed [15:0] ptch_rt_pipelined;
+  logic signed [15:0] ptch_pipelined;
+  logic signed [15:0] AZ_pipelined;
+  logic vld_pipelined;
+  always_ff @(posedge clk or negedge rst_n) begin
+	  if (!rst_n) begin
+		  ptch_pipelined <= '0;
+		  ptch_rt_pipelined <= '0;
+		  AZ_pipelined <= '0;
+		  vld_pipelined <= 0;
+	  end else begin
+		  ptch_pipelined <= ptch;
+		  ptch_rt_pipelined <= ptch_rt;
+		  AZ_pipelined <= AZ;
+		  vld_pipelined <= vld;
+	  end
+  end
 				  
   ////////////////////////////////////////////////////////////////////
   // Instantiate Angle Engine that takes in angular rate readings  //
