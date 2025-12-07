@@ -16,7 +16,22 @@ module balance_cntrl #(parameter fast_sim = 1)(
     // This may involve PID control and other algorithms based on the inputs.
     logic signed [11:0] PID_cntrl;
     logic [7:0] ss_tmr;
+    logic signed [11:0] PID_cntrl_pipe;
+    logic [7:0] ss_tmr_pipe;
+    logic pwr_up_pipe;
 
+    always_ff @(posedge clk, negedge rst_n) begin
+        if (!rst_n) begin
+            PID_cntrl_pipe <= 12'sd0;
+            ss_tmr_pipe <= 8'h00;
+            pwr_up_pipe <= 1'b0;
+        end else begin
+            pwr_up_pipe <= pwr_up;
+            PID_cntrl_pipe <= PID_cntrl;
+            ss_tmr_pipe <= ss_tmr;
+        end
+    end
+    
     PID #(fast_sim) pid(
                         .clk(clk),
                         .rst_n(rst_n),
@@ -25,18 +40,18 @@ module balance_cntrl #(parameter fast_sim = 1)(
                         .rider_off(rider_off),
                         .ptch(ptch),
                         .ptch_rt(ptch_rt),
-                        .PID_cntrl(PID_cntrl),
-                        .ss_tmr(ss_tmr)
+                        .PID_cntrl(PID_cntrl),//output
+                        .ss_tmr(ss_tmr)//output
                     );
     
     SegwayMath segMath(
-            .PID_cntrl(PID_cntrl),
-            .ss_tmr(ss_tmr),
+            .PID_cntrl(PID_cntrl_pipe),
+            .ss_tmr(ss_tmr_pipe),
             .steer_pot(steer_pot),
             .en_steer(en_steer),
-            .pwr_up(pwr_up),
-            .lft_spd(lft_spd),
-            .rght_spd(rght_spd),
-            .too_fast(too_fast)
+            .pwr_up(pwr_up_pipe),
+            .lft_spd(lft_spd), //output
+            .rght_spd(rght_spd),//output
+            .too_fast(too_fast)//output
     );
 endmodule
