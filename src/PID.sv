@@ -69,64 +69,33 @@ module PID #(parameter fast_sim = 1) (
     // --- Constants ---
     localparam P_COEFF = 5'h09;  // Proportional gain
 
-    // --- Intermediate Signals (combinational, before pipeline) ---
-    logic signed [14:0] P_term_comb;
-    logic signed [14:0] I_term_comb;
-    logic signed [12:0] D_term_comb;
-    
-    // --- Pipeline registers for P, I, D terms ---
-    logic signed [14:0] P_term_pipe;
-    logic signed [14:0] I_term_pipe;
-    logic signed [12:0] D_term_pipe;
-    
-    // --- Signals after pipeline ---
+    // --- Intermediate Signals ---
+    logic signed [14:0] P_term;
+    logic signed [14:0] I_term;
+    logic signed [12:0] D_term;
     logic signed [15:0] PID_SUM_16;
 
     // --- Proportional Term ---
-    assign P_term_comb = ptch_err_sat * $signed(P_COEFF); 
+    assign P_term = ptch_err_sat * $signed(P_COEFF); 
 
     // --- Integral Term ---
     generate if (fast_sim) begin
-        assign I_term_comb = integrator[17] ? (&integrator[17:15] ? integrator[15:1] : 15'sh4000) 
+        assign I_term = integrator[17] ? (&integrator[17:15] ? integrator[15:1] : 15'sh4000) 
                                : (|integrator[16:15] ? 15'sh3FFF : integrator[15:1]);
     end else begin
-        assign I_term_comb = {{3{integrator[17]}}, integrator[17:6]};  // Divide by 64 (shift right 6)
+        assign I_term = {{3{integrator[17]}}, integrator[17:6]};  // Divide by 64 (shift right 6)
     end
     endgenerate
     
-
     // --- Derivative Term ---
-    assign D_term_comb = $signed(-1)*(ptch_rt >>> 6);  // D_term is signed [12:0]
+    assign D_term = $signed(-1)*(ptch_rt >>> 6);  // D_term is signed [12:0]
 
-    // --- Pipeline Stage: Register P, I, D terms before summation ---
-    always_ff @(posedge clk, negedge rst_n) begin
-        if (!rst_n) begin
-            P_term_pipe <= 15'sd0;
-            I_term_pipe <= 15'sd0;
-            D_term_pipe <= 13'sd0;
-        end else begin
-            P_term_pipe <= P_term_comb;
-            I_term_pipe <= I_term_comb;
-            D_term_pipe <= D_term_comb;
-        end
-    end
+    // --- PID Sum ---
+    assign PID_SUM_16 = P_term + I_term + D_term;
 
-    // --- PID Sum (uses pipelined terms) ---
-    assign PID_SUM_16 = P_term_pipe + I_term_pipe + D_term_pipe;
-
-    // --- Output Saturation (combinational) ---
-    logic signed [11:0] PID_cntrl_comb;
-    assign PID_cntrl_comb = PID_SUM_16[15] ? 
+    // --- Output Saturation ---
+    assign PID_cntrl = PID_SUM_16[15] ? 
                         ( &PID_SUM_16[14:11] ? PID_SUM_16[11:0] : 12'h800) : 
                         ( |PID_SUM_16[14:11] ? 12'h7FF : PID_SUM_16[11:0]);
-
-    // --- Pipeline Stage 2: Register after sum and saturation ---
-    always_ff @(posedge clk, negedge rst_n) begin
-        if (!rst_n) begin
-            PID_cntrl <= 12'sd0;
-        end else begin
-            PID_cntrl <= PID_cntrl_comb;
-        end
-    end
 
 endmodule

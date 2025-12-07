@@ -17,6 +17,12 @@ module steer_en #(parameter fast_sim = 1)(
     logic [12:0] sum_13_14;
     logic [25:0] tmr;
     
+    // Pipeline registers for multiplication results
+    logic [12:0] sum_13_pipe;
+    logic [11:0] diff_12_abs_pipe;
+    logic [12:0] sum_13_1516_pipe;
+    logic [12:0] sum_13_14_pipe;
+    
     //state machine inputs
     logic tmr_full;
     logic sum_lt_min;
@@ -27,17 +33,31 @@ module steer_en #(parameter fast_sim = 1)(
     //state machine outputs
     logic clr_tmr;
 
+    // Stage 1: Basic arithmetic (combinational)
     assign sum_13 = lft_ld + rght_ld;
     assign diff_12 = $signed(lft_ld) - $signed(rght_ld);
     assign diff_12_abs = diff_12 < 0 ? (-1 * diff_12) : diff_12;
-    assign sum_13_1516 = (sum_13 >> 4) * 15;
-    assign sum_13_14 = (sum_13 >> 2);
+    
+    // Pipeline the expensive operations
+    always_ff @(posedge clk, negedge rst_n) begin
+        if (!rst_n) begin
+            sum_13_pipe <= 13'h0000;
+            diff_12_abs_pipe <= 12'h000;
+            sum_13_1516_pipe <= 13'h0000;
+            sum_13_14_pipe <= 13'h0000;
+        end else begin
+            sum_13_pipe <= sum_13;
+            diff_12_abs_pipe <= diff_12_abs;
+            sum_13_1516_pipe <= (sum_13 >> 4) * 15;  // Pipeline the multiply
+            sum_13_14_pipe <= (sum_13 >> 2);
+        end
+    end
 
-    //inputs to the state machine
-    assign sum_lt_min = (MIN_RIDER_WT - WT_HYSTERESIS) > sum_13;
-    assign sum_gt_min = (WT_HYSTERESIS + MIN_RIDER_WT) < sum_13;
-    assign diff_gt_1_4 = (sum_13_14 < diff_12_abs);
-    assign diff_gt_15_16 = (sum_13_1516 < diff_12_abs);
+    //inputs to the state machine (using pipelined values)
+    assign sum_lt_min = (MIN_RIDER_WT - WT_HYSTERESIS) > sum_13_pipe;
+    assign sum_gt_min = (WT_HYSTERESIS + MIN_RIDER_WT) < sum_13_pipe;
+    assign diff_gt_1_4 = (sum_13_14_pipe < diff_12_abs_pipe);
+    assign diff_gt_15_16 = (sum_13_1516_pipe < diff_12_abs_pipe);
 
     always_ff @(posedge clk, negedge rst_n) begin
         if (!rst_n) begin
