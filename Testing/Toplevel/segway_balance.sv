@@ -80,9 +80,7 @@ initial begin
   // BALNCE SHOULD HAVE CONVREGED TO ZEROP HERRE
   set_loads(475,475, ld_cell_lft, ld_cell_rght, clk); 
   
-  assert (iPHYS.theta_platform<13'd250) $display("TEST: BALNCE CNTRL/SAFETY : PASSED");
-  else   $display("TEST: BALNCE CNTRL/SAFETY : FAILED : Balance theta did not converge to right value");
-
+  check_condition("TEST: BALNCE CNTRL/STEER ENABLED : Balance theta convergence", (iPHYS.theta_platform <=  THETA_PLATFORM_ZERO_THRESHOLD) && (iPHYS.theta_platform >= -THETA_PLATFORM_ZERO_THRESHOLD), $sformatf("Value: %0d", iPHYS.theta_platform));
 
 
 
