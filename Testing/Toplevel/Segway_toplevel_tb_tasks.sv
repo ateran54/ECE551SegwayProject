@@ -3,6 +3,8 @@ package Segway_toplevel_tb_tasks_pkg;
     localparam logic [7:0] CMD_START     = 8'h47; // 'G'
     localparam logic [7:0] CMD_STOP      = 8'h53; // 'S'
 
+    localparam logic signed [15:0] THETA_PLATFORM_ZERO_THRESHOLD = 16'sd250; // threshold for platform angle to be considered "balanced"
+
     //enum for turn direction
     typedef enum logic [1:0] {
         TURN_NONE = 2'b00,

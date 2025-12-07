@@ -52,7 +52,7 @@ UART_tx iTX(.clk(clk),.rst_n(rst_n),.TX(RX_TX),.trmt(send_cmd),.tx_data(cmd),.tx
 rst_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
 
 initial begin
-  $display("Starting Segway simple forward lean Convergence Testbench Simulation");
+  $display("----------Starting Segway simple forward AND backward lean Convergence Testbench Simulation----------");
   //init inputs and apply reset
   initialize_inputs(clk, RST_n, send_cmd, rider_lean, ld_cell_lft, ld_cell_rght, steerPot, batt, OVR_I_lft, OVR_I_rght);
   apply_reset(RST_n, clk);
@@ -74,17 +74,17 @@ initial begin
   set_rider_lean(16'h0FFF, rider_lean, clk);
   repeat (2000000) @(posedge clk);
   //Check that theta platform angle is less than 250 
-  check_condition("Theta Platform Angle Range For Forward Lean", (iPHYS.theta_platform <= 250) && (iPHYS.theta_platform >= -250), $sformatf("Value: %0d", iPHYS.theta_platform));
+  check_condition("TEST: Theta Platform Angle Range After Forward Lean Converges:", (iPHYS.theta_platform <= THETA_PLATFORM_ZERO_THRESHOLD) && (iPHYS.theta_platform >= -THETA_PLATFORM_ZERO_THRESHOLD), $sformatf("Value: %0d", iPHYS.theta_platform));
   //check that left and right omega are roughly equal
-  check_condition("Left and Right Wheel Omega Equality For Forward Lean", ( (iPHYS.omega_lft - iPHYS.omega_rght) == 0), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
+  check_condition("TEST: Left and Right Wheel Omega Equality For Forward Lean", (iPHYS.omega_lft == iPHYS.omega_rght), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
   //lean backward and wait
   $display("Leaning backward with rider_lean = 0x0000");
   set_rider_lean(16'h0000, rider_lean, clk);
   repeat (2000000) @(posedge clk);
   //Check that theta platform angle is less than 300 
-  check_condition("Theta Platform Angle Range After Backward Lean", (iPHYS.theta_platform <= 300) && (iPHYS.theta_platform >= -300), $sformatf("Value: %0d", iPHYS.theta_platform));
+  check_condition("TEST: Theta Platform Angle Range After Backward Lean Converges:", (iPHYS.theta_platform <= THETA_PLATFORM_ZERO_THRESHOLD) && (iPHYS.theta_platform >= -THETA_PLATFORM_ZERO_THRESHOLD), $sformatf("Value: %0d", iPHYS.theta_platform));
   //check that left and right omega are roughly equal
-  check_condition("Left and Right Wheel Omega Equality After Backward Lean", ( (iPHYS.omega_lft - iPHYS.omega_rght) <= 5 ) && ( (iPHYS.omega_lft - iPHYS.omega_rght) >= -5 ), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
+  check_condition("TEST: Left and Right Wheel Omega are equal after Backward Lean:", (iPHYS.omega_lft == iPHYS.omega_rght), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
   $display("END OF SIMULATION");
   $stop();
 end
