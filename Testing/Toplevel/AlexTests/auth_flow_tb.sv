@@ -56,65 +56,85 @@ rst_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
 
 initial begin
 
-    // in the SSOP task it intially sends the cmd to start know we must check the stop
-  startStandardOperation();
+  $display("Starting Segway Auth block flow verifcation");
+  initialize_inputs(clk, RST_n, send_cmd, rider_lean, ld_cell_lft, ld_cell_rght, steerPot, batt, OVR_I_lft, OVR_I_rght);
+  apply_reset(RST_n, clk);
+  set_steerPot(12'h800, steerPot, clk);
+  set_loads(330,330, ld_cell_lft, ld_cell_rght, clk);
   repeat (40000) @(posedge clk);
-  assert_all_omegas_not_zero(iPHYS.omega_platform,
-    iPHYS.omega_lft,
-    iPHYS.omega_rght
-  );
+  run_standard_start_sequence(cmd, send_cmd, cmd_sent, clk);
+  check_condition("TEST: Power Up Signal Active", (iDUT.pwr_up == 1), $sformatf("Value: %0d", iDUT.pwr_up));
+
+  repeat (40000) @(posedge clk);
+  assert_all_omegas_not_zero(iPHYS.omega_platform,iPHYS.omega_lft,iPHYS.omega_rght);
+  run_standard_stop_sequence(cmd, send_cmd, cmd_sent, clk);
+  //Check that pwr_up is still high since the loads are still present
+  check_condition("TEST: Power Up Signal still active after stop command sent", (iDUT.pwr_up == 1), $sformatf("Value: %0d", iDUT.pwr_up));
+  //Now, set loads to zero to simulate getting off the segway
+  set_loads(0,0, ld_cell_lft, ld_cell_rght, clk);
+  repeat (400000) @(posedge clk);
+  //Check that pwr_up is now low since the loads are gone
+  check_condition("TEST: Power Up Signal Deactive after rider gets off", (iDUT.pwr_up == 0), $sformatf("Value: %0d", iDUT.pwr_up));
+  //Check that all omegas are now zero
+  assert_all_omegas_zero(iPHYS.omega_platform,iPHYS.omega_lft,iPHYS.omega_rght);
+
+  //Now, set the loads back to normal to simulate getting back on the segway
+  set_loads(330,330, ld_cell_lft, ld_cell_rght, clk);
+  repeat (40000) @(posedge clk);
+
   $display("Auth flow testbench: pulsing the auth and seeing what happnes");
   repeat (40000) @(posedge clk); // some space
-  run_standard_stop_sequence( tx_data,trmt,tx_done,clk);
+  run_standard_stop_sequence( cmd, send_cmd, cmd_sent, clk);
   repeat (40000) @(posedge clk);
-  // make sure motors and evehritng is off
-  assert_all_omegas_zero(
-    iPHYS.omega_platform,
-    iPHYS.omega_lft,
-    iPHYS.omega_rght
-  );
+  run_standard_start_sequence(cmd, send_cmd, cmd_sent, clk);
+  repeat (40000) @(posedge clk);
+  run_standard_stop_sequence( cmd, send_cmd, cmd_sent, clk);
+  repeat (40000) @(posedge clk);
+  asssrtNettorqueZero();
 
-  $display("Auth flow testbench: aplying some sterring inputs");
-  run_standard_start_sequence(tx_data,trmt,tx_done,clk);
-  repeat (40000) @(posedge clk);
-  set_steerPot(2047, steerPot, clk);
-  repeat (40000) @(posedge clk);
-  run_standard_stop_sequence(tx_data,trmt,tx_done,clk);
-  repeat (40000) @(posedge clk);
-  assert_all_omegas_zero(
-    iPHYS.omega_platform,
-    iPHYS.omega_lft,
-    iPHYS.omega_rght
-);
-
-  $display("Auth flow testbench: aplying some sterring inputs and getting off first");
-  run_standard_start_sequence(tx_data,trmt,tx_done,clk);
-  repeat (40000) @(posedge clk);
-  set_steerPot(2047, steerPot, clk);
-  repeat (40000) @(posedge clk);
-  run_standard_stop_sequence(tx_data,trmt,tx_done,clk);
-  repeat (40000) @(posedge clk);
-  assert_all_omegas_zero(
-    iPHYS.omega_platform,
-    iPHYS.omega_lft,
-    iPHYS.omega_rght
-  );
   assert_en_sterr_low();
 
+  $display("Auth flow testbench: aplying some sterring inputs");
+  repeat (40000) @(posedge clk);
+  set_steerPot(2047, steerPot, clk);
+  repeat (40000) @(posedge clk);
+  run_standard_stop_sequence(cmd, send_cmd, cmd_sent, clk);
+  set_steerPot(2047, steerPot, clk);
+  repeat (40000) @(posedge clk);
+  asssrtNettorqueZero();
+  assert_en_sterr_low();
 
-
+  $display("Auth flow testbench: aplying some sterring inputs and getting off first");
+  repeat (40000) @(posedge clk);
+  set_steerPot(2047, steerPot, clk);
+  repeat (40000) @(posedge clk);
+  set_steerPot(2047, steerPot, clk);
+  run_standard_stop_sequence(cmd, send_cmd, cmd_sent, clk);
+  assert_en_sterr_low();
+    
   $display("END OF SIMULATION");
   $stop();
 end
 
 
-task automatic startStandardOperation();
 
-startStandardOperationProcedure(clk,RST_n,send_cmd,rider_lean,ld_cell_lft,
-    ld_cell_rght,steerPot,batt,OVR_I_lft
-    ,OVR_I_rght,tx_data,trmt,tx_done);
+
+task automatic asssrtNettorqueZero();
+    if (iPHYS.net_torque == 0) begin
+        $display("correct net trque");
+    end else begin
+        $display("inccorrect net trque");
+    end
 endtask
 
+
+task automatic assert_en_sterr_low();
+    if (iDUT.en_steer == 0) begin
+        $display("TEST: BALNCE CNTRL/SAFETY : PASSED");
+    end else begin
+        $display("TEST: BALNCE CNTRL/SAFETY : FAILED : Balance theta did not converge to right value");
+    end
+endtask
 
 always
   #10 clk = ~clk;
