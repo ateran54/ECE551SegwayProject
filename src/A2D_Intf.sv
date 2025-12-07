@@ -20,7 +20,7 @@ module A2D_intf (
     typedef enum logic [1:0] {IDLE, T1, DEAD, T2} state_t;
 
     state_t currState, nextState;
-    logic [2:0] robin_cnt;
+    logic [1:0] robin_cnt;
     logic [15:0] wt_data, rd_data;
     logic wrt, done, count_en;
 
@@ -83,6 +83,7 @@ module A2D_intf (
             T2: begin
                 if (done) begin // chnacge for a decoder this is stupid.
                     count_en = 1'b1;
+                    //make this use simpler logic
                     case (robin_cnt)
                         2'b00: nextLeftLoadLevel         = rd_data[11:0];
                         2'b01: nextRightLoadLevel        = rd_data[11:0];

@@ -1,5 +1,8 @@
 
 /db
+/work
+/Testing/work
+.pass.txt
 # Ignore compiled Verilog/ModelSim/Vivado outputs
 *.o
 *.vcd
@@ -17,3 +20,10 @@
 # Ignore Python stuff
 __pycache__/
 *.pyc
+*.mpf
+transcript
+*.mti
+*.wlf
+*.pvl
+*.syn
+*.mr
