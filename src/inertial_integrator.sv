@@ -1,4 +1,3 @@
-// Team Turtle
 module inertial_integrator 
 (
     input  logic               clk,

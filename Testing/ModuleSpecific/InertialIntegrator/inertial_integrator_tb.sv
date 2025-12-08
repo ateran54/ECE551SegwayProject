@@ -68,12 +68,8 @@ module intertial_integrator_tb();
 
 		// 5) Set AZ to 16'h0800 and wait until ptch approaches ~100 (or timeout)
 		AZ = 16'h0800;
-		cycles = 0;
-		// wait until ptch in [90,110] or timeout after 5000 cycles
-		while (!((ptch >= 90) && (ptch <= 110)) && (cycles < 5000)) begin
-			wait_cycles(1);
-			cycles = cycles + 1;
-		end
+		$display("Starting accelerometer fusion test...");
+		repeat (100000) @(posedge clk);
 
         #100;
 		$stop;
