@@ -36,7 +36,7 @@ module A2D_intf (
         .SCLK     (SCLK),
         .MOSI     (MOSI),
         .MISO     (MISO),
-        .wrt_data  (wt_data),
+        .wt_data  (wt_data),
         .wrt      (wrt),
         .done     (done),
         .rd_data  (rd_data)

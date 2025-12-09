@@ -42,28 +42,28 @@ module steer_en #(parameter fast_sim = 1)(
 
 // I wan to ppliene this block AL OF THE ABOVE BASSICALLUY
   // Pipeline the computed signals one cycle before they're used
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      sum_13_piped <= '0;
-      diff_12_piped <= '0;
-      diff_12_abs_piped <= '0;
-      sum_13_1516_piped <= '0;
-      sum_13_14_piped <= '0;
-    end else begin
-      sum_13_piped <= sum_13;
-      diff_12_piped <= diff_12;
-      diff_12_abs_piped <= diff_12_abs;
-      sum_13_1516_piped <= sum_13_1516;
-      sum_13_14_piped <= sum_13_14;
-    end
-  end
+  // always_ff @(posedge clk or negedge rst_n) begin
+  //   if (!rst_n) begin
+  //     sum_13_piped <= '0;
+  //     diff_12_piped <= '0;
+  //     diff_12_abs_piped <= '0;
+  //     sum_13_1516_piped <= '0;
+  //     sum_13_14_piped <= '0;
+  //   end else begin
+  //     sum_13_piped <= sum_13;
+  //     diff_12_piped <= diff_12;
+  //     diff_12_abs_piped <= diff_12_abs;
+  //     sum_13_1516_piped <= sum_13_1516;
+  //     sum_13_14_piped <= sum_13_14;
+  //   end
+  // end
 
 
     //inputs to the state machine (use pipelined versions)
-    assign sum_lt_min = (MIN_RIDER_WT - WT_HYSTERESIS) > sum_13_piped;
-    assign sum_gt_min = (WT_HYSTERESIS + MIN_RIDER_WT) < sum_13_piped;
-    assign diff_gt_1_4 = (sum_13_14_piped < diff_12_abs_piped);
-    assign diff_gt_15_16 = (sum_13_1516_piped < diff_12_abs_piped);
+    assign sum_lt_min = (MIN_RIDER_WT - WT_HYSTERESIS) > sum_13;
+    assign sum_gt_min = (WT_HYSTERESIS + MIN_RIDER_WT) < sum_13;
+    assign diff_gt_1_4 = (sum_13_14 < diff_12_abs);
+    assign diff_gt_15_16 = (sum_13_1516 < diff_12_abs);
 
     always_ff @(posedge clk, negedge rst_n) begin
         if (!rst_n) begin

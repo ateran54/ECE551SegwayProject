@@ -3,7 +3,7 @@ module SPI_mnrch (
     input logic rst_n,      // Reset (active low)
     input logic MISO,      // Master In Slave Out
     input logic wrt,        // Write signal to initiate SPI transaction
-    input logic [15:0] wrt_data,  // Data (command) to send to inertial sensor
+    input logic [15:0] wt_data,  // Data (command) to send to inertial sensor
     output logic done,      // Asserted when SPI transaction is complete
     output logic [15:0] rd_data, // Data read from SPI slave
     output logic SS_n,       // SPI Slave Select (active low)
@@ -56,7 +56,7 @@ module SPI_mnrch (
     logic [15:0] shft_reg;
     always_ff @(posedge clk) begin  
         if (init) begin
-            shft_reg <= wrt_data;
+            shft_reg <= wt_data;
         end
         else if (shft) begin
             shft_reg <= {shft_reg[14:0], MISO_SMPL};

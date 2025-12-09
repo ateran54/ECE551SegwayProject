@@ -25,6 +25,7 @@ localparam THREE_SEC = 150000000;
 
 // Generate increment value based on fast_sim parameter
 logic [6:0] increment_val = fast_sim ? 64 : 1;
+logic piezo_en;
 
 
 // State machine states
@@ -95,7 +96,7 @@ always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         piezo <= 0;
         piezo_n <= 0;
-    end else if (toggle) begin
+    end else if (toggle && piezo_en) begin
             piezo <= ~piezo;
             piezo_n <= piezo;
     end
@@ -103,7 +104,6 @@ end
 
 
 state_t current_state, next_state;
-
 always_comb begin
 
     //State machine outputs
@@ -111,8 +111,10 @@ always_comb begin
     clr_dur_tmr = 0;
     next_state = current_state;
     current_period = 0;
+    piezo_en = 1;
     case (current_state)
         IDLE: begin 
+            piezo_en = 0;
             if (too_fast) begin 
                 next_state = G6_NOTE;
                 start_repeat_tmr = 1;//In case if too fast gts deasserted mid way

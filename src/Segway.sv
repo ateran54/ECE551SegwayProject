@@ -54,39 +54,39 @@ module Segway(clk,RST_n,INERT_SS_n,INERT_MOSI,INERT_SCLK,
   
 
   //pipeline signals to balance controller
-  logic signed [15:0] ptch_pipelined;
-  logic signed [15:0] ptch_rt_pipelined;
-  logic pwr_up_pipelined;
-  always_ff @(posedge clk or negedge rst_n) begin
-      if (!rst_n) begin
-          ptch_pipelined <= '0;
-          ptch_rt_pipelined <= '0;
-          pwr_up_pipelined <= '0;
-      end else begin
-          ptch_pipelined <= ptch;
-          ptch_rt_pipelined <= ptch_rt;
-          pwr_up_pipelined <= pwr_up;
-      end
-  end
+//   logic signed [15:0] ptch_pipelined;
+//   logic signed [15:0] ptch_rt_pipelined;
+//   logic pwr_up_pipelined;
+//   always_ff @(posedge clk or negedge rst_n) begin
+//       if (!rst_n) begin
+//           ptch_pipelined <= '0;
+//           ptch_rt_pipelined <= '0;
+//           pwr_up_pipelined <= '0;
+//       end else begin
+//           ptch_pipelined <= ptch;
+//           ptch_rt_pipelined <= ptch_rt;
+//           pwr_up_pipelined <= pwr_up;
+//       end
+//   end
 
-  //pipeline load cell signals
-  logic [11:0] lft_ld_pipelined;
-  logic [11:0] rght_ld_pipelined;
-  always_ff @(posedge clk or negedge rst_n) begin
-      if (!rst_n) begin
-          lft_ld_pipelined <= '0;
-          rght_ld_pipelined <= '0;
-      end else begin
-          lft_ld_pipelined <= lft_ld;
-          rght_ld_pipelined <= rght_ld;
-      end
-  end
+//   //pipeline load cell signals
+//   logic [11:0] lft_ld_pipelined;
+//   logic [11:0] rght_ld_pipelined;
+//   always_ff @(posedge clk or negedge rst_n) begin
+//       if (!rst_n) begin
+//           lft_ld_pipelined <= '0;
+//           rght_ld_pipelined <= '0;
+//       end else begin
+//           lft_ld_pipelined <= lft_ld;
+//           rght_ld_pipelined <= rght_ld;
+//       end
+//   end
 
   /////////////////////////////////////
   // Instantiate balance controller //
   ///////////////////////////////////					 
-  balance_cntrl #(fast_sim) iBAL(.clk(clk),.rst_n(rst_n),.vld(vld),.ptch(ptch_pipelined),
-                     .ptch_rt(ptch_rt_pipelined),.pwr_up(pwr_up_pipelined),.rider_off(rider_off),
+  balance_cntrl #(fast_sim) iBAL(.clk(clk),.rst_n(rst_n),.vld(vld),.ptch(ptch),
+                     .ptch_rt(ptch_rt),.pwr_up(pwr_up),.rider_off(rider_off),
 					 .steer_pot(steer_pot),.en_steer(en_steer),.lft_spd(lft_spd),
 					 .rght_spd(rght_spd),.too_fast(too_fast));
 
@@ -96,8 +96,8 @@ module Segway(clk,RST_n,INERT_SS_n,INERT_MOSI,INERT_SCLK,
   //////////////////////////////////
   // Instantiate steering enable //
   ////////////////////////////////				 
-  steer_en #(fast_sim) iSTR(.clk(clk),.rst_n(rst_n),.lft_ld(lft_ld_pipelined),
-                            .rght_ld(rght_ld_pipelined),
+  steer_en #(fast_sim) iSTR(.clk(clk),.rst_n(rst_n),.lft_ld(lft_ld),
+                            .rght_ld(rght_ld),
 							.en_steer(en_steer),.rider_off(rider_off));
 
   
@@ -123,26 +123,26 @@ module Segway(clk,RST_n,INERT_SS_n,INERT_MOSI,INERT_SCLK,
   assign batt_low = (batt<BATT_THRES) ? 1'b1 : 1'b0;
 
   //pipeline inputs to to piezo driver
-  logic en_steer_pipelined;
-  logic batt_low_pipelined;
-  logic too_fast_pipelined;
-  always_ff @(posedge clk or negedge rst_n) begin
-      if (!rst_n) begin
-          en_steer_pipelined <= 1'b0;
-          batt_low_pipelined <= 1'b0;
-          too_fast_pipelined <= 1'b0;
-      end else begin
-          en_steer_pipelined <= en_steer;
-          batt_low_pipelined <= batt_low;
-          too_fast_pipelined <= too_fast;
-      end
-  end
+//   logic en_steer_pipelined;
+//   logic batt_low_pipelined;
+//   logic too_fast_pipelined;
+//   always_ff @(posedge clk or negedge rst_n) begin
+//       if (!rst_n) begin
+//           en_steer_pipelined <= 1'b0;
+//           batt_low_pipelined <= 1'b0;
+//           too_fast_pipelined <= 1'b0;
+//       end else begin
+//           en_steer_pipelined <= en_steer;
+//           batt_low_pipelined <= batt_low;
+//           too_fast_pipelined <= too_fast;
+//       end
+//   end
 
   /////////////////////////////////////
   // Instantiate reset synchronizer //
   /////////////////////////////////// 		
-  piezo_drv #(fast_sim) iBUZZ(.clk(clk),.rst_n(rst_n),.en_steer(en_steer_pipelined),.too_fast(too_fast_pipelined),
-              .batt_low(batt_low_pipelined),.piezo(piezo),.piezo_n(piezo_n));
+  piezo_drv #(fast_sim) iBUZZ(.clk(clk),.rst_n(rst_n),.en_steer(en_steer),.too_fast(too_fast),
+              .batt_low(batt_low),.piezo(piezo),.piezo_n(piezo_n));
 				  
 
   /////////////////////////////////////
