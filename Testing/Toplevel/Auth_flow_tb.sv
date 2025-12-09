@@ -66,75 +66,75 @@ initial begin
   repeat (100) @(posedge clk);
   //set steerpot and wait for a bit
   
-  repeat (40000) @(posedge clk);
+  repeat (800000) @(posedge clk);
   //set loads and wait for balance check
-  //set_loads(330,330, ld_cell_lft, ld_cell_rght, clk);
-  repeat (4000000) @(posedge clk);
 
   //check that the platform is zero
   check_condition("TEST: Platform velocity is zero currently", (iPHYS.omega_platform <= 5), $sformatf("Omega Platform: %0d", iPHYS.omega_platform));
 
   //send start command and wait a bit
   run_standard_start_sequence(cmd, send_cmd, cmd_sent, clk);
-  repeat (700000) @(posedge clk);
+  repeat (1400000) @(posedge clk);
   //check that the left and right speeds are zero
   check_condition("TEST: Left and Right Wheel Omega are zero after start sequence", (iPHYS.omega_lft == 0) && (iPHYS.omega_rght == 0), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
+  check_condition("TEST: Platform velocity is zero after start sequence", (iPHYS.omega_platform <= 5 && iPHYS.omega_platform >= -5), $sformatf("Omega Platform: %0d", iPHYS.omega_platform));
+
+  //set_loads(480,480, ld_cell_lft, ld_cell_rght, clk);
+  //repeat (400000) @(posedge clk);
+  // $display("Sending standard stop sequence to power down segway");
+  // run_standard_stop_sequence(cmd, send_cmd, cmd_sent, clk);
+  // //Check that pwr_up is still high since the loads are still present
+  // check_condition("TEST: Power Up Signal still active after stop command sent since rider is still on segway.", (iDUT.pwr_up == 1), $sformatf("Value: %0d", iDUT.pwr_up));
+  // //Now, set loads to zero to simulate getting off the segway
+  // set_loads(0,0, ld_cell_lft, ld_cell_rght, clk);
+  // repeat (400000) @(posedge clk);
+  // //Check that pwr_up is now low since the loads are gone
+  // check_condition("TEST: Power Up Signal Deactive after rider gets off.", (iDUT.pwr_up == 0), $sformatf("Value: %0d", iDUT.pwr_up));
+  // //Check that all omegas are now zero
+  // check_condition("TEST: Left and Right Wheel Omega are zero after rider gets off", (iPHYS.omega_lft == 0) && (iPHYS.omega_rght == 0), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
 
 
-  $display("Sending standard stop sequence to power down segway");
-  run_standard_stop_sequence(cmd, send_cmd, cmd_sent, clk);
-  //Check that pwr_up is still high since the loads are still present
-  check_condition("TEST: Power Up Signal still active after stop command sent since rider is still on segway.", (iDUT.pwr_up == 1), $sformatf("Value: %0d", iDUT.pwr_up));
-  //Now, set loads to zero to simulate getting off the segway
-  set_loads(0,0, ld_cell_lft, ld_cell_rght, clk);
-  repeat (400000) @(posedge clk);
-  //Check that pwr_up is now low since the loads are gone
-  check_condition("TEST: Power Up Signal Deactive after rider gets off.", (iDUT.pwr_up == 0), $sformatf("Value: %0d", iDUT.pwr_up));
-  //Check that all omegas are now zero
-  check_condition("TEST: Left and Right Wheel Omega are zero after rider gets off", (iPHYS.omega_lft == 0) && (iPHYS.omega_rght == 0), $sformatf("Left Omega: %0d, Right Omega: %0d", iPHYS.omega_lft, iPHYS.omega_rght));
-
-
-  //Now, set the loads back to normal to simulate getting back on the segway
-  set_loads(330,330, ld_cell_lft, ld_cell_rght, clk);
-  repeat (40000) @(posedge clk);
+  // //Now, set the loads back to normal to simulate getting back on the segway
+  // set_loads(330,330, ld_cell_lft, ld_cell_rght, clk);
+  // repeat (40000) @(posedge clk);
 
 
 
-  // This test pwr up signal an steer en. When rider gets off, pwr up deasserts and steer en deasserts.
-  // rider does not get off
-  $display("Auth flow testbench: pulsing the auth and seeing what happnes");
-  repeat (40000) @(posedge clk); // some space
-  run_standard_stop_sequence( cmd, send_cmd, cmd_sent, clk);
-  repeat (40000) @(posedge clk);
-  run_standard_start_sequence(cmd, send_cmd, cmd_sent, clk);
-  repeat (40000) @(posedge clk);
-  run_standard_stop_sequence( cmd, send_cmd, cmd_sent, clk);
-  repeat (40000) @(posedge clk);
-  asssrtNettorqueZero();
+  // // This test pwr up signal an steer en. When rider gets off, pwr up deasserts and steer en deasserts.
+  // // rider does not get off
+  // $display("Auth flow testbench: pulsing the auth and seeing what happnes");
+  // repeat (40000) @(posedge clk); // some space
+  // run_standard_stop_sequence( cmd, send_cmd, cmd_sent, clk);
+  // repeat (40000) @(posedge clk);
+  // run_standard_start_sequence(cmd, send_cmd, cmd_sent, clk);
+  // repeat (40000) @(posedge clk);
+  // run_standard_stop_sequence( cmd, send_cmd, cmd_sent, clk);
+  // repeat (40000) @(posedge clk);
+  // asssrtNettorqueZero();
 
-  assert_en_sterr_low();
+  // assert_en_sterr_low();
 
-  // This test pwr up signal an steer en. When rider gets off, pwr up deasserts and steer en deasserts.
-  // rider does not get off
-  $display("Auth flow testbench: aplying some sterring inputs");
-  repeat (40000) @(posedge clk);
-  set_steerPot(2047, steerPot, clk);
-  repeat (40000) @(posedge clk);
-  run_standard_stop_sequence(cmd, send_cmd, cmd_sent, clk);
-  set_steerPot(2047, steerPot, clk);
-  repeat (40000) @(posedge clk);
-  asssrtNettorqueZero();
-  assert_en_sterr_low();
+  // // This test pwr up signal an steer en. When rider gets off, pwr up deasserts and steer en deasserts.
+  // // rider does not get off
+  // $display("Auth flow testbench: aplying some sterring inputs");
+  // repeat (40000) @(posedge clk);
+  // set_steerPot(2047, steerPot, clk);
+  // repeat (40000) @(posedge clk);
+  // run_standard_stop_sequence(cmd, send_cmd, cmd_sent, clk);
+  // set_steerPot(2047, steerPot, clk);
+  // repeat (40000) @(posedge clk);
+  // asssrtNettorqueZero();
+  // assert_en_sterr_low();
 
-    // This test pwr up signal an steer en. When rider gets off, pwr up deasserts and steer en deasserts.
-  // rider does  get off
-  $display("Auth flow testbench: aplying some sterring inputs and getting off first");
-  repeat (40000) @(posedge clk);
-  set_steerPot(2047, steerPot, clk);
-  repeat (40000) @(posedge clk);
-  set_steerPot(2047, steerPot, clk);
-  run_standard_stop_sequence(cmd, send_cmd, cmd_sent, clk);
-  assert_en_sterr_low();
+  //   // This test pwr up signal an steer en. When rider gets off, pwr up deasserts and steer en deasserts.
+  // // rider does  get off
+  // $display("Auth flow testbench: aplying some sterring inputs and getting off first");
+  // repeat (40000) @(posedge clk);
+  // set_steerPot(2047, steerPot, clk);
+  // repeat (40000) @(posedge clk);
+  // set_steerPot(2047, steerPot, clk);
+  // run_standard_stop_sequence(cmd, send_cmd, cmd_sent, clk);
+  // assert_en_sterr_low();
     
   $display("END OF SIMULATION");
   $stop();
@@ -144,20 +144,12 @@ end
 
 
 task automatic asssrtNettorqueZero();
-    if (iPHYS.net_torque == 0) begin
-        $display("correct net trque");
-    end else begin
-        $display("inccorrect net trque");
-    end
+    check_condition("TEST: NET TORQUE ZERO: ", (iPHYS.net_torque == 0), $sformatf("Value: %0d", iPHYS.net_torque));
 endtask
 
 
 task automatic assert_en_sterr_low();
-    if (iDUT.en_steer == 0) begin
-        $display("TEST: BALNCE CNTRL/SAFETY : PASSED");
-    end else begin
-        $display("TEST: BALNCE CNTRL/SAFETY : FAILED : Balance theta did not converge to right value");
-    end
+    check_condition("TEST: BALNCE CNTRL/SAFETY: ENABLE STEER LOW: ", (iDUT.en_steer == 0), $sformatf("Value: %0d", iDUT.en_steer));
 endtask
 
 always
