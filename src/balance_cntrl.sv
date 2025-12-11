@@ -29,37 +29,36 @@ module balance_cntrl #(parameter fast_sim = 1)(
                         .ss_tmr(ss_tmr)
                     );
     
-    //pipeline all inputs to SegwayMath
-    // logic signed [11:0] PID_cntrl_pipelined;
-    // logic [7:0] ss_tmr_pipelined;
-    // logic [11:0] steer_pot_pipelined;
-    // logic en_steer_pipelined;
-    // logic pwr_up_pipelined;
+    logic signed [11:0] PID_cntrl_pipelined;
+    logic [7:0] ss_tmr_pipelined;
+    logic [11:0] steer_pot_pipelined;
+    logic en_steer_pipelined;
+    logic pwr_up_pipelined;
     
-    // always_ff @(posedge clk or negedge rst_n) begin
-    //     if (!rst_n) begin
-    //         PID_cntrl_pipelined <= '0;
-    //         ss_tmr_pipelined <= '0;
-    //         steer_pot_pipelined <= '0;
-    //         en_steer_pipelined <= '0;
-    //         pwr_up_pipelined <= '0;
-    //     end else begin
-    //         PID_cntrl_pipelined <= PID_cntrl;
-    //         ss_tmr_pipelined <= ss_tmr;
-    //         steer_pot_pipelined <= steer_pot;
-    //         en_steer_pipelined <= en_steer;
-    //         pwr_up_pipelined <= pwr_up;
-    //     end
-    // end
+    always_ff @(posedge clk or negedge rst_n) begin
+         if (!rst_n) begin
+                PID_cntrl_pipelined <= '0;
+                ss_tmr_pipelined <= '0;
+                steer_pot_pipelined <= '0;
+                en_steer_pipelined <= '0;
+                pwr_up_pipelined <= '0;
+             end else begin
+                PID_cntrl_pipelined <= PID_cntrl;
+                ss_tmr_pipelined <= ss_tmr;
+                steer_pot_pipelined <= steer_pot;
+                en_steer_pipelined <= en_steer;
+                pwr_up_pipelined <= pwr_up;
+            end
+     end
 
     SegwayMath segMath(
             .clk(clk),
             .rst_n(rst_n),
-            .PID_cntrl(PID_cntrl),
-            .ss_tmr(ss_tmr),
-            .steer_pot(steer_pot),
-            .en_steer(en_steer),
-            .pwr_up(pwr_up),
+            .PID_cntrl(PID_cntrl_pipelined),
+            .ss_tmr(ss_tmr_pipelined),
+            .steer_pot(steer_pot_pipelined),
+            .en_steer(en_steer_pipelined),
+            .pwr_up(en_steer_pipelined),
             .lft_spd(lft_spd),
             .rght_spd(rght_spd),
             .too_fast(too_fast)
